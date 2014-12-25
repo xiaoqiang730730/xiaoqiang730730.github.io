@@ -28,16 +28,114 @@
 		}
 		#sd{
 			position: absolute;
+			z-index: 2;
 			height: 340px;
 			width: 340px;
 			top:100px;
-			-webkit-animation: bounce 2s linear infinite;
+			-webkit-animation: bounce980 4s linear infinite;
 		}
 		#sd img{
 			border-radius: 20px;
 			width: 100%;
 			height: 100%;
-		}	
+		}
+		#happysd{
+			position: absolute;
+			z-index: 3;
+			right:300px;
+			top: 150px;
+			width: 200px;
+		}
+		#happysd div{
+			position: absolute;
+			width: 100%;
+			height: 60px;
+		}
+		#happysd div:hover{
+			-webkit-transform: translateZ(1px);
+		}
+		#happysd div img{
+			height: 100%;
+			width: 100%;
+		}
+		#h2{
+			-webkit-animation: down2 2s linear 1s;
+			-webkit-animation-fill-mode:forwards;
+		}
+		@-webkit-keyframes down2{
+			0%{
+				-webkit-transform: translateY(0);
+			}
+			100%{
+				-webkit-transform: translateY(62px);
+			}
+		}
+		#h3{
+			-webkit-animation: down3 2s linear 3s;
+			-webkit-animation-fill-mode:forwards;
+		}
+		@-webkit-keyframes down3{
+			0%{
+				-webkit-transform: translateY(0);
+			}
+			100%{
+				-webkit-transform: translateY(124px);
+			}
+		}
+		#h4{
+			-webkit-animation: down4 2s linear 5s;
+			-webkit-animation-fill-mode:forwards;
+		}
+		@-webkit-keyframes down4{
+			0%{
+				-webkit-transform: translateY(0);
+			}
+			100%{
+				-webkit-transform: translateY(186px);
+			}
+		}
+		#h5{
+			-webkit-animation: down5 2s linear 7s;
+			-webkit-animation-fill-mode:forwards;
+		}
+		@-webkit-keyframes down5{
+			0%{
+				-webkit-transform: translateY(0);
+			}
+			100%{
+				-webkit-transform: translateY(248px);
+			}
+		}
+		#hp{
+			position: absolute;
+			right: 300px;
+			top:100px;
+			color:transparent;
+			text-shadow: 5px 5px 5px transparent;
+			-webkit-animation: hp 2s linear 9s;
+			-webkit-animation-fill-mode:forwards;
+		}
+		#hp p{
+			font-weight: bolder;
+			font-size:80px;
+		}
+		@-webkit-keyframes hp{
+			0%{
+				color:#E84940;
+				text-shadow: 5px 5px 5px #FFB555;
+				-webkit-transform:translateX(0) translateY(0) rotate(0deg);
+			}
+			50%{
+				color:#E84940;
+				text-shadow: 5px 5px 5px #FFB555;
+				-webkit-transform:translateX(-300px) translateY(120px) rotate(360deg);
+			}
+			100%{
+				color:#E84940;
+				text-shadow: 5px 5px 5px #FFB555;
+				-webkit-transform:translateX(-200px) translateY(200px) rotate(0deg);
+			}
+		}
 		@media screen and(max-width: 980px){
 			#sd{
 				width: 250px;
@@ -48,6 +146,7 @@
 			#sd{
 				width:100px;
 				height: 100px;
+				-webkit-animation: bounce980 4s linear infinite;
 			}
 		}
 		@-webkit-keyframes bounceTan{
@@ -67,7 +166,7 @@
 		        -webkit-transform: translateZ(0) scale(0,0);
 		      }
 		    }
-		    @-webkit-keyframes bounce{
+		@-webkit-keyframes bounce980{
 		      0%{
 		        -webkit-transform: rotate(0deg) translateX(0) scale(0,0);
 		      }
@@ -88,6 +187,27 @@
 
 		      }
 		    }
+		@-webkit-keyframes bounce480{
+		      0%{
+		        -webkit-transform: rotate(0deg) translateX(0) scale(0,0);
+		      }
+		      20%{
+		        -webkit-transform: rotate(-10deg) translateX(15px) scale(0.2,0.2);
+		      }
+		      40%{
+		        -webkit-transform: rotate(0deg) translateX(25px) scale(0.4,0.4);
+		      }
+		      60%{
+		        -webkit-transform: rotate(10deg) translateX(45px) scale(0.6,0.6);        
+		      }
+		      80%{
+		      	-webkit-transform: rotate(0deg) translateX(55px) scale(0.8,0.8);  
+		      }
+		      100%{
+		        -webkit-transform: rotate(10deg) translateX(0) scale(1,1);
+
+		      }
+		    }
 	</style>
 </head>
 <body>
@@ -100,6 +220,16 @@
 	<div id="sd">
 		<img src="image/sd.png">
 	</div>
+	<div id="happysd">
+		
+		<div id="h5"><img src="image/5.png"></div>
+		<div id="h4"><img src="image/4.png"></div>
+		<div id="h3"><img src="image/3.png"></div>
+		<div id="h2"><img src="image/2.png"></div>
+		<div id="h1"><img src="image/1.png"></div>
+		
+	</div>
+	<div id="hp"><p>圣诞快乐！</p></div>
 	<script type="text/javascript">
 		window.onload = function(){
 			//canvas init
