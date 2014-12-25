@@ -108,6 +108,7 @@
 		}
 		#hp{
 			position: absolute;
+			z-index: 4;
 			right: 300px;
 			top:100px;
 			color:transparent;
@@ -152,13 +153,36 @@
 			#sd{
 				width:100px;
 				height: 100px;
-				-webkit-animation: bounce480 6s linear infinite;
+				-webkit-animation: bounce480 4s linear infinite;
 			}
 			#happysd{
 				right:100px;
 			}
 			#hp{
-				right: 100px;
+				text-align: right;
+				right: 80px;
+				-webkit-animation: hp480 2s linear 9s;
+				-webkit-animation-fill-mode:forwards;
+			}
+			#hp p{
+				font-size: 40px;
+			}
+		}
+		@-webkit-keyframes hp480{
+			0%{
+				color:#E84940;
+				text-shadow: 5px 5px 5px #FFB555;
+				-webkit-transform:translateY(0) rotate(0deg);
+			}
+			50%{
+				color:#E84940;
+				text-shadow: 5px 5px 5px #FFB555;
+				-webkit-transform:translateY(240px) rotate(360deg);
+			}
+			100%{
+				color:#E84940;
+				text-shadow: 5px 5px 5px #FFB555;
+				-webkit-transform:translateY(400px) rotate(0deg);
 			}
 		}
 		@-webkit-keyframes bounceTan{
@@ -204,16 +228,16 @@
 		        -webkit-transform: rotate(0deg) translateX(0) scale(0,0);
 		      }
 		      20%{
-		        -webkit-transform: rotate(-10deg) translateX(5px) scale(0.2,0.2);
+		        -webkit-transform: rotate(-10deg) translateX(25px) scale(0.2,0.2);
 		      }
 		      40%{
-		        -webkit-transform: rotate(0deg) translateX(10px) scale(0.4,0.4);
+		        -webkit-transform: rotate(0deg) translateX(65px) scale(0.4,0.4);
 		      }
 		      60%{
-		        -webkit-transform: rotate(10deg) translateX(15px) scale(0.6,0.6);        
+		        -webkit-transform: rotate(10deg) translateX(85px) scale(0.6,0.6);        
 		      }
 		      80%{
-		      	-webkit-transform: rotate(0deg) translateX(20px) scale(0.8,0.8);  
+		      	-webkit-transform: rotate(0deg) translateX(60px) scale(0.8,0.8);  
 		      }
 		      100%{
 		        -webkit-transform: rotate(10deg) translateX(0) scale(1,1);
