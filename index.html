@@ -3,20 +3,102 @@
 <head>
 	<meta charset="UTF-8">
 	<title>snow</title>
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 	<style type="text/css">
 		* {margin: 0; padding: 0;}
 
 		body {
 			/*You can use any kind of background here.*/
-			background: #6b92b9
+			/*background: #6b92b9*/
 		}
 		canvas {
 			display: block;
 		}
+		#music{
+			display: block;
+			position: fixed;
+			top:50px;
+			right: 50px;
+			background: url("./image/music.png") no-repeat 0 -97px;
+			width: 46px;
+			height: 46px;
+			border-radius: 23px;
+			-webkit-animation: bounceTan 2s linear infinite;
+		}
+		#sd{
+			position: absolute;
+			height: 340px;
+			width: 340px;
+			top:100px;
+			-webkit-animation: bounce 2s linear infinite;
+		}
+		#sd img{
+			border-radius: 20px;
+			width: 100%;
+			height: 100%;
+		}	
+		@media screen and(max-width: 980px){
+			#sd{
+				width: 250px;
+				height: 250px;
+			}
+		}
+		@media screen and (max-width:480px){
+			#sd{
+				width:100px;
+				height: 100px;
+			}
+		}
+		@-webkit-keyframes bounceTan{
+		      0%{
+		        -webkit-transform: translateZ(0) scale(0,0);
+		      }
+		      20%{
+		        -webkit-transform: translateZ(-5px) scale(0.5,0.5);
+		      }
+		      50%{
+		        -webkit-transform: translateZ(-15px) scale(1,1);
+		      }
+		      80%{
+		        -webkit-transform: translateZ(-5px) scale(0.5,0.5);
+		      }
+		      100%{
+		        -webkit-transform: translateZ(0) scale(0,0);
+		      }
+		    }
+		    @-webkit-keyframes bounce{
+		      0%{
+		        -webkit-transform: rotate(0deg) translateX(0) scale(0,0);
+		      }
+		      20%{
+		        -webkit-transform: rotate(-10deg) translateX(55px) scale(0.2,0.2);
+		      }
+		      40%{
+		        -webkit-transform: rotate(0deg) translateX(250px) scale(0.4,0.4);
+		      }
+		      60%{
+		        -webkit-transform: rotate(10deg) translateX(450px) scale(0.6,0.6);        
+		      }
+		      80%{
+		      	-webkit-transform: rotate(0deg) translateX(550px) scale(0.8,0.8);  
+		      }
+		      100%{
+		        -webkit-transform: rotate(10deg) translateX(0) scale(1,1);
+		      }
+		    }
 	</style>
 </head>
 <body>
 	<canvas id="canvas"></canvas>
+	<a href="#" id="music">
+		<!-- <audio id="clickmusic" autoplay="autoplay" loop="loop">
+			<source src="audio/music.mp3">
+		</audio> -->
+	</a>
+	<div id="sd">
+		<img src="image/sd.png">
+	</div>
 	<script type="text/javascript">
 		window.onload = function(){
 			//canvas init
@@ -29,6 +111,18 @@
 			canvas.width = W;
 			canvas.height = H;
 			
+			function backcolor(context,width,height){
+				var grd=context.createLinearGradient(0,height,0,0);
+				grd.addColorStop(1.0,'black');
+				grd.addColorStop(0.8,'061439');
+				grd.addColorStop(0.6,'1A2050');
+				grd.addColorStop(0.4,'564474');
+				grd.addColorStop(0.0,'ffffff');
+				context.fillStyle=grd;
+				context.fillRect(0,0,width,height);
+			}
+
+			backcolor(ctx,W,H);
 			//snowflake particles
 			var mp = 150; //max particles
 			var particles = [];
@@ -37,7 +131,7 @@
 				particles.push({
 					x: Math.random()*W, //x-coordinate
 					y: Math.random()*H, //y-coordinate
-					r: Math.random()*4+1, //radius
+					r: Math.random()*8+1, //radius
 					d: Math.random()*mp //density
 				})
 			}
@@ -46,7 +140,7 @@
 			function draw()
 			{
 				ctx.clearRect(0, 0, W, H);
-				
+				backcolor(ctx,W,H);
 				ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
 				ctx.beginPath();
 				for(var i = 0; i < mp; i++)
