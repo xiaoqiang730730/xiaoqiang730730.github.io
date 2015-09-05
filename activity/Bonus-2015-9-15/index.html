@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
+    <title>bounce</title>
+    <link rel="stylesheet" type="text/css" href="../../css/reset.css">
+    <style type="text/css">
+        html,body{
+            width:100%;
+            height:100%;
+        }
+        body{
+            background-color:#FF6600;
+        }
+        .container{
+            width:80%;
+            height:80%;
+            margin:10%;
+            border:3px solid rgba(153, 102, 0, 0.38);
+            -webkit-box-shadow:0px 0px 9px 7px rgba(204, 204, 204, 0.59);
+            box-shadow: 0px 0px 9px 7px rgba(204, 204, 204, 0.59);
+            -webkit-border-radius:5px;
+            border-radius:5px;
+            display:flex;
+            flex-direction: column;
+        }
+        .header{
+            -webkit-flex:1;
+            flex:1;
+        }
+        .section{
+            -webkit-flex:1;
+            flex: 1;
+            display:-webkit-flex;
+            display:flex;
+            justify-content:center;
+        }
+        .startbtn{
+            box-sizing: content-box;
+            width:100px;
+            height: 50px;
+            line-height:50px;
+            text-align:center;
+            border:15px solid transparent;
+            -webkit-border-image:url(icon2.png) 60 60  round;
+            -o-border-image:url(icon2.png) 60 60  round; 
+            border-image:url(icon2.png) 60 60  round;
+            background-image:url('icon.png');
+            color:red;
+            cursor:pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header" id="header">
+            <svg id="svg" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="100%" height="100%">
+                <path id="mypath" d="M0 150 Q 125 0, 250 150" style="fill:none;stroke:none;stroke-width:5;" />
+                <text x="0" y="0" text-anchor="middle" style="fill:#FFFF00;font-size:60px;">
+                    <textPath startOffset="50%" xlink:href="#mypath">抽奖啦</textPath>
+                </text>
+            </svg>
+        </div>
+        <div class="section">
+            <div class="startbtn" id="startbtn">开枪</div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        var header = document.getElementById('header');
+        var svg    = document.getElementById('svg');
+        var mypath = document.getElementById('mypath');
+        var width  = header.offsetWidth;
+        var height = header.offsetHeight;
+        svg.setAttribute('width', width);
+        svg.setAttribute('height',height);
+
+        var d = 'M0 ' + height + 'Q' + width/2 + ' 0,'+ width +' '+ height;
+        mypath.setAttribute('d',d);
+
+    </script>
+</body>
+</html>
