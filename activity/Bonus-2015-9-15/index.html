@@ -34,7 +34,9 @@
             flex: 1;
             display:-webkit-flex;
             display:flex;
+            -webkit-justify-content: center;
             justify-content:center;
+            padding-top:40px;
         }
         .startbtn{
             box-sizing: content-box;
@@ -42,11 +44,9 @@
             height: 50px;
             line-height:50px;
             text-align:center;
-            border:15px solid transparent;
-            -webkit-border-image:url(icon2.png) 60 60  round;
-            -o-border-image:url(icon2.png) 60 60  round; 
-            border-image:url(icon2.png) 60 60  round;
+            border:5px solid #F1CC0F;
             background-image:url('icon.png');
+            font-size:32px;
             color:red;
             cursor:pointer;
         }
@@ -67,17 +67,52 @@
         </div>
     </div>
     <script type="text/javascript">
-        var header = document.getElementById('header');
-        var svg    = document.getElementById('svg');
-        var mypath = document.getElementById('mypath');
-        var width  = header.offsetWidth;
-        var height = header.offsetHeight;
-        svg.setAttribute('width', width);
-        svg.setAttribute('height',height);
-
-        var d = 'M0 ' + height + 'Q' + width/2 + ' 0,'+ width +' '+ height;
-        mypath.setAttribute('d',d);
-
+        var bonus = {
+            config:{
+                level:{
+                    'A': '恭喜你中了8888888！哈哈哈',
+                    'B': '恭喜你中了88.88!嘿嘿',
+                    'C': '恭喜你中了0.88!',
+                    'D': '很遗憾，再试一次！'
+                }
+            },
+            init: function(){
+                var header   = document.getElementById('header');
+                var svg      = document.getElementById('svg');
+                var mypath   = document.getElementById('mypath');
+                var width    = header.offsetWidth;
+                var height   = header.offsetHeight;
+                this.startbtn = document.getElementById('startbtn');
+                svg.setAttribute('width', width);
+                svg.setAttribute('height',height);
+                var d = 'M0 ' + height + 'Q' + width/2 + ' 0,'+ width +' '+ height;
+                mypath.setAttribute('d',d);
+                this.eventBind();
+            },
+            eventBind: function(){
+                var _this = this;
+                startbtn.addEventListener('touchstart', function(e){
+                    var num = Math.round(Math.random()*100);
+                    var text = '';
+                    switch(true){
+                        case (num>90):
+                            text = _this.config.level.A;
+                            break;
+                        case (num>70):
+                            text = _this.config.level.B;
+                            break;
+                        case (num>50):
+                            text = _this.config.level.C;
+                            break;
+                        default:
+                            text = _this.config.level.D;
+                            break;
+                    }
+                    alert(text);
+                });
+            }
+        };
+        bonus.init();
     </script>
 </body>
 </html>
