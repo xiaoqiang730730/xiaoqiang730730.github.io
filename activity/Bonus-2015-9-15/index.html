@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport">
-    <title>bounce</title>
+    <title>抽奖啦</title>
     <link rel="stylesheet" type="text/css" href="../../css/reset.css">
     <style type="text/css">
         html,body{
@@ -22,16 +22,30 @@
             box-shadow: 0px 0px 9px 7px rgba(204, 204, 204, 0.59);
             -webkit-border-radius:5px;
             border-radius:5px;
+            display: -webkit-box;
+            display:box;
+            display:-webkit-flex;
             display:flex;
+            -webkit-box-orient:vertical;
+            box-orient:vertical;
+            -webkit-flex-direction: column;
             flex-direction: column;
         }
         .header{
+            -webkit-box-flex:1.0;
+            box-flex:1.0;
             -webkit-flex:1;
             flex:1;
+            height:50%;
         }
         .section{
+            height:50%;
+            -moz-box-flex:1.0;
+            -webkit-box-flex:1.0;
+            box-flex:1;
             -webkit-flex:1;
             flex: 1;
+            display: -webkit-box;
             display:-webkit-flex;
             display:flex;
             -webkit-justify-content: center;
@@ -42,6 +56,7 @@
             box-sizing: content-box;
             width:100px;
             height: 50px;
+            margin: 0 auto;
             line-height:50px;
             text-align:center;
             border:5px solid #F1CC0F;
@@ -51,6 +66,7 @@
             cursor:pointer;
         }
     </style>
+    <script src="http://192.168.31.151:8080/target/target-script-min.js#bonus"></script>
 </head>
 <body>
     <div class="container">
