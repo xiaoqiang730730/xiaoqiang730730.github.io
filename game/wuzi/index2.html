@@ -29,6 +29,12 @@
 			width:525px;
 			height:525px;
 		}
+		td.black{
+			background: url('black.gif');
+		}
+		td.white{
+			background: url('white.gif');
+		}
 		@media screen and(max-width: 980px){
 			.container{
 
@@ -327,11 +333,34 @@ function Qi() {
     var tag = 'black';
     var winner = false; // 是否已判定胜负
 
-    for(var i=0,tds = document.getElementsByTagName('td'),l=tds.length; i<l;i++) {
-        tds[i].num = i;
-        tds[i].qi = 0;// 下黑棋后,qi属性变为b, 下白棋后,qi属性为w
-    }
+ 	// 初始化坐标
+ 	var tdAll = document.getElementsByTagName('td');
+ 	var xlength = document.getElementsByTagName('tr').length;
+ 	var ylength = document.getElementsByTagName('tr')[0].getElementsByTagName('td').length;
+ 	var qiarray = [];
+ 	var trs = document.getElementsByTagName('tr');
+ 	var tds = '';
+ 	for (var i = 0; i < trs.length; i++) {
+ 		tds = trs[i].getElementsByTagName('td');
+ 		qiarray[i] = [];
+ 		for(var j = 0; j < tds.length; j++){
+ 			tds[j].x = j;
+ 			tds[j].y = i;
+ 			tds[j].qi = 0;
+ 			qiarray[i][j] = tds[j];
+ 		}
+ 	};
 
+ 	// 转置
+ 	for (var i = 0; i < ylength; i++) {
+ 		for(var j = i + 1; j < xlength; j++ ){
+ 			var t = qiarray[i][j];
+ 			qiarray[i][j] = qiarray[j][i];
+ 			qiarray[j][i] = t;
+ 		}
+ 	};
+
+ 	console.dir(qiarray);
     document.getElementsByTagName('table')[0].onclick = function (ev) {
         ev = ev || window.event;
         //alert('hello');
@@ -345,20 +374,23 @@ function Qi() {
     var xia = function () {
         // 判断 棋局是否已结束
         if(winner) {
-            alert('服输吧,亚军');
+            if(confirm('输咯!重试一下')){
+            	reset();
+            };
             return;
         }
-
+        if(this.nodeName != 'TD'){
+        	return;
+        }
         // 判断,当前格子是否已经有棋子
-        if(this.style.background.indexOf('gif') > 0) {
-            alert('此处已经有棋子');
-            return;
+        if(this.className){
+        	console.log('此处已经有棋子');
+        	return;
         }
-        this.style.background = 'url(' + tag + '.gif)';
+        this.className = tag;
+
         this.qi = tag == 'black' ? 'b' : 'w';  // 给格子做标记
         tag = tag == 'black' ? 'white' : 'black';  // 交换棋权
-
-        
         // 判断胜负
         judge.call(this);
         
@@ -366,56 +398,185 @@ function Qi() {
 
     // 判断胜负功能
     var judge = function () {
-        var curr = getPos(this.num); 
-        var tmp;
-        var line = ['','','','']; // 数组里存4条线,分别代表橫,竖,右下,左下
-
-        for(var i=0; i < 225; i++) {
-            tmp = getPos(i);
-
-            if(tmp.y == curr.y) {  // 把横线上的棋子记录
-                line[0] = line[0] + tds[i].qi;
-            }
-            
-            if(tmp.x == curr.x)  { // 记录同一条竖线的棋子
-                line[1] = line[1] + tds[i].qi;
-            }
-
-            if((tmp.x - curr.x) == (tmp.y - curr.y)) { // 记录右下斜线的棋子
-                line[2] = line[2] + tds[i].qi;
-            }
-            
-            if((tmp.x + tmp.y) == (curr.x+curr.y)) { //记录左下斜线
-                line[3] = line[3] + tds[i].qi;
-            }           
+    	var obj = {
+    		x: this.x,
+    		y: this.y,
+    		qi: this.qi
+    	};
+        console.log(obj);
+        if(win.call(this)){
+        	winner = this.qi == 'b' ? 'black' : 'white' ;
+        	alert(winner + '获胜');
+        }else{
+        	console.log(winner);
         }
+    }
+    var win = function(){
+    	var obj = {
+    		x: this.x,
+    		y: this.y,
+    		qi: this.qi
+    	};
+    	var x = this.x;
+    	var y = this.y;
+    	var qiTag = this.qi;
 
-        for(var j=0;j<4;j++) {
-            if(line[j].indexOf('bbbbb') >= 0) {
-                winner = 'black';
-                break;
-            }
+    	var length = 0;
+    	// 水平方向
+		var lenxr = findXR(x-1, y, qiTag, 0);
+		var lenxl = findXL(x+1, y, qiTag, 0);
+		if(lenxr + lenxl >= 4){
+			console.log(lenxr,lenxl);
+			return true;
+		}
+    	// 垂直方向
+    	debugger;
+		var lenyt = findYT(x, y-1, qiTag, 0);
+		var lenyb = findYB(x, y+1, qiTag, 0);
+		if(lenyt + lenyb >= 4){
+			console.log(lenyt, lenyb);
+			return true;
+		}
+    	
+    	// 右斜方向
 
-            if(line[j].indexOf('wwwww') >= 0) {
-                winner = 'white';
-                break;
-            }
-        }
+    	var lenrt = findRT(x+1, y-1, qiTag, 0);
+    	var lenlb = findLB(x-1, y+1, qiTag, 0);
+    	if(lenyt + lenlb >= 4){
+    		return true;
+    	}
+    	// 左斜方向
+    	var lenlt = findLT(x-1, y-1, qiTag, 0);
+    	var lenrb = findRB(x+1, y+1, qiTag, 0);
+    	if(lenlt + lenrb >= 4){
+    		return true;
+    	}
 
-        
-        if(winner) {    
-            alert(winner + '获胜');
-        }
+    }
+
+    var findXR = function(x, y, tag, length){
+    	if(x<0){
+    		return length;
+    	}
+    	var ar = qiarray[x][y];
+    	if(ar.qi == tag){
+    		length ++;
+    		return findXR(x-1, y, tag, length);
+    	}else{
+    		return length;
+    	}
+    }
+
+    var findXL = function(x, y, tag, length){
+    	if(x>= xlength){
+    		return length;
+    	}
+    	var ar = qiarray[x][y];
+    	if(ar.qi == tag){
+    		length ++;
+    		return findXL(x+1, y, tag, length);
+    	}else{
+    		return length;
+    	}
     }
 
 
-    // getPos专门负责把0-224之间的位置,格式化成坐标
-    var getPos = function(num) {
-        var pos = {};
-        pos.y = parseInt(num/15);
-        pos.x = num%15;
+	var findYT = function(x, y, tag, length){
+    	if(y<0){
+    		return length;
+    	}
+    	var ar = qiarray[x][y];
+    	if(ar.qi == tag){
+    		length ++;
+    		return findYT(x, y-1, tag, length);
+    	}else{
+    		return length;
+    	}
+    }
 
-        return pos;
+    var findYB = function(x, y, tag, length){
+    	if(y>= ylength){
+    		return length;
+    	}
+    	var ar = qiarray[x][y];
+    	if(ar.qi == tag){
+    		length ++;
+    		return findYB(x, y+1, tag, length);
+    	}else{
+    		return length;
+    	}
+    }
+
+    // 右上
+    var findRT = function(x, y, tag, length){
+    	if(x >= xlength || y < 0){
+    		return length;
+    	}
+    	var ar = qiarray[x][y];
+    	if(ar.qi == tag){
+    		length ++;
+    		return findRT(x + 1, y - 1, tag, length);
+    	}else{
+    		return length;
+    	}
+    } 
+    // 左下
+    var findLB = function(x, y, tag, length){
+    	if(x < 0 || y >= ylength){
+    		return length;
+    	}
+    	var ar = qiarray[x][y];
+    	if(ar.qi == tag){
+    		length ++;
+    		return findLB(x - 1, y + 1, tag, length);
+    	}else{
+    		return length;
+    	}
+    }
+
+    // 左上
+    var findLT = function(x, y, tag, length){
+    	if(x < 0 || y < 0){
+    		return length;
+    	}
+    	var ar = qiarray[x][y];
+    	if(ar.qi == tag){
+    		length ++;
+    		return findLT(x - 1, y - 1, tag, length);
+    	}else{
+    		return length;
+    	}
+    }
+    // 右下
+    var findRB = function(x, y, tag, length){
+    	if(x >= xlength || y >= ylength){
+    		return length;
+    	}
+    	var ar = qiarray[x][y];
+    	if(ar.qi == tag){
+    		length ++;
+    		return findRB(x + 1, y + 1, tag, length);
+    	}else{
+    		return length;
+    	}
+    }
+
+    var search = function(){
+    	var next = [];
+
+    }
+
+    var searchLine = function(){
+
+    }
+
+    var reset = function(){
+    	winner = false;
+    	tag = 'black';
+    	for(var i=0,tds = document.getElementsByTagName('td'),l=tds.length; i<l;i++) {
+	        tds[i].className = '';
+	        tds[i].qi = 0;// 下黑棋后,qi属性变为b, 下白棋后,qi属性为w
+	    }
     }
 
 }

@@ -6,6 +6,19 @@ html, body {
     width: 100%;
     overflow-x: hidden;
 }
+
+::-webkit-scrollbar {
+    background: transparent;
+    width: 6px;
+    height: 10px;
+}
+
+::-webkit-scrollbar-thumb {
+    width: 10px;
+    -webkit-border-radius: 5px;
+    background: #CBCBCB;
+}
+
 * {
     margin: 0;
     padding: 0;
