@@ -330,6 +330,7 @@
 // 5:如果该td已经有棋子,也不允许
 
 function Qi() {
+    
     var tag = 'black';
     var winner = false; // 是否已判定胜负
 
@@ -430,7 +431,6 @@ function Qi() {
 			return true;
 		}
     	// 垂直方向
-    	debugger;
 		var lenyt = findYT(x, y-1, qiTag, 0);
 		var lenyb = findYB(x, y+1, qiTag, 0);
 		if(lenyt + lenyb >= 4){
@@ -578,6 +578,21 @@ function Qi() {
 	        tds[i].qi = 0;// 下黑棋后,qi属性变为b, 下白棋后,qi属性为w
 	    }
     }
+
+
+    var WS = new WebSocket('ws://127.0.0.1:8095');
+    WS.onopen = function() {
+        console.log('connected');
+    };
+    WS.onmessage = function(da) {
+
+    };
+    WS.onclose = function() {
+        console.log('connect has been closed');
+    };
+    WS.onerror = function(e) {
+        console.log(e);
+    };
 
 }
 
