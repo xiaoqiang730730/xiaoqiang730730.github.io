@@ -9,7 +9,22 @@ server.on('upgrade', function(request, socket, body) {
 	if (WebSocket.isWebSocket(request)) {
 		var ws = new WebSocket(request, socket, body);
 		ws.on('message', function(da) {
-			ws.send();
+			var data = da.data;
+			var sendDate = {};
+			switch(data.type){
+				case 'click':
+					break;
+				case 'name':
+					players.push({
+						name: data.name
+					});
+					sendData = {
+						type: 'name',
+						data: players.join(',')
+					}
+					break;
+			}
+			ws.send(sendData);
 		});
 		ws.on('close', function(e) {
 			console.log('close', e.code, e.reason);

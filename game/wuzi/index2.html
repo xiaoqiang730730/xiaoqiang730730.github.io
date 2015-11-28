@@ -60,10 +60,19 @@
 				height: auto;
 			}
 		}
+        header{
+            margin-top: 20px;
+            height:50px;
+            text-align:center;
+        }
     </style>
 </head>
 <body>
-	<div id="container">
+    <header>
+        <div id="name"></div>
+        <div id="name2"></div>
+    </header>
+    <div id="container">
             <table>
                 <tr>
                     <td>&nbsp;</td>
@@ -329,10 +338,12 @@
 // 4:如果胜负已定,则不允许下棋
 // 5:如果该td已经有棋子,也不允许
 
-function Qi() {
+function Qi(name, tag) {
     
-    var tag = 'black';
+    var tag = tag;
+    var current = false;
     var winner = false; // 是否已判定胜负
+    var name = name;
 
  	// 初始化坐标
  	var tdAll = document.getElementsByTagName('td');
@@ -361,14 +372,23 @@ function Qi() {
  		}
  	};
 
- 	console.dir(qiarray);
     document.getElementsByTagName('table')[0].onclick = function (ev) {
+
+        if(current){
+            return;
+        }
+
         ev = ev || window.event;
         //alert('hello');
         var tar = ev.srcElement || ev.target;
         //alert(tar.num);
-
-        xia.call(tar);
+        WS.send({
+            type: 'click',
+            data: tar,
+            name: name
+        });
+        current = true;
+        //xia.call(tar);
     }
 
     // 下棋动作
@@ -577,15 +597,30 @@ function Qi() {
 	        tds[i].className = '';
 	        tds[i].qi = 0;// 下黑棋后,qi属性变为b, 下白棋后,qi属性为w
 	    }
+    };
+
+}
+
+function inputName(){
+    var name = window.prompt('hello!', 'please enter your name');
+    if(name){
+        document.getElementById('name').innerText = '你好:' + name;
+        WS.send({
+            type: 'name',
+            name: name,
+        });
+        return name;
+    }else{
+        inputName();
     }
-
-
-    var WS = new WebSocket('ws://115.182.84.43:8095');
+}
+var WS = new WebSocket('ws://115.182.84.43:18095');
+window.onload = function () {
     WS.onopen = function() {
         console.log('connected');
     };
     WS.onmessage = function(da) {
-
+        var data = da.data;
     };
     WS.onclose = function() {
         console.log('connect has been closed');
@@ -593,12 +628,8 @@ function Qi() {
     WS.onerror = function(e) {
         console.log(e);
     };
-
-}
-
-window.onload = function () {
-    new Qi();
-}
+    new Qi(inputName());
+};
 //http://blog.csdn.net/liuaigui/article/details/2228050
     </script>
 </body>
