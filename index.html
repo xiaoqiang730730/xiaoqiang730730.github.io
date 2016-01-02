@@ -6,34 +6,203 @@
     <meta name="Keywords" content="blog"/>
     <meta name="Description" content="blog"/>
     <title>Simple</title>
-    <link rel="shortcut icon" href="/static/favicon.png"/>
+    <link rel="shortcut icon" href="favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="main.css" />
-    <link rel="stylesheet" type="text/css" href="reset.css"/>
+    <style type="text/css" media="screen">
+        html, body{
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+        }
+        a{
+            color: #4094c7;
+            -webkit-transition: all 0.2s linear;
+            -moz-transition: all 0.2s linear;
+            -ms-transition: all 0.2s linear;
+            transition: all 0.2s linear;
+        }
+        a:hover, .title a:hover{
+            border-bottom: 1px solid #4094c7;
+
+        }
+        .header{
+            margin: 0;
+            width: auto;
+            float: none;
+        }
+        .date{
+            font-size: 16px;
+        }
+        .header ul{
+            width: 500px;
+            text-align: left;
+        }
+        .header li{
+            display: inline-block;
+            margin: 0;
+            padding: 10px;
+            height: 22px;
+            line-height: 22px;
+        }
+        .header a{
+            font-size: 16px;
+            color: #007498;
+        }
+        .header a:hover{
+            border: 0px;
+            text-shadow: #585858 0px 0px 3px;
+        }
+        .container{
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            width: 100%;
+            height: 100%;
+        }
+        .left{
+            -webkit-box-flex: 1;
+            -webkit-flex: 1;
+              -ms-flex: 1;
+                  flex: 1;
+          -webkit-box-align: center;
+          -webkit-align-items: center;
+              -ms-flex-align: center;
+                  align-items: center;
+          -webkit-box-pack: center;
+          -webkit-justify-content: center;
+              -ms-flex-pack: center;
+                  justify-content: center;
+            text-align:center;
+            /*background-image: url('http://upload.jianshu.io/daily_images/images/wgjtysyZYzsJVPCGzDBE.jpg');*/
+        }
+        .item{
+            margin: 0;
+        }
+        .right{
+            -webkit-box-flex: 2;
+            -webkit-flex: 2;
+              -ms-flex: 2;
+                  flex: 2;
+        }
+        .right .main{
+            width: auto;
+        }
+
+        .left img{
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            -webkit-transition: all 1.2s linear;
+            -moz-transition: all 1.2s linear;
+            -ms-transition: all 1.2s linear;
+            transition: all 1.2s linear;
+        }
+        .left img:hover{
+            transform: rotateY(360deg);
+            box-shadow: 0 0 5px 5px rgba(0, 255, 57, 0.66);
+        }
+        .J_view_img:hover{
+            border: 0;
+        }
+        .J_view_link{
+            position: relative;
+        }
+        .J_view_link a{
+            display: inline-block;
+            width: 30px;
+            height: 30px;
+            background-size: cover;
+            cursor: pointer;
+        }
+        .J_view_link a:hover{
+            border: 0;
+        }
+        .J_view_weibo{
+            background-image: url('weibo.png');
+        }
+        .J_view_github{
+            background-image: url('github.png');
+        }
+        .J_view_weixin{
+            background-image: url('weixin.png');
+        }
+        .J_view_mail{
+            background-image: url('email.png');
+        }
+        .J_view_link .J_view_weixin:hover ~ .J_view_weixin2{
+            opacity: 1;
+            top: 40px;
+            right: 30%;
+        }
+        .J_view_link .J_view_weixin2{
+            position: absolute;
+            opacity: 0;
+            top: 40px;
+            right: -10px;
+            width: 200px;
+            height: 200px;
+            background-image: url('erweima.png');
+        }
+        .left p{
+            line-height: 20px;
+            font-size: 14px;
+            color: #8B8B8B;
+            padding: 10px 80px;
+            text-align: left;
+            text-indent: 2rem;
+        }
+    </style>
 </head>
 <body>
-<div class="main">
-    <div class="header">
-        <ul id="pages">
-            <li>
-                <a href="/">home</a>
-            </li>
-            <li>
-                <a href="/#/tags">tags</a>
-            </li>
-            <li>
-                <a href="/#/archive">archive</a>
-            </li>
-        </ul>
+<div class="container">
+    <div class="left">
+        <div style="margin-top:100px;">
+            <a class="J_view_img" href="http://weibo.com/smallwall520" target="_blank"><img src="http://tp3.sinaimg.cn/2631626602/180/5734058041/1" alt=""></a>
+        </div>
+        <div style="margin-top: 5px;">
+            <a href="http://weibo.com/smallwall520" target="_blank">前端-小强</a>
+        </div>
+        <div style="margin-top: 10px;" class="J_view_link">
+            <a class="J_view_weibo" href="http://weibo.com/smallwall520" target="_blank"></a>
+            <a class="J_view_github" href="https://github.com/xiaoqiang730730" target="_blank"></a>
+            <a class="J_view_weixin"></a>
+            <a class="J_view_mail" href="mailto:838871837@qq.com" target="_blank" title="有内推职位"></a>
+            <a class="J_view_weixin2"></a>
+        </div>
+        <div>
+            <p>
+                我是一名前端工程师，就职一家充满活力的<abbr title="杭州关云科技有限公司(有内推职位)"><a href="http://www.raycloud.com/" target="_blank">创业公司</a></abbr>。
+                <br/>
+                学过后端，搞过数据库，但是现在<a href="/article/choseFrontEnd.html">选择在前端圈里航行！</a>任重道远！加油！↖(^ω^)↗
+            </p>
+        </div>
     </div>
-    <div class="wrap-header">
-        <h1>
-        <a href="/" id="title"></a>
-        </h1>
-    </div>
-    <div class="innermain" id="main">
-    </div>
-    <div class="footer">
-        <p>© Copyright 2015 by <a href="http://weibo.com/smallwall520" target="_blank">前端-小强</a></p>
+    <div class="right">
+        <div class="main">
+            <div class="wrap-header">
+                <h1>
+                    <a href="http://weibo.com/smallwall520" target="_blank" id="title"></a>
+                </h1>
+            </div>
+            <div class="header">
+                <ul id="pages">
+                    <li>
+                        <a href="/">主页</a>
+                    </li>
+                    <li>
+                        <a href="/#/tags">标签</a>
+                    </li>
+                    <li>
+                        <a href="/#/archive">存档</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="innermain" id="main"></div>
+            <div class="footer">
+                <p>© Copyright 2016 by <a href="http://weibo.com/smallwall520" target="_blank">前端-小强</a></p>
+            </div>
+        </div>
     </div>
 </div>
 <script src="main.js"></script>
@@ -41,8 +210,6 @@
     {{#posts}}
     <div class="item">
         <div class="date">
-            <div class="little">
-            </div>
             {{date}}
         </div>
         <div class="title">
@@ -88,7 +255,7 @@
     <ul style="list-style: none">
         {{#tags}}
         <li style="display:inline; margin: 15px;">
-            <a href="{{path}}" style="font-size: {{size}}%">{{name}}</a>
+            <a href="{{path}}">{{name}}</a>
         </li>
         {{/tags}}
     </ul>

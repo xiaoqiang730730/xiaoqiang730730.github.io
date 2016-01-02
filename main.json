@@ -1,12 +1,27 @@
 {
-    "name": "xiaoqiang730730",
+    "name": "前端-小强",
     "number_of_posts_per_page": 7,
-    "disqus_shortname": "",
+    "disqus_shortname": "小强",
     "posts": [{
         "title": "圣诞节",
         "date": "2014-12-25",
-        "tags": "",
-        "path": "happyChristmasToU.html"
+        "tags": "活动",
+        "path": "index2.html"
+    },{
+        "title": "五子棋",
+        "date": "2015-10-25",
+        "tags": "活动",
+        "path": "/game/wuzi/index.html"
+    },{
+        "title": "前端level",
+        "date": "2015-08-25",
+        "tags": "杂谈",
+        "path": "/acticle/FELEVEL.html"
+    },{
+        "title": "选择在前端圈里航行",
+        "date": "2016-01-01",
+        "tags": "杂谈",
+        "path": "/article/choseFrontEnd.html"
     }],
     "pages": []
 }
