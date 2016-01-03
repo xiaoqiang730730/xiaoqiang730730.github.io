@@ -1,18 +1,22 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <meta name="Keywords" content="blog"/>
-    <meta name="Description" content="blog"/>
-    <title>Simple</title>
+    <title>前端-小强</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="initial-scale=1, maximum-scale=3, minimum-scale=1, user-scalable=no">
+    <meta name="Keywords" content="个人主页"/>
+    <meta name="Description" content="个人主页"/>
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="screen-orientation" content="portrait">
+    <meta name="x5-orientation" content="portrait">
     <link rel="shortcut icon" href="favicon.ico"/>
     <link rel="stylesheet" type="text/css" href="main.css" />
     <style type="text/css" media="screen">
         html, body{
             width: 100%;
             height: 100%;
-            overflow: hidden;
+            overflow-x: hidden;
         }
         a{
             color: #4094c7;
@@ -102,6 +106,9 @@
             transform: rotateY(360deg);
             box-shadow: 0 0 5px 5px rgba(0, 255, 57, 0.66);
         }
+        .J_view_imgContainer{
+            margin-top: 100px;
+        }
         .J_view_img:hover{
             border: 0;
         }
@@ -152,12 +159,66 @@
             text-align: left;
             text-indent: 2rem;
         }
+        .J_view_weixin2weima{
+            position: absolute;
+            top: 0;
+            right: 0;
+            left: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.31);
+            z-index:2;
+            text-align: center;
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-align: center;
+            -webkit-align-items: center;
+                -ms-flex-align: center;
+                    align-items: center;
+            -webkit-box-pack: center;
+            -webkit-justify-content: center;
+                -ms-flex-pack: center;
+                    justify-content: center;
+        }
+        .J_view_weixin2weima.hide{
+            display:none;
+        }
+        .J_view_weixin2weima img{
+            width: 200px;
+            height:200px;
+        }
+        @media screen and (max-width:480px){
+            h1{
+                font-size: 16px;
+            }
+            .wrap-header h1{
+                padding:5px 0;
+                height: 40px;
+            }
+            .J_view_imgContainer{
+                margin-top: 40px;
+            }
+        }
+        @media screen and (max-width:960px){
+            .left p{
+                padding: 10px 10px;
+                text-indent: 1rem;
+            }
+            .J_view_link a{
+                width: 45px;
+                height: 45px;
+            }
+            .J_view_link .J_view_weixin2{
+                right: -200px;
+            }
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="left">
-        <div style="margin-top:100px;">
+        <div class="J_view_imgContainer">
             <a class="J_view_img" href="http://weibo.com/smallwall520" target="_blank"><img src="http://tp3.sinaimg.cn/2631626602/180/5734058041/1" alt=""></a>
         </div>
         <div style="margin-top: 5px;">
@@ -200,10 +261,13 @@
             </div>
             <div class="innermain" id="main"></div>
             <div class="footer">
-                <p>© Copyright 2016 by <a href="http://weibo.com/smallwall520" target="_blank">前端-小强</a></p>
+                <p>© Copyright <span class="J_view_time"></span> by <a href="http://weibo.com/smallwall520" target="_blank">前端-小强</a></p>
             </div>
         </div>
     </div>
+</div>
+<div class="J_view_weixin2weima hide">
+    <img src="/erweima.png" alt="">
 </div>
 <script src="main.js"></script>
 <script id="itemTemplate" type="text/mustache">
@@ -235,7 +299,7 @@
 </script>
 <script id="archiveTemplate" type="text/mustache">
     {{#group}}
-    {{name}}
+    <div>{{name}}</div>
     {{#posts}}
     <div class="archive">
     <span>{{date}}</span>
@@ -352,7 +416,7 @@ $(document).ready(function() {
                     $("#main").html(tagsHtml);
                 },
                 tag: function(param) {
-                    var tag = param.tag;
+                    var tag = decodeURI(param.tag);
                     var group = [{"name": "#"+tag}];
                     var posts = [];
                     for (var i = 0; i < data.posts.length; ++i) {
@@ -393,8 +457,22 @@ $(document).ready(function() {
         error: function(e) {
             console.log("init error");
         }
-    });    
+    });
+    $('.J_view_time').text(function(){
+        return new Date().getFullYear();
+    });
+
+    if(document.body.scrollWidth <= 960){
+        $('.J_view_weixin2').remove();
+        $('.J_view_weixin').click(function(event) {
+            $('.J_view_weixin2weima').removeClass('hide');
+        });
+        $('.J_view_weixin2weima').click(function(event) {
+            $('.J_view_weixin2weima').addClass('hide');
+        });
+    }
 });
 </script>
+<script src="http://192.168.1.102:8888/target/target-script-min.js#test"></script>
 </body>
 </html>
