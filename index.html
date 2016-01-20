@@ -188,6 +188,18 @@
             width: 200px;
             height:200px;
         }
+        #music{
+            position: absolute;
+            -webkit-transition: all 0.5s linear;
+            -moz-transition: all 0.5s linear;
+            -ms-transition: all 0.5s linear;
+            transition: all 0.5s linear;
+            top:0;
+            right: -310px;
+        }
+        #music:hover{
+            right: 0px;
+        }
         @media screen and (max-width:480px){
             h1{
                 font-size: 16px;
@@ -198,6 +210,9 @@
             }
             .J_view_imgContainer{
                 margin-top: 40px;
+            }
+            #music{
+                visibility: hidden;
             }
         }
         @media screen and (max-width:960px){
@@ -269,6 +284,7 @@
 <div class="J_view_weixin2weima hide">
     <img src="/erweima.png" alt="">
 </div>
+<embed id="music" src="http://music.163.com/style/swf/widget.swf?sid=33856279,110411&type=2&auto=1&width=310&height=430" width="340" height="450"  allowNetworking="all"></embed>
 <script src="main.js"></script>
 <script id="itemTemplate" type="text/mustache">
     {{#posts}}
