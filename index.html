@@ -205,7 +205,7 @@
                 font-size: 16px;
             }
             .wrap-header h1{
-                padding:5px 0;
+                padding:5px 0 15px 0;
                 height: 40px;
             }
             .J_view_imgContainer{
@@ -227,6 +227,54 @@
             .J_view_link .J_view_weixin2{
                 right: -200px;
             }
+        }
+        .musicIcon{
+            width: 46px;
+            height: 46px;
+            border-radius: 23px;
+            display: inline-block;
+            background: url("./image/music.png") no-repeat 0 -97px;
+            cursor: pointer;
+            -webkit-transform: scale(0.5) translateY(20px);
+            transform: scale(0.5) translateY(20px);
+        }
+        .musicIcon.active{
+            -webkit-animation: bounceTan 2s linear infinite;
+            animation: bounceTan 2s linear infinite;
+        }
+        @-webkit-keyframes bounceTan{
+          0%{
+            -webkit-transform: scale(0.5) translateY(20px);
+          }
+          20%{
+            -webkit-transform: scale(0.3) translateY(20px);
+          }
+          50%{
+            -webkit-transform: scale(0.1) translateY(20px);
+          }
+          80%{
+            -webkit-transform: scale(0.3) translateY(20px);
+          }
+          100%{
+            -webkit-transform: scale(0.5) translateY(20px);
+          }
+        }
+        @keyframes bounceTan{
+          0%{
+            -webkit-transform: scale(0.5) translateY(20px);
+          }
+          20%{
+            -webkit-transform: scale(0.3) translateY(20px);
+          }
+          50%{
+            -webkit-transform: scale(0.1) translateY(20px);
+          }
+          80%{
+            -webkit-transform: scale(0.3) translateY(20px);
+          }
+          100%{
+            -webkit-transform: scale(0.5) translateY(20px);
+          }
         }
     </style>
 </head>
@@ -259,6 +307,7 @@
             <div class="wrap-header">
                 <h1>
                     <a href="http://weibo.com/smallwall520" target="_blank" id="title"></a>
+                    <span class="musicIcon active"></span>
                 </h1>
             </div>
             <div class="header">
@@ -284,8 +333,52 @@
 <div class="J_view_weixin2weima hide">
     <img src="/erweima.png" alt="">
 </div>
-<embed id="music" src="http://music.163.com/style/swf/widget.swf?sid=33856279,110411&type=2&auto=1&width=310&height=430" width="340" height="450"  allowNetworking="all"></embed>
+<audio id="bgmusic" style="opacity:0;" preload="auto">
+</audio>
+
+<!-- <embed id="music" src="http://music.163.com/style/swf/widget.swf?sid=33856279,110411&type=2&auto=1&width=310&height=430" width="340" height="450"  allowNetworking="all"></embed> -->
 <script src="main.js"></script>
+<script type="text/javascript">
+    var bloop = false;
+    var bgMusic = document.getElementById('bgmusic');
+    var btnMusic = document.getElementsByClassName('musicIcon')[0];
+    var index = 0;
+    var list = [
+        'http://link.hhtjim.com/163/110411.mp3',
+        'http://link.hhtjim.com/163/33856279.mp3',
+        'http://link.hhtjim.com/163/27785673.mp3'
+    ];
+    bgMusic.src = list[index];
+    bgMusic.play();
+    bgMusic.addEventListener('ended', function(){
+        index ++;
+        if(index >= list.length){
+            index = 0;
+        }
+        bgMusic.src = list[index];
+        bgMusic.play();
+    }, false);
+    if(/Mobile/.test(navigator.userAgent)){
+        btnMusic.className = 'musicIcon';
+    }
+    // 移动端默认音乐
+    // document.addEventListener('touchstart', function(){
+    //     if(!bloop){
+    //         bgMusic.play();
+    //         bloop = false;
+    //     }
+    // }, false);
+    btnMusic.addEventListener('click', function(){
+        if(btnMusic.className.indexOf('active') > -1){
+            btnMusic.className = 'musicIcon';
+            bgMusic.pause();
+        }else{
+            btnMusic.className = 'musicIcon active';
+            bgMusic.play();
+        }
+    }, false);
+    
+</script>
 <script id="itemTemplate" type="text/mustache">
     {{#posts}}
     <div class="item">
@@ -355,7 +448,6 @@ $(document).ready(function() {
                     return 1;
                 return 0;
             });
-            console.log(data.posts);
             var per = data.number_of_posts_per_page;
             var n = data.posts.length;
             var num = Math.floor((n-1)/per)+1;
