@@ -1,0 +1,943 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/js/vendor/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="/css/css.css" rel="stylesheet" type="text/css">
+  
+  
+
+
+
+<link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.6.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="js," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="前端-小强" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.6.1" />
+
+
+
+
+
+
+<meta name="description" content="javascript深拷贝是初学者甚至有经验的开发着，都会经常遇到问题，并不能很好的理解javascript的深拷贝。 深拷贝(deepClone)？与深拷贝相对的就是浅拷贝，很多初学者在接触这个感念的时候，是很懵逼的。 为啥要用深拷贝？在很多情况下，我们都需要给变量赋值，给内存地址赋予一个值，但是在赋值引用值类型的时候，只是共享一个内存区域，导致赋值的时候，还跟之前的值保持一直性。看一个具体的例">
+<meta name="keywords" content="js">
+<meta property="og:type" content="article">
+<meta property="og:title" content="javascript深拷贝">
+<meta property="og:url" content="http://xiaoqiang730730.github.io/2016/08/21/javascriptDeepClone/index.html">
+<meta property="og:site_name" content="前端-小强">
+<meta property="og:description" content="javascript深拷贝是初学者甚至有经验的开发着，都会经常遇到问题，并不能很好的理解javascript的深拷贝。 深拷贝(deepClone)？与深拷贝相对的就是浅拷贝，很多初学者在接触这个感念的时候，是很懵逼的。 为啥要用深拷贝？在很多情况下，我们都需要给变量赋值，给内存地址赋予一个值，但是在赋值引用值类型的时候，只是共享一个内存区域，导致赋值的时候，还跟之前的值保持一直性。看一个具体的例">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/icon_fun_mengbi.png">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/js_deepClone_1.png">
+<meta property="og:updated_time" content="2018-09-24T06:27:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="javascript深拷贝">
+<meta name="twitter:description" content="javascript深拷贝是初学者甚至有经验的开发着，都会经常遇到问题，并不能很好的理解javascript的深拷贝。 深拷贝(deepClone)？与深拷贝相对的就是浅拷贝，很多初学者在接触这个感念的时候，是很懵逼的。 为啥要用深拷贝？在很多情况下，我们都需要给变量赋值，给内存地址赋予一个值，但是在赋值引用值类型的时候，只是共享一个内存区域，导致赋值的时候，还跟之前的值保持一直性。看一个具体的例">
+<meta name="twitter:image" content="http://7te8kr.com1.z0.glb.clouddn.com/icon_fun_mengbi.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> javascript深拷贝 | 前端-小强 </title>
+</head>
+
+<body itemscope itemtype="https://schema.org/WebPage" lang="zh-Hans">
+<a href="https://github.com/xiaoqiang730730" target="_blank"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 43;" src="/images/follow.png" alt="Fork me on GitHub" /></a>
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-81240080-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?68a2982b86f566cea2f90805ace87cfc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <div class="scroll-line"></div>
+  <div class="container one-collumn sidebar-position-left page-post-detail ice">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="https://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">前端-小强</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          
+          
+
+          <a href="/" rel="section" >
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          
+          
+
+          <a href="/categories" rel="section" >
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          
+          
+
+          <a href="/archives" rel="section" >
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          
+          
+
+          <a href="/tags" rel="section" >
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          
+          
+
+          <a href="/about" rel="section" >
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-neitui">
+          
+          
+
+          <a href="/neitui" rel="section" >
+            
+              <i class="menu-item-icon fa fa-globe fa-fw"></i> <br />
+            
+            内推
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                javascript深拷贝
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-21T19:34:39+08:00" content="2016-08-21">
+              2016-08-21
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>javascript深拷贝是初学者甚至有经验的开发着，都会经常遇到问题，并不能很好的理解javascript的深拷贝。</p>
+<h1 id="深拷贝-deepClone-？"><a href="#深拷贝-deepClone-？" class="headerlink" title="深拷贝(deepClone)？"></a>深拷贝(deepClone)？</h1><p>与深拷贝相对的就是浅拷贝，很多初学者在接触这个感念的时候，是很懵逼的。<br><img src="http://7te8kr.com1.z0.glb.clouddn.com/icon_fun_mengbi.png" alt=""></p>
+<h2 id="为啥要用深拷贝？"><a href="#为啥要用深拷贝？" class="headerlink" title="为啥要用深拷贝？"></a>为啥要用深拷贝？</h2><p>在很多情况下，我们都需要给变量赋值，给内存地址赋予一个值，但是在赋值引用值类型的时候，只是共享一个内存区域，导致赋值的时候，还跟之前的值保持一直性。<br>看一个具体的例子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 给test赋值了一个对象</span></span><br><span class="line"><span class="keyword">var</span> test = &#123;</span><br><span class="line">	a: <span class="string">'a'</span>,</span><br><span class="line">	b: <span class="string">'b'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将test赋值给test2</span></span><br><span class="line"><span class="comment">// 此时test和test2是共享了同一块内存对象，这也就是浅拷贝</span></span><br><span class="line"><span class="keyword">var</span> test2 = test;</span><br><span class="line"></span><br><span class="line">test2.a = <span class="string">'a2'</span>;</span><br><span class="line"></span><br><span class="line">test.a === <span class="string">'a2'</span><span class="comment">// 为true</span></span><br></pre></td></tr></table></figure></p>
+<p>图解：<br><img src="http://7te8kr.com1.z0.glb.clouddn.com/js_deepClone_1.png" alt=""></p>
+<p>这下就很好理解为什么引用值类型数据相互影响问题。</p>
+<h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>实现一个深拷贝函数，就不得不说javascript的数值类型。</p>
+<h2 id="判断javascript类型"><a href="#判断javascript类型" class="headerlink" title="判断javascript类型"></a>判断javascript类型</h2><p>javascript中有以下基本类型</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>undefined</td>
+<td>undefined类型只有一个值undefined，它是变量未被赋值时的值</td>
+</tr>
+<tr>
+<td>null</td>
+<td>null类型也只有一个值null, 它是一个空的对象引用</td>
+</tr>
+<tr>
+<td>Boolean</td>
+<td>Boolean有两种取值true和false</td>
+</tr>
+<tr>
+<td>String</td>
+<td>它表示文本信息</td>
+</tr>
+<tr>
+<td>Number</td>
+<td>它表示数字信息</td>
+</tr>
+<tr>
+<td>Object</td>
+<td>它是一系列属性的无序集合， 包括函数Function和数组Array</td>
+</tr>
+</tbody>
+</table>
+<p>使用typeof是无法判断object和array的，这里使用Object.prototype.toString方法。<br><a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Object/toString#Description" target="_blank" rel="noopener">默认情况下，每个对象都会从Object上继承到toString()方法，如果这个方法没有被这个对象自身或者更接近的上层原型上的同名方法覆盖(遮蔽)，则调用该对象的toString()方法时会返回”[object type]”，这里的字符串type表示了一个对象类型</a></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">type</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> toString = <span class="built_in">Object</span>.prototype.toString;</span><br><span class="line">	<span class="keyword">var</span> map = &#123;</span><br><span class="line">	    <span class="string">'[object Boolean]'</span>  : <span class="string">'boolean'</span>, </span><br><span class="line">	    <span class="string">'[object Number]'</span>   : <span class="string">'number'</span>, </span><br><span class="line">	    <span class="string">'[object String]'</span>   : <span class="string">'string'</span>, </span><br><span class="line">	    <span class="string">'[object Function]'</span> : <span class="string">'function'</span>, </span><br><span class="line">	    <span class="string">'[object Array]'</span>    : <span class="string">'array'</span>, </span><br><span class="line">	    <span class="string">'[object Date]'</span>     : <span class="string">'date'</span>, </span><br><span class="line">	    <span class="string">'[object RegExp]'</span>   : <span class="string">'regExp'</span>, </span><br><span class="line">	    <span class="string">'[object Undefined]'</span>: <span class="string">'undefined'</span>,</span><br><span class="line">	    <span class="string">'[object Null]'</span>     : <span class="string">'null'</span>, </span><br><span class="line">	    <span class="string">'[object Object]'</span>   : <span class="string">'object'</span></span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">return</span> map[toString.call(obj)];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="实现deepClone"><a href="#实现deepClone" class="headerlink" title="实现deepClone"></a>实现deepClone</h2><p>对于非引用值类型的数值，直接赋值，而对于引用值类型（object）还需要再次遍历，递归赋值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">deepClone</span>(<span class="params">data</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> t = type(data), o, i, ni;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(t === <span class="string">'array'</span>) &#123;</span><br><span class="line">	    o = [];</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>( t === <span class="string">'object'</span>) &#123;</span><br><span class="line">	    o = &#123;&#125;;</span><br><span class="line">	&#125;<span class="keyword">else</span> &#123;</span><br><span class="line">	    <span class="keyword">return</span> data;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="keyword">if</span>(t === <span class="string">'array'</span>) &#123;</span><br><span class="line">	    <span class="keyword">for</span> (i = <span class="number">0</span>, ni = data.length; i &lt; ni; i++) &#123;</span><br><span class="line">	        o.push(deepClone(data[i]));</span><br><span class="line">	    &#125;</span><br><span class="line">	    <span class="keyword">return</span> o;</span><br><span class="line">	&#125;<span class="keyword">else</span> <span class="keyword">if</span>( t === <span class="string">'object'</span>) &#123;</span><br><span class="line">	    <span class="keyword">for</span>( i <span class="keyword">in</span> data) &#123;</span><br><span class="line">	        o[i] = deepClone(data[i]);</span><br><span class="line">	    &#125;</span><br><span class="line">	    <span class="keyword">return</span> o;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这里有个点大家要<strong>注意</strong>下，对于function类型，博主这里是直接赋值的，还是共享一个内存值。这是因为函数更多的是完成某些功能，有个输入值和返回值，而且对于上层业务而言更多的是完成业务功能，并不需要真正将函数深拷贝。</p>
+<p>但是function类型要怎么拷贝呢？</p>
+<p>其实博主只想到了用new来操作一下，但是function就会执行一遍，不敢想象会有什么执行结果哦！o(╯□╰)o！其它暂时还没有什么好的想法，欢迎大家指导哦！</p>
+<p>到这里差不多也就实现完了深拷贝，又有人觉的怎么没有实现浅拷贝呢？</p>
+<h1 id="浅拷贝？"><a href="#浅拷贝？" class="headerlink" title="浅拷贝？"></a>浅拷贝？</h1><p>对于浅拷贝而言，可以理解为只操作一个共同的内存区域！这里会存在危险！(。﹏。*)</p>
+<p>如果直接操作这个共享的数据，不做控制的话，会经常出现数据异常，被其它部分更改。所以应该不要直接操作数据源，给数据源封装一些方法，来对数据来进行CURD操作。</p>
+<p>到这里估计就差不多了，但是作为一个前端，不仅仅考虑javascript本身，还得考虑到dom、浏览器等。</p>
+<h1 id="Element类型"><a href="#Element类型" class="headerlink" title="Element类型"></a>Element类型</h1><p>来看下面代码，结果会返回啥呢？<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">Object</span>.prototype.toString.call(<span class="built_in">document</span>.getElementsByTagName(<span class="string">'div'</span>)[<span class="number">0</span>])</span><br></pre></td></tr></table></figure></p>
+<p>答案是<code>[object HTMLDivElement]</code></p>
+<p>有时候保存了dom元素， 一不小心进行深拷贝，上面的深拷贝函数就缺少了对Element元素的判断。而判断Element元素要使用instanceof来判断。因为对于不同的标签，tostring会返回对应不同的标签的构造函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">type</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> toString = <span class="built_in">Object</span>.prototype.toString;</span><br><span class="line">	<span class="keyword">var</span> map = &#123;</span><br><span class="line">	    <span class="string">'[object Boolean]'</span>  : <span class="string">'boolean'</span>, </span><br><span class="line">	    <span class="string">'[object Number]'</span>   : <span class="string">'number'</span>, </span><br><span class="line">	    <span class="string">'[object String]'</span>   : <span class="string">'string'</span>, </span><br><span class="line">	    <span class="string">'[object Function]'</span> : <span class="string">'function'</span>, </span><br><span class="line">	    <span class="string">'[object Array]'</span>    : <span class="string">'array'</span>, </span><br><span class="line">	    <span class="string">'[object Date]'</span>     : <span class="string">'date'</span>, </span><br><span class="line">	    <span class="string">'[object RegExp]'</span>   : <span class="string">'regExp'</span>, </span><br><span class="line">	    <span class="string">'[object Undefined]'</span>: <span class="string">'undefined'</span>,</span><br><span class="line">	    <span class="string">'[object Null]'</span>     : <span class="string">'null'</span>, </span><br><span class="line">	    <span class="string">'[object Object]'</span>   : <span class="string">'object'</span></span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">if</span>(obj <span class="keyword">instanceof</span> Element) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'element'</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> map[toString.call(obj)];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="其它方式？"><a href="#其它方式？" class="headerlink" title="其它方式？"></a>其它方式？</h1><ol>
+<li>jquery的实现<br>详见<a href="https://github.com/jquery/jquery/blob/master/src/core.js" target="_blank" rel="noopener">https://github.com/jquery/jquery/blob/master/src/core.js</a></li>
+<li>underscore的实现<br>详见<a href="https://github.com/jashkenas/underscore/blob/master/underscore.js" target="_blank" rel="noopener">https://github.com/jashkenas/underscore/blob/master/underscore.js</a></li>
+<li>lodash的实现<br>详见<a href="https://github.com/lodash/lodash/blob/master/lodash.js" target="_blank" rel="noopener">https://github.com/lodash/lodash/blob/master/lodash.js</a></li>
+<li>JSON实现<br>先通过JSON.stringify一下，然后再JSON.parse一下，就能实现深拷贝。但是数据类型只支持基本数值类型。</li>
+</ol>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="string">'a'</span>,    </span><br><span class="line">    b: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="string">'b'</span>)&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在JSON.stringify的时候就会把function给过滤了。</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">JSON</span>.stringify(obj)<span class="comment">// "&#123;"a":"a"&#125;"</span></span><br></pre></td></tr></table></figure>
+<h1 id="小结"><a href="#小结" class="headerlink" title="小结"></a>小结</h1><p>这里大概总结了一下深拷贝，以及怎么实现一个深拷贝。在不同的场景下，要根据业务场景，判断是否需要使用深拷贝。</p>
+<h1 id="参考文献"><a href="#参考文献" class="headerlink" title="参考文献"></a>参考文献</h1><p>winter-JavaScript中的类型<br><a href="http://www.cnblogs.com/winter-cn/archive/2009/12/07/1618281.html" target="_blank" rel="noopener">http://www.cnblogs.com/winter-cn/archive/2009/12/07/1618281.html</a></p>
+
+      
+      
+      
+      <p>本文地址 <a href="http://xiaoqiang730730.github.io/2016/08/21/javascriptDeepClone/">http://xiaoqiang730730.github.io/2016/08/21/javascriptDeepClone/</a></p>
+      
+    </div>
+
+    <div>
+      
+        
+<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
+  <div>觉得有点意思，打个赏鼓励博主继续写哈！がんばって</div>
+  <button id="rewardButton", disable="enable", onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}", style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
+    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onMouseOut="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; line-height: 81px; color: #fff; font: 400 35px/75px 'microsofty'; background: rgb(236,96,0)">赏</span>
+  </button>
+  <div id="QR">
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/pay_weixin.jpg" alt="前端-小强 WeChat Pay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>微信打赏</p>
+      </div>
+    
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/pay_ali.jpg" alt="前端-小强 Alipay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>支付宝打赏</p>
+      </div>
+    
+  </div>
+<div>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/js/" rel="tag">#js</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/14/work/" rel="next" title="怎么找工作，怎么找到工作，怎么找到满意工作？">
+                <i class="fa fa-chevron-left"></i> 怎么找工作，怎么找到工作，怎么找到满意工作？
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/16/debuggerInit/" rel="prev" title="debuggerInit">
+                debuggerInit <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="https://schema.org/Person">
+          <a href="http://weibo.com/smallwall520" target="_blank"><img class="site-author-image" itemprop="image"
+               src="http://tva3.sinaimg.cn/crop.0.0.595.595.180/9cdb6f6ajw8euw777vtovj20gj0gjq3m.jpg"
+               alt="前端-小强" /></a>
+          <p class="site-author-name" itemprop="name"><a href="http://weibo.com/smallwall520" target="_blank">前端-小强</a></p>
+          <p class="site-description motion-element" itemprop="description">前端-小强</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+          
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xiaoqiang730730" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/smallwall520" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://jq.qq.com/?_wv=1027&k=27e2GpT" target="_blank">
+                  
+                    <i class="fa fa-qq"></i> QQ
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:838871837@qq.com" target="_blank">
+                  
+                    <i class="fa fa-envelope-o"></i> Mail
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">友链</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://indexof.site/" target="_blank">flyover</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://guowenfh.github.io" target="_blank">三省吾身丶丶</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://iwuly.com" target="_blank">前端老军医</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://zhaishuaigan.cn/" target="_blank">玩具机器人</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#深拷贝-deepClone-？"><span class="nav-number">1.</span> <span class="nav-text">深拷贝(deepClone)？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#为啥要用深拷贝？"><span class="nav-number">1.1.</span> <span class="nav-text">为啥要用深拷贝？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#实现"><span class="nav-number">2.</span> <span class="nav-text">实现</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#判断javascript类型"><span class="nav-number">2.1.</span> <span class="nav-text">判断javascript类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#实现deepClone"><span class="nav-number">2.2.</span> <span class="nav-text">实现deepClone</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#浅拷贝？"><span class="nav-number">3.</span> <span class="nav-text">浅拷贝？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#Element类型"><span class="nav-number">4.</span> <span class="nav-text">Element类型</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#其它方式？"><span class="nav-number">5.</span> <span class="nav-text">其它方式？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#小结"><span class="nav-number">6.</span> <span class="nav-text">小结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考文献"><span class="nav-number">7.</span> <span class="nav-text">参考文献</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"><a href="http://weibo.com/smallwall520" target="_blank">前端-小强 </a></span>
+
+  <span title="前端学习QQ群, 认真学习、不做作">
+    <i class="fa fa-qq"></i>
+  </span>
+  <span title="前端学习QQ群, 认真学习、不做作"><a href="http://jq.qq.com/?_wv=1027&k=27e2GpT" target="_blank">QQ学习群:555892517</a></span></span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+<script type="text/javascript" src="/js/src/console.js"></script>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/js/vendor/jquery/index.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.6.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.6.1"></script>
+
+  <script type="text/javascript" src="/js/src/scrollIndicator.js?v=0.6.1"></script>
+
+  <script type="text/javascript" src="/js/src/comment.js?v=0.6.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.6.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.6.1"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.6.1"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.6.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/baiduPush.js"></script>
+  
+  
+</body>
+</html>

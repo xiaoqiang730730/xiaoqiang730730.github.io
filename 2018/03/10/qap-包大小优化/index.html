@@ -1,0 +1,944 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/js/vendor/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="/css/css.css" rel="stylesheet" type="text/css">
+  
+  
+
+
+
+<link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.6.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="qap,babel,webpack," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="前端-小强" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.6.1" />
+
+
+
+
+
+
+<meta name="description" content="Qianniu Application Platform(QAP)是阿里千牛官方推出的、功能丰富的开发者套件。底层weex，上层有SDK接口、rax库、以及rax的ui组件nuke   rax   nuke是一套基于 Weex 容器 与 rax 开源渲染引擎的面向电商中后台场景的 UI 组件生态  背景2017年 由于整个技术方向切到qap平台，将原有的h5 web app 改造成以weex渲染">
+<meta name="keywords" content="qap,babel,webpack">
+<meta property="og:type" content="article">
+<meta property="og:title" content="qap_包大小优化">
+<meta property="og:url" content="http://xiaoqiang730730.github.io/2018/03/10/qap-包大小优化/index.html">
+<meta property="og:site_name" content="前端-小强">
+<meta property="og:description" content="Qianniu Application Platform(QAP)是阿里千牛官方推出的、功能丰富的开发者套件。底层weex，上层有SDK接口、rax库、以及rax的ui组件nuke   rax   nuke是一套基于 Weex 容器 与 rax 开源渲染引擎的面向电商中后台场景的 UI 组件生态  背景2017年 由于整个技术方向切到qap平台，将原有的h5 web app 改造成以weex渲染">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_4.png">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_1.png">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_10.png">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_2.png">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_3.png">
+<meta property="og:updated_time" content="2018-09-24T06:27:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="qap_包大小优化">
+<meta name="twitter:description" content="Qianniu Application Platform(QAP)是阿里千牛官方推出的、功能丰富的开发者套件。底层weex，上层有SDK接口、rax库、以及rax的ui组件nuke   rax   nuke是一套基于 Weex 容器 与 rax 开源渲染引擎的面向电商中后台场景的 UI 组件生态  背景2017年 由于整个技术方向切到qap平台，将原有的h5 web app 改造成以weex渲染">
+<meta name="twitter:image" content="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_4.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> qap_包大小优化 | 前端-小强 </title>
+</head>
+
+<body itemscope itemtype="https://schema.org/WebPage" lang="zh-Hans">
+<a href="https://github.com/xiaoqiang730730" target="_blank"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 43;" src="/images/follow.png" alt="Fork me on GitHub" /></a>
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-81240080-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?68a2982b86f566cea2f90805ace87cfc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <div class="scroll-line"></div>
+  <div class="container one-collumn sidebar-position-left page-post-detail ice">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="https://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">前端-小强</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          
+          
+
+          <a href="/" rel="section" >
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          
+          
+
+          <a href="/categories" rel="section" >
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          
+          
+
+          <a href="/archives" rel="section" >
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          
+          
+
+          <a href="/tags" rel="section" >
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          
+          
+
+          <a href="/about" rel="section" >
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-neitui">
+          
+          
+
+          <a href="/neitui" rel="section" >
+            
+              <i class="menu-item-icon fa fa-globe fa-fw"></i> <br />
+            
+            内推
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                qap_包大小优化
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-03-10T17:04:36+08:00" content="2018-03-10">
+              2018-03-10
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <blockquote>
+<p><a href="http://open.taobao.com/docs/doc.htm?spm=a219a.7629140.0.0.Stgo7V&amp;treeId=260&amp;articleId=105545&amp;docType=1" target="_blank" rel="noopener">Qianniu Application Platform(QAP)是阿里千牛官方推出的、功能丰富的开发者套件。底层weex，上层有SDK接口、rax库、以及rax的ui组件nuke</a></p>
+</blockquote>
+<blockquote>
+<p><a href="https://alibaba.github.io/rax/" target="_blank" rel="noopener">rax</a></p>
+</blockquote>
+<blockquote>
+<p><a href="http://nuke.taobao.org/nukedocs/guide/nuke-introduce.html" target="_blank" rel="noopener">nuke是一套基于 Weex 容器 与 rax 开源渲染引擎的面向电商中后台场景的 UI 组件生态</a></p>
+</blockquote>
+<h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>2017年 由于整个技术方向切到qap平台，将原有的h5 web app 改造成以weex渲染。</p>
+<h1 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h1><p><a href="https://github.com/xiaoqiang730730/qapOptimizitons" target="_blank" rel="noopener">可以查看demo了解文件目录</a></p>
+<h1 id="包大小优化原因"><a href="#包大小优化原因" class="headerlink" title="包大小优化原因"></a>包大小优化原因</h1><p>qap平台应用简单来说是多页应用，每个页面之间都是无关联的，借助于weex的<code>navigator</code>进行跳转。对比web浏览器来说，就是多页面开发，每次跳转都是打开新的窗口页面。web浏览器是支持一个页面里面引入多个js的，但是<a href="(https://weex.apache.org/cn/wiki/platform-difference.html#mei-you-history-location-navigator-dui-xiang">weex现阶段只支持一个页面一个js</a>)。</p>
+<p>qap平台是将千牛应用的js打包成一个zip，通过后台服务上传，然后由千牛推送给用户，这就决定了我们必然要去优化这个zip包的大小。</p>
+<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_4.png" alt="正式环境的包"></p>
+<p>同时用户在首次下载新版本包的时候，包越大越容易导致丢包，用户无法更新到最新包，用户网络不能一直保持良好状态。</p>
+<h1 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h1><p><img src="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_1.png" alt="意见反馈"></p>
+<p>页面比较简单，核心代码如下<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;createElement, Component, render&#125; <span class="keyword">from</span> <span class="string">'rax'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;View,Text,Button,Link,Image,Modal,TextInput,TouchableHighlight&#125; <span class="keyword">from</span> <span class="string">'nuke'</span>;</span><br><span class="line"><span class="keyword">import</span> st <span class="keyword">from</span> <span class="string">'./style.rxscss'</span>;</span><br><span class="line"><span class="keyword">import</span> QAP <span class="keyword">from</span> <span class="string">'QAP-SDK'</span>;</span><br><span class="line"><span class="keyword">import</span> WangWang <span class="keyword">from</span> <span class="string">'common/chatww'</span>;</span><br><span class="line"><span class="keyword">import</span> RCUserInfo <span class="keyword">from</span> <span class="string">'common/userInfo'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Feedback</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">        <span class="keyword">super</span>(props);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 具体业务场景</span></span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;View style=&#123;st.feedbackContentWrap&#125;&gt;</span><br><span class="line">                &lt;View style=&#123;st.feedbackInputWrap&#125;&gt;</span><br><span class="line">                    &lt;TextInput</span><br><span class="line">                        ref=<span class="string">"myFb"</span></span><br><span class="line">                        placeholder=<span class="string">'吐槽、建议、改进、新功能统统写上来，我们会尽快联系您哒~'</span></span><br><span class="line">                        multiline=&#123;<span class="literal">true</span>&#125;</span><br><span class="line">                        style=&#123;st.feedbackInput&#125;</span><br><span class="line">                    /&gt;</span><br><span class="line">                &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">                &lt;Button</span></span><br><span class="line"><span class="regexp">                    style=&#123;st.singleSubmitBtn&#125;</span></span><br><span class="line"><span class="regexp">                    onPress=&#123;this.submit.bind(this)&#125;</span></span><br><span class="line"><span class="regexp">                &gt;</span></span><br><span class="line"><span class="regexp">                    提交</span></span><br><span class="line"><span class="regexp">                &lt;/</span>Button&gt;</span><br><span class="line">            &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">        );</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">render(&lt;Feedback/</span>&gt;);</span><br></pre></td></tr></table></figure></p>
+<p>这个页面依赖了<code>rax, QAP-SDK, nuke, chatww, userInfo style.rxscss</code>，但是阿里的qap平台已经帮我们内嵌了<code>rax, QAP-SDK, nuke</code>，我们在打包的时候就不需要打包了，剩下的依赖其实不算是很多，然而最终的打包之后的大小不理想。达到了38k。</p>
+<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_10.png" alt=""></p>
+<h1 id="再次分析"><a href="#再次分析" class="headerlink" title="再次分析"></a>再次分析</h1><p>我们里面依赖了<a href="https://github.com/xiaoqiang730730/qapOptimizitons/blob/master/src/common/userInfo.js" target="_blank" rel="noopener">userInfo, 而userInfo依赖了fetch，fetch依赖了apiList</a>，</p>
+<p>而apiList是啥？</p>
+<h1 id="apiList分析"><a href="#apiList分析" class="headerlink" title="apiList分析"></a>apiList分析</h1><p>对于前后分离项目，前端这边会有一个api映射表，用于数据请求。这里apiList是所有页面的api映射的集合。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> apiList = &#123;</span><br><span class="line">    getUserInfo: &#123;</span><br><span class="line">        server: <span class="string">'rc'</span>,</span><br><span class="line">        url: <span class="string">'https://mwdsp.superboss.cc/public/getUserInfo.rjson'</span></span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>随着项目越来越复杂，apiList 越来越复杂，在实际项目里面apiList 达到了30k多。</p>
+<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_2.png" alt=""></p>
+<p>而在实际项目里面有超过80个chunk，<a href="https://weex.apache.org/cn/wiki/platform-difference.html#mei-you-history-location-navigator-dui-xiang" target="_blank" rel="noopener">每个chunk都会打包apiList</a>，有人会说用<code>CommonsChunkPlugin</code>抽离公共的js，但是现在<strong>weex还不支持一个页面多个js机制</strong>，所以就会出现80*30重复了很多。</p>
+<h1 id="拆分apiList"><a href="#拆分apiList" class="headerlink" title="拆分apiList"></a>拆分apiList</h1><p>既然apiList冗余，那能不能在使用的时候，只要打包想要的呢？</p>
+<h1 id="方案1-更改请求写法"><a href="#方案1-更改请求写法" class="headerlink" title="方案1-更改请求写法"></a>方案1-更改请求写法</h1><p>现有的方式<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.request(&#123;</span><br><span class="line">    api: <span class="string">'XXX'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>这种方式在原有的h5里面是可以的，全局共享apiList。</p>
+<p>可以改成<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;XXX&#125; <span class="keyword">from</span> <span class="string">'api'</span></span><br><span class="line"></span><br><span class="line">XXX();</span><br></pre></td></tr></table></figure></p>
+<p>这样就能够按需加载api了，但是要大改整个请求，而且在每个页面都得更改，成本太大了。新的项目可以这样子，但是对于现有的项目改动成本大。</p>
+<h1 id="方案2-提前处理api"><a href="#方案2-提前处理api" class="headerlink" title="方案2-提前处理api"></a>方案2-提前处理api</h1><p>既然apiList很大，那就不用了，直接在使用的时候，把映射关系写到参数里面。</p>
+<p>这个会带来很多问题，一个api在多个页面被使用了，一旦改动就要涉及到多个页面改动，给项目维护带来很大困难。</p>
+<h1 id="方案3-提前预处理api"><a href="#方案3-提前预处理api" class="headerlink" title="方案3-提前预处理api"></a>方案3-提前预处理api</h1><p>改进方案2，还是按照之前的写法，在打包的过程中，提前把映射关系注入参数。</p>
+<h2 id="利用babel-plugin"><a href="#利用babel-plugin" class="headerlink" title="利用babel-plugin"></a>利用babel-plugin</h2><p>将<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">request(&#123;</span><br><span class="line">    api: <span class="string">'A0'</span></span><br><span class="line">&#125;, (result)=&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(result);</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>转成<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">request(&#123;</span><br><span class="line">    api: <span class="string">'A0'</span>,</span><br><span class="line">    apio: &#123;</span><br><span class="line">        server: <span class="string">'rc'</span>,</span><br><span class="line">        url: <span class="string">'https://mwdsp.superboss.cc/api/a0'</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;, result =&gt; &#123;</span><br><span class="line">    <span class="built_in">console</span>.log(result);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>就可以不需要引入apiList了。</p>
+<p><a href="https://github.com/xiaoqiang730730/qapOptimizitons/tree/master/transAPI" target="_blank" rel="noopener">查看具体详情</a></p>
+<p>这样就能够抛弃apiList了，最终通过这种方式优化了25%的体积。</p>
+<h2 id="进一步思考"><a href="#进一步思考" class="headerlink" title="进一步思考"></a>进一步思考</h2><p>如果有80个页面，每个页面用了userInfo，按照上面的思路，是不是最终会有80个userInfo？</p>
+<p>其实不然，每个页面会有很多组件，如果有些组件里面是单独请求userInfo，也会做一次转化。最终是<code>&gt;=80</code>个。</p>
+<p>那能不能进一步减少呢？</p>
+<p>那就是要抽离重复代码，将userInfo封装成一个公共函数调用，最终webpack计算页面组件依赖关系的时候，只会计算出依赖userInfo这个公共函数，这样就能做到80次转化userInfo。</p>
+<p>那能不能进一步减少呢？</p>
+<p>这里就设计到qap平台的一些特性了，这个后面会在<strong>qap统一入口</strong>里描述，不是任何场景都适合。</p>
+<h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>apiList 是动态对象，业务层存在动态调用。</p>
+<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_3.png" alt=""></p>
+<p>在通过babel-plugin处理request的时候，是得知道真正调用的api的名字的。动态传参是无法转换的。</p>
+<p>这里就需要手动改成静态调用。</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>包的大小对于web应用，以及native应用一直都是难题；在业务复杂情况下，怎么做好包大小控制都是难题。</p>
+<p>此次主要是对apiList进行优化，效果比较显著，在实际项目里包的大小降低了25%。</p>
+<h1 id="再次思考？"><a href="#再次思考？" class="headerlink" title="再次思考？"></a>再次思考？</h1><p>能不能计算出每个页面里面具体使用了哪些api，然后替换掉apiList，每个页面的apiList都是精简过后的，这样就不用转化了。<br>这个在统一入口实战里面有涉及到。</p>
+<h1 id="qap实践系列"><a href="#qap实践系列" class="headerlink" title="qap实践系列"></a>qap实践系列</h1><ol>
+<li><a href="http://xiaoqiang730730.github.io/2018/03/10/qap-%E5%8C%85%E5%A4%A7%E5%B0%8F%E4%BC%98%E5%8C%96/">qap-包大小优化</a></li>
+<li><a href="http://xiaoqiang730730.github.io/2018/03/14/qap%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98_%E7%BB%9F%E4%B8%80%E5%85%A5%E5%8F%A3">qap-统一入口</a></li>
+<li><a href="http://xiaoqiang730730.github.io/2018/03/16/qap%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98_%E5%9B%BE%E8%A1%A8">qap-图表</a></li>
+<li><a href="http://xiaoqiang730730.github.io/2018/03/18/qap最佳实战_跨页面需求">qap-跨页面需求</a></li>
+<li><a href="http://xiaoqiang730730.github.io/2018/03/19/qap%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98_%E5%8A%A8%E6%80%81%E4%BB%A3%E7%A0%81/">qap-动态代码</a></li>
+</ol>
+
+      
+      
+      
+      <p>本文地址 <a href="http://xiaoqiang730730.github.io/2018/03/10/qap-包大小优化/">http://xiaoqiang730730.github.io/2018/03/10/qap-包大小优化/</a></p>
+      
+    </div>
+
+    <div>
+      
+        
+<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
+  <div>觉得有点意思，打个赏鼓励博主继续写哈！がんばって</div>
+  <button id="rewardButton", disable="enable", onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}", style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
+    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onMouseOut="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; line-height: 81px; color: #fff; font: 400 35px/75px 'microsofty'; background: rgb(236,96,0)">赏</span>
+  </button>
+  <div id="QR">
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/pay_weixin.jpg" alt="前端-小强 WeChat Pay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>微信打赏</p>
+      </div>
+    
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/pay_ali.jpg" alt="前端-小强 Alipay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>支付宝打赏</p>
+      </div>
+    
+  </div>
+<div>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/qap/" rel="tag">#qap</a>
+          
+            <a href="/tags/babel/" rel="tag">#babel</a>
+          
+            <a href="/tags/webpack/" rel="tag">#webpack</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/12/19/2016D2/" rel="next" title="2016D2">
+                <i class="fa fa-chevron-left"></i> 2016D2
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/03/14/qap最佳实战_统一入口/" rel="prev" title="qap最佳实战_统一入口">
+                qap最佳实战_统一入口 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="https://schema.org/Person">
+          <a href="http://weibo.com/smallwall520" target="_blank"><img class="site-author-image" itemprop="image"
+               src="http://tva3.sinaimg.cn/crop.0.0.595.595.180/9cdb6f6ajw8euw777vtovj20gj0gjq3m.jpg"
+               alt="前端-小强" /></a>
+          <p class="site-author-name" itemprop="name"><a href="http://weibo.com/smallwall520" target="_blank">前端-小强</a></p>
+          <p class="site-description motion-element" itemprop="description">前端-小强</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+          
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xiaoqiang730730" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/smallwall520" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://jq.qq.com/?_wv=1027&k=27e2GpT" target="_blank">
+                  
+                    <i class="fa fa-qq"></i> QQ
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:838871837@qq.com" target="_blank">
+                  
+                    <i class="fa fa-envelope-o"></i> Mail
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">友链</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://indexof.site/" target="_blank">flyover</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://guowenfh.github.io" target="_blank">三省吾身丶丶</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://iwuly.com" target="_blank">前端老军医</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://zhaishuaigan.cn/" target="_blank">玩具机器人</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">1.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#demo"><span class="nav-number">2.</span> <span class="nav-text">demo</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#包大小优化原因"><span class="nav-number">3.</span> <span class="nav-text">包大小优化原因</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#一个例子"><span class="nav-number">4.</span> <span class="nav-text">一个例子</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#再次分析"><span class="nav-number">5.</span> <span class="nav-text">再次分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#apiList分析"><span class="nav-number">6.</span> <span class="nav-text">apiList分析</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#拆分apiList"><span class="nav-number">7.</span> <span class="nav-text">拆分apiList</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方案1-更改请求写法"><span class="nav-number">8.</span> <span class="nav-text">方案1-更改请求写法</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方案2-提前处理api"><span class="nav-number">9.</span> <span class="nav-text">方案2-提前处理api</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方案3-提前预处理api"><span class="nav-number">10.</span> <span class="nav-text">方案3-提前预处理api</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#利用babel-plugin"><span class="nav-number">10.1.</span> <span class="nav-text">利用babel-plugin</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#进一步思考"><span class="nav-number">10.2.</span> <span class="nav-text">进一步思考</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#问题"><span class="nav-number">10.3.</span> <span class="nav-text">问题</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">11.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#再次思考？"><span class="nav-number">12.</span> <span class="nav-text">再次思考？</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#qap实践系列"><span class="nav-number">13.</span> <span class="nav-text">qap实践系列</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"><a href="http://weibo.com/smallwall520" target="_blank">前端-小强 </a></span>
+
+  <span title="前端学习QQ群, 认真学习、不做作">
+    <i class="fa fa-qq"></i>
+  </span>
+  <span title="前端学习QQ群, 认真学习、不做作"><a href="http://jq.qq.com/?_wv=1027&k=27e2GpT" target="_blank">QQ学习群:555892517</a></span></span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+<script type="text/javascript" src="/js/src/console.js"></script>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/js/vendor/jquery/index.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.6.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.6.1"></script>
+
+  <script type="text/javascript" src="/js/src/scrollIndicator.js?v=0.6.1"></script>
+
+  <script type="text/javascript" src="/js/src/comment.js?v=0.6.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.6.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.6.1"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.6.1"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.6.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/baiduPush.js"></script>
+  
+  
+</body>
+</html>

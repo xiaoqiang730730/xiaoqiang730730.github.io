@@ -1,0 +1,950 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/js/vendor/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="/css/css.css" rel="stylesheet" type="text/css">
+  
+  
+
+
+
+<link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.6.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="debugger," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="前端-小强" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.6.1" />
+
+
+
+
+
+
+<meta name="description" content="在测试过程中，有些问题看似是前端的问题，但因为是在界面上错误，一般测试都会把错误指向给前端，而其中很多的接口错误，服务错误，都应该让后端来解决。为了更准确的定位问题，最近给测试工程师讲了一些前端code debugger。ppt 先导  这个时候开发会怎么想呢？  网络问题 设备问题 接口问题 后端数据问题 前端处理问题  为了这么多不确定因素，需要更精确的定位问题所在。 前后接口标准现在很多项目">
+<meta name="keywords" content="debugger">
+<meta property="og:type" content="article">
+<meta property="og:title" content="debuggerInit">
+<meta property="og:url" content="http://xiaoqiang730730.github.io/2016/10/16/debuggerInit/index.html">
+<meta property="og:site_name" content="前端-小强">
+<meta property="og:description" content="在测试过程中，有些问题看似是前端的问题，但因为是在界面上错误，一般测试都会把错误指向给前端，而其中很多的接口错误，服务错误，都应该让后端来解决。为了更准确的定位问题，最近给测试工程师讲了一些前端code debugger。ppt 先导  这个时候开发会怎么想呢？  网络问题 设备问题 接口问题 后端数据问题 前端处理问题  为了这么多不确定因素，需要更精确的定位问题所在。 前后接口标准现在很多项目">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/code1.png">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/code3.png">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/code4.png">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/code5.png">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/code6.png">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/code7.png">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/code13%20.png">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/code14.png">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/code8.png">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/code9.png">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/code10.png">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/code11.png">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/code12.png">
+<meta property="og:image" content="http://www.admin10000.com/UploadFiles/Document/201208/17/20120817201705599153.PNG">
+<meta property="og:updated_time" content="2018-09-24T06:27:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="debuggerInit">
+<meta name="twitter:description" content="在测试过程中，有些问题看似是前端的问题，但因为是在界面上错误，一般测试都会把错误指向给前端，而其中很多的接口错误，服务错误，都应该让后端来解决。为了更准确的定位问题，最近给测试工程师讲了一些前端code debugger。ppt 先导  这个时候开发会怎么想呢？  网络问题 设备问题 接口问题 后端数据问题 前端处理问题  为了这么多不确定因素，需要更精确的定位问题所在。 前后接口标准现在很多项目">
+<meta name="twitter:image" content="http://7te8kr.com1.z0.glb.clouddn.com/code1.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> debuggerInit | 前端-小强 </title>
+</head>
+
+<body itemscope itemtype="https://schema.org/WebPage" lang="zh-Hans">
+<a href="https://github.com/xiaoqiang730730" target="_blank"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 43;" src="/images/follow.png" alt="Fork me on GitHub" /></a>
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-81240080-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?68a2982b86f566cea2f90805ace87cfc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <div class="scroll-line"></div>
+  <div class="container one-collumn sidebar-position-left page-post-detail ice">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="https://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">前端-小强</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          
+          
+
+          <a href="/" rel="section" >
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          
+          
+
+          <a href="/categories" rel="section" >
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          
+          
+
+          <a href="/archives" rel="section" >
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          
+          
+
+          <a href="/tags" rel="section" >
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          
+          
+
+          <a href="/about" rel="section" >
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-neitui">
+          
+          
+
+          <a href="/neitui" rel="section" >
+            
+              <i class="menu-item-icon fa fa-globe fa-fw"></i> <br />
+            
+            内推
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                debuggerInit
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-10-16T14:59:25+08:00" content="2016-10-16">
+              2016-10-16
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <p>在测试过程中，有些问题看似是前端的问题，但因为是在界面上错误，一般测试都会把错误指向给前端，而其中很多的接口错误，服务错误，都应该让后端来解决。为了更准确的定位问题，最近给测试工程师讲了一些前端code debugger。<a href="http://yjq520.coding.me/debuggerinit20161016/" target="_blank" rel="noopener">ppt</a></p>
+<h1 id="先导"><a href="#先导" class="headerlink" title="先导"></a>先导</h1><p><img src="http://7te8kr.com1.z0.glb.clouddn.com/code1.png" alt=""></p>
+<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/code3.png" alt=""></p>
+<p>这个时候开发会怎么想呢？</p>
+<ul>
+<li>网络问题</li>
+<li>设备问题</li>
+<li>接口问题</li>
+<li>后端数据问题</li>
+<li>前端处理问题</li>
+</ul>
+<p>为了这么多不确定因素，需要更精确的定位问题所在。</p>
+<h1 id="前后接口标准"><a href="#前后接口标准" class="headerlink" title="前后接口标准"></a>前后接口标准</h1><p>现在很多项目都是前后分离的，各家公司都有自己的标准。<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="comment">// 错误规则</span></span><br><span class="line"><span class="keyword">var</span> resultRule = &#123;</span><br><span class="line">	<span class="number">1</span>: <span class="string">'success'</span>,</span><br><span class="line">	<span class="number">2</span>: <span class="string">'参数异常'</span>,</span><br><span class="line">	<span class="number">3</span>: <span class="string">'服务端运行异常'</span>,</span><br><span class="line">	<span class="number">4</span>: <span class="string">'服务端内部错误'</span>,</span><br><span class="line">	<span class="number">5</span>: <span class="string">'服务端内部调用失败'</span>,</span><br><span class="line">	<span class="number">6</span>: <span class="string">'淘宝服务调用失败'</span>,</span><br><span class="line">	<span class="number">7</span>: <span class="string">'调用内部程序失败'</span>,</span><br><span class="line">	<span class="number">8</span>: <span class="string">'用户没有权限'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 后端返回数据</span></span><br><span class="line">&#123;</span><br><span class="line">	result: <span class="number">100</span>, <span class="comment">// 规则</span></span><br><span class="line">	data: &#123;&#125; <span class="comment">// 数据</span></span><br><span class="line">	message: <span class="string">'string'</span> <span class="comment">// 错误信息</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></p>
+<p>所以一旦后端返回的数据中result不是以1开始的，就是其它错误了。也就是说，就直接找后端了。O(∩_∩)O哈哈~</p>
+<h1 id="常见http状态码"><a href="#常见http状态码" class="headerlink" title="常见http状态码"></a>常见http状态码</h1><p>对于web开发而言，状态码要有一定的熟悉度。</p>
+<ol>
+<li>200 表示响应成功</li>
+<li>404 表示没有资源</li>
+<li>502 Bad Gateway<br>状态码有很多，很多时候都记不住的，参考月影大大<a href="https://www.h5jun.com/post/choosing-an-http-status-code-stop-making-it-hard-8211-racksburg.html" target="_blank" rel="noopener">【译】选择一个 HTTP 状态码不再是一件难事 – Racksburg</a>，查查手册就可以了。</li>
+</ol>
+<h1 id="查看api数据"><a href="#查看api数据" class="headerlink" title="查看api数据"></a>查看api数据</h1><p>通过页面F12打开debugger工具（千牛不允许打开debugger工具，需要负责人设置白名单）</p>
+<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/code4.png" alt=""></p>
+<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/code5.png" alt=""></p>
+<h1 id="pc抓包"><a href="#pc抓包" class="headerlink" title="pc抓包"></a>pc抓包</h1><ol>
+<li>安装fiddler（mac下安装charles）, 使用其默认的配置即可</li>
+<li>打开浏览器的Internet选项-&gt;连接-&gt;局域网设置-&gt;代理服务器(填写ip和fidder默认端口8888)</li>
+<li>fiddler捕捉到数据包</li>
+</ol>
+<h2 id="Internet配置"><a href="#Internet配置" class="headerlink" title="Internet配置"></a>Internet配置</h2><p><img src="http://7te8kr.com1.z0.glb.clouddn.com/code6.png" alt=""></p>
+<h2 id="fiddler"><a href="#fiddler" class="headerlink" title="fiddler"></a>fiddler</h2><p><img src="http://7te8kr.com1.z0.glb.clouddn.com/code7.png" alt=""></p>
+<h2 id="fidder替换文件"><a href="#fidder替换文件" class="headerlink" title="fidder替换文件"></a>fidder替换文件</h2><p>对于前端而言，在开发的过程中，要用本地的js文件替换掉线上的js文件。<br><img src="http://7te8kr.com1.z0.glb.clouddn.com/code13%20.png" alt=""></p>
+<h2 id="fidder替换文件（2）"><a href="#fidder替换文件（2）" class="headerlink" title="fidder替换文件（2）"></a>fidder替换文件（2）</h2><p>而在前端开发的过程中要新增几个文件，但是线上又没有，每次都得对单个文件替换掉，这很麻烦。<br>fiddler提供了正则匹配。比如要将图片全部代理到本地。<br>只有设置regex:线上地址/img/(?<args>.*)$<br>替换为 本地路径\img\${args}<br><img src="http://7te8kr.com1.z0.glb.clouddn.com/code14.png" alt=""></args></p>
+<h1 id="千牛pc抓包"><a href="#千牛pc抓包" class="headerlink" title="千牛pc抓包"></a>千牛pc抓包</h1><ol>
+<li>跟pc的过程类型，只是Internet配置不一样。</li>
+<li>打开系统设置-&gt;网络-&gt;启动代理-&gt;填写代理服务器ip和端口。<br><img src="http://7te8kr.com1.z0.glb.clouddn.com/code8.png" alt=""></li>
+</ol>
+<h1 id="移动端抓包"><a href="#移动端抓包" class="headerlink" title="移动端抓包"></a>移动端抓包</h1><ol>
+<li>手机和电脑是同一网络</li>
+<li>电脑打开fiddler</li>
+<li>手机设置网络代理（打开网络的高级设置-&gt;开启手动http代理-&gt;填写电脑的ip和端口)</li>
+</ol>
+<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/code9.png" alt=""></p>
+<h1 id="千牛移动抓包"><a href="#千牛移动抓包" class="headerlink" title="千牛移动抓包"></a>千牛移动抓包</h1><p>大体过程跟之前的差不多。<br>由于淘宝的图片现在都是https了，就会出现图片丢失的现象。这是因为没有安装fiddler的安全证书。</p>
+<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/code10.png" alt=""></p>
+<h2 id="安装安全证书"><a href="#安装安全证书" class="headerlink" title="安装安全证书"></a>安装安全证书</h2><p>用手机直接访问电脑代理ip和端口<br><img src="http://7te8kr.com1.z0.glb.clouddn.com/code11.png" alt=""></p>
+<h1 id="移动端debugger"><a href="#移动端debugger" class="headerlink" title="移动端debugger"></a>移动端debugger</h1><p>对于移动端而言，调试很麻烦。抓包只能解决接口问题，还有样式问题、其他未知问题，抓包就显得无力了！<br>推荐几篇移动调试的文章<a href="https://github.com/jieyou/remote_inspect_web_on_real_device?utm_campaign=email_admin&amp;utm_source=trigger-email&amp;utm_medium=email" target="_blank" rel="noopener">参考1</a> <a href="http://yujiangshui.com/multidevice-frontend-debug/" target="_blank" rel="noopener">参考2</a></p>
+<p>经过各种尝试还是使用chrome inspect这个方法较方便。</p>
+<ol>
+<li>准备安卓手机和电脑chrome</li>
+<li>准备翻墙工具</li>
+<li>手机通过usb连接电脑，并开启usb调试</li>
+<li>打开chrome，输入chrome://inspect/</li>
+</ol>
+<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/code12.png" alt=""></p>
+<p>对于ios出现的问题，博主一般会在pc的Safari中进行调试，一般都能解决问题。</p>
+<h1 id="问题？"><a href="#问题？" class="headerlink" title="问题？"></a>问题？</h1><h2 id="无法知道哪些是有用的数据，或者要去看哪个包？"><a href="#无法知道哪些是有用的数据，或者要去看哪个包？" class="headerlink" title="无法知道哪些是有用的数据，或者要去看哪个包？"></a>无法知道哪些是有用的数据，或者要去看哪个包？</h2><p>这个问题，其实也是开发者接手一个项目时会有的疑问。对于开发者最笨的方法就是去看源代码。最好方法就是去查阅文档了，但是很多时候，其实是没有文档的！！！</p>
+<p>其实很好解决，就是在查看某个功能的时候，清空fiddler，然后点击一下按钮，查看下此时发生多少请求，这样缩小数据包的范围，便于更好的定位。</p>
+<h2 id="fiddler能抓pc的包，不能抓移动的包？"><a href="#fiddler能抓pc的包，不能抓移动的包？" class="headerlink" title="fiddler能抓pc的包，不能抓移动的包？"></a>fiddler能抓pc的包，不能抓移动的包？</h2><p>在抓移动的包的时候，好像会有有个警告弹框，把弹框最外层的勾去掉，再重启试试！</p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>这里只是初步的定位问题，最终还是要开发去定位到源码的！<br><a href="http://yjq520.coding.me/debuggerinit20161016/" target="_blank" rel="noopener">查看ppt</a></p>
+<p>ps：<br><img src="http://www.admin10000.com/UploadFiles/Document/201208/17/20120817201705599153.PNG" alt=""></p>
+
+      
+      
+      
+      <p>本文地址 <a href="http://xiaoqiang730730.github.io/2016/10/16/debuggerInit/">http://xiaoqiang730730.github.io/2016/10/16/debuggerInit/</a></p>
+      
+    </div>
+
+    <div>
+      
+        
+<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
+  <div>觉得有点意思，打个赏鼓励博主继续写哈！がんばって</div>
+  <button id="rewardButton", disable="enable", onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}", style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
+    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onMouseOut="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; line-height: 81px; color: #fff; font: 400 35px/75px 'microsofty'; background: rgb(236,96,0)">赏</span>
+  </button>
+  <div id="QR">
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/pay_weixin.jpg" alt="前端-小强 WeChat Pay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>微信打赏</p>
+      </div>
+    
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/pay_ali.jpg" alt="前端-小强 Alipay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>支付宝打赏</p>
+      </div>
+    
+  </div>
+<div>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/debugger/" rel="tag">#debugger</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2016/08/21/javascriptDeepClone/" rel="next" title="javascript深拷贝">
+                <i class="fa fa-chevron-left"></i> javascript深拷贝
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2016/10/22/ajaxAbort/" rel="prev" title="ajaxAbort">
+                ajaxAbort <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="https://schema.org/Person">
+          <a href="http://weibo.com/smallwall520" target="_blank"><img class="site-author-image" itemprop="image"
+               src="http://tva3.sinaimg.cn/crop.0.0.595.595.180/9cdb6f6ajw8euw777vtovj20gj0gjq3m.jpg"
+               alt="前端-小强" /></a>
+          <p class="site-author-name" itemprop="name"><a href="http://weibo.com/smallwall520" target="_blank">前端-小强</a></p>
+          <p class="site-description motion-element" itemprop="description">前端-小强</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+          
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xiaoqiang730730" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/smallwall520" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://jq.qq.com/?_wv=1027&k=27e2GpT" target="_blank">
+                  
+                    <i class="fa fa-qq"></i> QQ
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:838871837@qq.com" target="_blank">
+                  
+                    <i class="fa fa-envelope-o"></i> Mail
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">友链</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://indexof.site/" target="_blank">flyover</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://guowenfh.github.io" target="_blank">三省吾身丶丶</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://iwuly.com" target="_blank">前端老军医</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://zhaishuaigan.cn/" target="_blank">玩具机器人</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#先导"><span class="nav-number">1.</span> <span class="nav-text">先导</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#前后接口标准"><span class="nav-number">2.</span> <span class="nav-text">前后接口标准</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#常见http状态码"><span class="nav-number">3.</span> <span class="nav-text">常见http状态码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查看api数据"><span class="nav-number">4.</span> <span class="nav-text">查看api数据</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#pc抓包"><span class="nav-number">5.</span> <span class="nav-text">pc抓包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#Internet配置"><span class="nav-number">5.1.</span> <span class="nav-text">Internet配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fiddler"><span class="nav-number">5.2.</span> <span class="nav-text">fiddler</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fidder替换文件"><span class="nav-number">5.3.</span> <span class="nav-text">fidder替换文件</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fidder替换文件（2）"><span class="nav-number">5.4.</span> <span class="nav-text">fidder替换文件（2）</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#千牛pc抓包"><span class="nav-number">6.</span> <span class="nav-text">千牛pc抓包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#移动端抓包"><span class="nav-number">7.</span> <span class="nav-text">移动端抓包</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#千牛移动抓包"><span class="nav-number">8.</span> <span class="nav-text">千牛移动抓包</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#安装安全证书"><span class="nav-number">8.1.</span> <span class="nav-text">安装安全证书</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#移动端debugger"><span class="nav-number">9.</span> <span class="nav-text">移动端debugger</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题？"><span class="nav-number">10.</span> <span class="nav-text">问题？</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#无法知道哪些是有用的数据，或者要去看哪个包？"><span class="nav-number">10.1.</span> <span class="nav-text">无法知道哪些是有用的数据，或者要去看哪个包？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#fiddler能抓pc的包，不能抓移动的包？"><span class="nav-number">10.2.</span> <span class="nav-text">fiddler能抓pc的包，不能抓移动的包？</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">11.</span> <span class="nav-text">总结</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"><a href="http://weibo.com/smallwall520" target="_blank">前端-小强 </a></span>
+
+  <span title="前端学习QQ群, 认真学习、不做作">
+    <i class="fa fa-qq"></i>
+  </span>
+  <span title="前端学习QQ群, 认真学习、不做作"><a href="http://jq.qq.com/?_wv=1027&k=27e2GpT" target="_blank">QQ学习群:555892517</a></span></span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+<script type="text/javascript" src="/js/src/console.js"></script>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/js/vendor/jquery/index.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.6.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.6.1"></script>
+
+  <script type="text/javascript" src="/js/src/scrollIndicator.js?v=0.6.1"></script>
+
+  <script type="text/javascript" src="/js/src/comment.js?v=0.6.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.6.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.6.1"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.6.1"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.6.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/baiduPush.js"></script>
+  
+  
+</body>
+</html>

@@ -1,0 +1,922 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/js/vendor/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="/css/css.css" rel="stylesheet" type="text/css">
+  
+  
+
+
+
+<link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.6.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="webpack,codeSplit,react,react-router,react-loadable," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="前端-小强" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.6.1" />
+
+
+
+
+
+
+<meta name="description" content="按需加载一开始整个项目只有一个bundle.js，压缩之后达到了4M。导致首屏加载速度很慢，需要优化。 方案优化包大小，从业务角度出发，抽离重复的业务组件，避免大规模的90%相似度代码。需要对业务熟悉，一时间优化没有那么明显。 从技术角度，项目里面使用了react route，那能不能按照路由按需加载呢？ import()之前123import &amp;#123; add &amp;#125; from &apos;./">
+<meta name="keywords" content="webpack,codeSplit,react,react-router,react-loadable">
+<meta property="og:type" content="article">
+<meta property="og:title" content="react按路由分包加载">
+<meta property="og:url" content="http://xiaoqiang730730.github.io/2018/04/06/react按路由分包加载/index.html">
+<meta property="og:site_name" content="前端-小强">
+<meta property="og:description" content="按需加载一开始整个项目只有一个bundle.js，压缩之后达到了4M。导致首屏加载速度很慢，需要优化。 方案优化包大小，从业务角度出发，抽离重复的业务组件，避免大规模的90%相似度代码。需要对业务熟悉，一时间优化没有那么明显。 从技术角度，项目里面使用了react route，那能不能按照路由按需加载呢？ import()之前123import &amp;#123; add &amp;#125; from &apos;./">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/opt_codesplit.png">
+<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/opt_split.gif">
+<meta property="og:updated_time" content="2018-09-24T06:27:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="react按路由分包加载">
+<meta name="twitter:description" content="按需加载一开始整个项目只有一个bundle.js，压缩之后达到了4M。导致首屏加载速度很慢，需要优化。 方案优化包大小，从业务角度出发，抽离重复的业务组件，避免大规模的90%相似度代码。需要对业务熟悉，一时间优化没有那么明显。 从技术角度，项目里面使用了react route，那能不能按照路由按需加载呢？ import()之前123import &amp;#123; add &amp;#125; from &apos;./">
+<meta name="twitter:image" content="http://7te8kr.com1.z0.glb.clouddn.com/opt_codesplit.png">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> react按路由分包加载 | 前端-小强 </title>
+</head>
+
+<body itemscope itemtype="https://schema.org/WebPage" lang="zh-Hans">
+<a href="https://github.com/xiaoqiang730730" target="_blank"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 43;" src="/images/follow.png" alt="Fork me on GitHub" /></a>
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-81240080-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?68a2982b86f566cea2f90805ace87cfc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <div class="scroll-line"></div>
+  <div class="container one-collumn sidebar-position-left page-post-detail ice">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="https://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">前端-小强</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          
+          
+
+          <a href="/" rel="section" >
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          
+          
+
+          <a href="/categories" rel="section" >
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          
+          
+
+          <a href="/archives" rel="section" >
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          
+          
+
+          <a href="/tags" rel="section" >
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          
+          
+
+          <a href="/about" rel="section" >
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-neitui">
+          
+          
+
+          <a href="/neitui" rel="section" >
+            
+              <i class="menu-item-icon fa fa-globe fa-fw"></i> <br />
+            
+            内推
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                react按路由分包加载
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-04-06T22:04:42+08:00" content="2018-04-06">
+              2018-04-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="按需加载"><a href="#按需加载" class="headerlink" title="按需加载"></a>按需加载</h1><p>一开始整个项目只有一个bundle.js，压缩之后达到了4M。导致首屏加载速度很慢，需要优化。</p>
+<h1 id="方案"><a href="#方案" class="headerlink" title="方案"></a>方案</h1><p>优化包大小，从业务角度出发，抽离重复的业务组件，避免大规模的<strong>90%</strong>相似度代码。需要对业务熟悉，一时间优化没有那么明显。</p>
+<p>从技术角度，项目里面使用了react route，那能不能按照路由按需加载呢？</p>
+<h1 id="import"><a href="#import" class="headerlink" title="import()"></a>import()</h1><p>之前<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123; add &#125; <span class="keyword">from</span> <span class="string">'./math'</span>;</span><br><span class="line"></span><br><span class="line"><span class="built_in">console</span>.log(add(<span class="number">16</span>, <span class="number">26</span>));</span><br></pre></td></tr></table></figure></p>
+<p>之后<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span>(<span class="string">"./math"</span>).then(<span class="function"><span class="params">math</span> =&gt;</span> &#123;</span><br><span class="line">  <span class="built_in">console</span>.log(math.add(<span class="number">16</span>, <span class="number">26</span>));</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>利用import(), webpack会帮我们算依赖和局部更新。</p>
+<h1 id="按需加载路由"><a href="#按需加载路由" class="headerlink" title="按需加载路由"></a>按需加载路由</h1><h2 id="正常情况"><a href="#正常情况" class="headerlink" title="正常情况"></a>正常情况</h2><p>一般是项目不大的情况下，会直接使用如下配置</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> React, &#123; Component &#125; <span class="keyword">from</span> <span class="string">'react'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; Route &#125; <span class="keyword">from</span> <span class="string">'react-router-dom'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> a1 <span class="keyword">from</span> <span class="string">'../components/a/a1/index.js'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routes = (</span><br><span class="line">  &lt;div className=<span class="string">'content'</span>&gt;</span><br><span class="line">    &lt;Route exact path=<span class="string">"/a/a1"</span> component=&#123;a1&#125; /&gt;</span><br><span class="line">  &lt;<span class="regexp">/div&gt;</span></span><br><span class="line"><span class="regexp">)</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">export default routes;</span></span><br></pre></td></tr></table></figure>
+<p>这个是路由提前预定好，webpack打包时候会将a1打包到bundle里面。但是erp有140多个route，会导致整个bundle无限变大。</p>
+<h2 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h2><p>route的component本质就是个react.component</p>
+<p>结合import()构造一个加载component</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">LoaderA</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">  <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">    <span class="keyword">super</span>(props);</span><br><span class="line">    <span class="keyword">this</span>.state = &#123;</span><br><span class="line">      loaded: <span class="literal">true</span>,</span><br><span class="line">      loading: <span class="literal">null</span>,</span><br><span class="line">      A: <span class="literal">null</span></span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  componentDidMount() &#123;</span><br><span class="line">    setTimeout(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</span><br><span class="line">      <span class="keyword">import</span>(<span class="string">'../components/a/a1/index.js'</span>).then(<span class="function">(<span class="params">e</span>) =&gt;</span> &#123;</span><br><span class="line">        <span class="keyword">this</span>.setState(&#123;</span><br><span class="line">          A: e.default,</span><br><span class="line">          loaded: <span class="literal">false</span></span><br><span class="line">        &#125;)</span><br><span class="line">      &#125;)</span><br><span class="line">    &#125;, <span class="number">2000</span>)</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  render() &#123;</span><br><span class="line">    <span class="keyword">let</span> &#123; A &#125; = <span class="keyword">this</span>.state;</span><br><span class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>.state.loaded) &#123;</span><br><span class="line">      <span class="built_in">console</span>.log(<span class="string">'loading'</span>);</span><br><span class="line">      <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>loading...<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">A</span> /&gt;</span></span></span><br><span class="line"><span class="xml">  &#125;</span></span><br><span class="line"><span class="xml"></span></span><br><span class="line"><span class="xml">&#125;</span></span><br></pre></td></tr></table></figure>
+<p>LoaderA就是个组件，没有加载到A之前，用占位符，import()之后，再setState渲染真正组件</p>
+<p>在稍微改下route配置<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;Route exact path=<span class="string">"/a/a1"</span> component=&#123;LoaderA&#125; /&gt;</span><br></pre></td></tr></table></figure></p>
+<p><a href="https://stackblitz.com/edit/react-router-uduvm5" target="_blank" rel="noopener">查看运行例子</a></p>
+<h1 id="React-Loadable"><a href="#React-Loadable" class="headerlink" title="React Loadable"></a>React Loadable</h1><p>利用上面的原理，我们就可以自己优化异步加载了，而<a href="https://github.com/jamiebuilds/react-loadable" target="_blank" rel="noopener">React Loadable</a>正是这个方案的优秀的库。</p>
+<p>改写上面的LoaderA</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> Loadable <span class="keyword">from</span> <span class="string">'react-loadable'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> LoaderA = Loadable(&#123;</span><br><span class="line">  loader: <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'../components/a/a1/index.js'</span>).then(<span class="function"><span class="params">a1</span>=&gt;</span> a1.default),</span><br><span class="line">  loading() &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Loading...<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line">&lt;Route exact path=<span class="string">"/a/a1"</span> component=&#123;LoaderA&#125; /&gt;</span><br></pre></td></tr></table></figure>
+<p>但是我们的正式环境的路由有150多个，不能每个都这么去配置，造成颗粒化严重，维护也不好维护了。</p>
+<p>那能不能考虑按照一级路由进行切分，把一个大的bundle会切割几个小的bundle。</p>
+<h1 id="路由配置"><a href="#路由配置" class="headerlink" title="路由配置"></a>路由配置</h1><p>在一级路由下面抽取route和组件之间关系<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> config = [</span><br><span class="line">    &#123; </span><br><span class="line">        bExact: <span class="literal">true</span>, </span><br><span class="line">        hash: <span class="string">'/a/a1'</span>,</span><br><span class="line">        key: <span class="string">'a1'</span></span><br><span class="line">    &#125;,</span><br><span class="line">    &#123; </span><br><span class="line">        bExact: <span class="literal">true</span>,</span><br><span class="line">        hash: <span class="string">'/a/a2'</span>,</span><br><span class="line">        key: <span class="string">'a2'</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">//....</span></span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
+<p>导出配置<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> config.map(<span class="function"><span class="params">val</span>=&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        &lt;Route</span><br><span class="line">            exact = &#123;val.bExact? <span class="literal">true</span> : <span class="literal">false</span>&#125;</span><br><span class="line">            path=&#123;val.hash&#125; key=&#123;val.key&#125; component=&#123;</span><br><span class="line">            Loadable(&#123;</span><br><span class="line">                loader: val.import?<span class="function"><span class="params">()</span> =&gt;</span> val.import().then(<span class="function">(<span class="params">e</span>)=&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> e[val.key]</span><br><span class="line">                &#125;): <span class="function"><span class="params">()</span> =&gt;</span> <span class="keyword">import</span>(<span class="string">'./pages.js'</span>).then(<span class="function">(<span class="params">e</span>)=&gt;</span> &#123;</span><br><span class="line">                    <span class="keyword">return</span> e[val.key]</span><br><span class="line">                &#125;),</span><br><span class="line">                loading: Loading</span><br><span class="line">            &#125;)</span><br><span class="line">        &#125; /&gt;</span><br><span class="line">    )</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure></p>
+<p>这里就通过提取cofig配置信息，最核心的代码是loader处理。<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">() =&gt; <span class="keyword">import</span>(<span class="string">'./pages.js'</span>).then(<span class="function">(<span class="params">e</span>)=&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> e[val.key]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
+<p>这里处理跟之前不一样了，是个动态值了，那么pages.js里面的组件就需要跟config里面的key值保持一致。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> a1 <span class="keyword">from</span> <span class="string">'../components/a/a1/index.js'</span>;</span><br><span class="line"><span class="keyword">import</span> a2 <span class="keyword">from</span> <span class="string">'../components/a/a2/index.js'</span>;</span><br><span class="line"><span class="keyword">export</span> &#123;</span><br><span class="line">    a1,</span><br><span class="line">    a2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>pages.js则是当前一级路由下面所有的组件。</p>
+<p>而在总route里面进行加载各个子路由<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> a <span class="keyword">from</span> <span class="string">'components/a/routes'</span>;</span><br><span class="line"><span class="keyword">import</span> b <span class="keyword">from</span> <span class="string">'components/b/routes'</span>;</span><br><span class="line"><span class="keyword">import</span> c <span class="keyword">from</span> <span class="string">'components/c/routes'</span>;</span><br><span class="line"><span class="keyword">import</span> d <span class="keyword">from</span> <span class="string">'components/d/routes'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routers = [</span><br><span class="line">      ...a,</span><br><span class="line">      ...b,</span><br><span class="line">      ...c,</span><br><span class="line">      ...d</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
+<p>这样就将整个bundle这么细分到各个子路由里面去了，后面如果某个一级变的臃肿了，可以继续将其按照二级路由进行拆分。</p>
+<p><a href="https://stackblitz.com/edit/react-router-uduvm5?embed=1&amp;file=components/app2.js" target="_blank" rel="noopener">查看效果</a></p>
+<h1 id="线上优化效果"><a href="#线上优化效果" class="headerlink" title="线上优化效果"></a>线上优化效果</h1><p><img src="http://7te8kr.com1.z0.glb.clouddn.com/opt_codesplit.png" alt=""><br>原先一个bundle.js 拆分成了10个bundle.js, 而且依托于webpack的强大，能够做到局部更新bundle.</p>
+<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/opt_split.gif" alt=""></p>
+<h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>回过头来看，整个优化都是基于import()，这个来的。那么import()背后发生了什么呢？</p>
+<h1 id="异步加载js"><a href="#异步加载js" class="headerlink" title="异步加载js"></a>异步加载js</h1><p>抛开webpack，如何异步加载js呢？很多人都会愣了一下，其实很简单，动态创建一个script标签。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> _ayncFunc = <span class="function"><span class="keyword">function</span>(<span class="params">src, cb</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> body = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'body'</span>)[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">var</span> s = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">    s.src = src;</span><br><span class="line">    s.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        cb &amp;&amp; cb();</span><br><span class="line">    &#125;;</span><br><span class="line">    body.appendChild(s);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
+<p>这样子去加载js，webpack内部将异步js默认为一个chunk，就相当于多了chunk。很好理解import()为啥能够异步加载，而且能够计算重复内容了。</p>
+<p><a href="https://github.com/webpack/webpack/blob/4de3ce057d5ce64055fc258505e004d2eccb2cb7/lib/web/JsonpMainTemplatePlugin.js#L141" target="_blank" rel="noopener">webpack实现</a></p>
+
+      
+      
+      
+      <p>本文地址 <a href="http://xiaoqiang730730.github.io/2018/04/06/react按路由分包加载/">http://xiaoqiang730730.github.io/2018/04/06/react按路由分包加载/</a></p>
+      
+    </div>
+
+    <div>
+      
+        
+<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
+  <div>觉得有点意思，打个赏鼓励博主继续写哈！がんばって</div>
+  <button id="rewardButton", disable="enable", onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}", style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
+    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onMouseOut="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; line-height: 81px; color: #fff; font: 400 35px/75px 'microsofty'; background: rgb(236,96,0)">赏</span>
+  </button>
+  <div id="QR">
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/pay_weixin.jpg" alt="前端-小强 WeChat Pay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>微信打赏</p>
+      </div>
+    
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/pay_ali.jpg" alt="前端-小强 Alipay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>支付宝打赏</p>
+      </div>
+    
+  </div>
+<div>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/webpack/" rel="tag">#webpack</a>
+          
+            <a href="/tags/codeSplit/" rel="tag">#codeSplit</a>
+          
+            <a href="/tags/react/" rel="tag">#react</a>
+          
+            <a href="/tags/react-router/" rel="tag">#react-router</a>
+          
+            <a href="/tags/react-loadable/" rel="tag">#react-loadable</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/19/qap最佳实战_动态代码/" rel="next" title="qap最佳实战_动态代码">
+                <i class="fa fa-chevron-left"></i> qap最佳实战_动态代码
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/06/21/upload/" rel="prev" title="fetch+node实现上传图片">
+                fetch+node实现上传图片 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="https://schema.org/Person">
+          <a href="http://weibo.com/smallwall520" target="_blank"><img class="site-author-image" itemprop="image"
+               src="http://tva3.sinaimg.cn/crop.0.0.595.595.180/9cdb6f6ajw8euw777vtovj20gj0gjq3m.jpg"
+               alt="前端-小强" /></a>
+          <p class="site-author-name" itemprop="name"><a href="http://weibo.com/smallwall520" target="_blank">前端-小强</a></p>
+          <p class="site-description motion-element" itemprop="description">前端-小强</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+          
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xiaoqiang730730" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/smallwall520" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://jq.qq.com/?_wv=1027&k=27e2GpT" target="_blank">
+                  
+                    <i class="fa fa-qq"></i> QQ
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:838871837@qq.com" target="_blank">
+                  
+                    <i class="fa fa-envelope-o"></i> Mail
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">友链</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://indexof.site/" target="_blank">flyover</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://guowenfh.github.io" target="_blank">三省吾身丶丶</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://iwuly.com" target="_blank">前端老军医</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://zhaishuaigan.cn/" target="_blank">玩具机器人</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#按需加载"><span class="nav-number">1.</span> <span class="nav-text">按需加载</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#方案"><span class="nav-number">2.</span> <span class="nav-text">方案</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#import"><span class="nav-number">3.</span> <span class="nav-text">import()</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#按需加载路由"><span class="nav-number">4.</span> <span class="nav-text">按需加载路由</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#正常情况"><span class="nav-number">4.1.</span> <span class="nav-text">正常情况</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#改进"><span class="nav-number">4.2.</span> <span class="nav-text">改进</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#React-Loadable"><span class="nav-number">5.</span> <span class="nav-text">React Loadable</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#路由配置"><span class="nav-number">6.</span> <span class="nav-text">路由配置</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#线上优化效果"><span class="nav-number">7.</span> <span class="nav-text">线上优化效果</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#总结"><span class="nav-number">8.</span> <span class="nav-text">总结</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#异步加载js"><span class="nav-number">9.</span> <span class="nav-text">异步加载js</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"><a href="http://weibo.com/smallwall520" target="_blank">前端-小强 </a></span>
+
+  <span title="前端学习QQ群, 认真学习、不做作">
+    <i class="fa fa-qq"></i>
+  </span>
+  <span title="前端学习QQ群, 认真学习、不做作"><a href="http://jq.qq.com/?_wv=1027&k=27e2GpT" target="_blank">QQ学习群:555892517</a></span></span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+<script type="text/javascript" src="/js/src/console.js"></script>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/js/vendor/jquery/index.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.6.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.6.1"></script>
+
+  <script type="text/javascript" src="/js/src/scrollIndicator.js?v=0.6.1"></script>
+
+  <script type="text/javascript" src="/js/src/comment.js?v=0.6.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.6.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.6.1"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.6.1"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.6.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/baiduPush.js"></script>
+  
+  
+</body>
+</html>

@@ -1,0 +1,906 @@
+<!doctype html>
+
+
+
+  
+
+
+<html class="theme-next pisces use-motion">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+  <link href="/js/vendor/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css"/>
+
+
+
+
+  <link href="/css/css.css" rel="stylesheet" type="text/css">
+  
+  
+
+
+
+<link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=0.6.1" rel="stylesheet" type="text/css" />
+
+
+  <meta name="keywords" content="qap," />
+
+
+
+
+
+  <link rel="alternate" href="/atom.xml" title="前端-小强" type="application/atom+xml" />
+
+
+
+
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.6.1" />
+
+
+
+
+
+
+<meta name="description" content="qap最佳实战_动态代码背景一般性质的广告，都会走一些配置信息，客户端根据配置信息进行渲染。 一些定制化的广告，需要对服务端的配置信息进行更改，而客户端也需要根据新的配置信息进行渲染，这个周期时间有点长。而且有些个性化的广告，走配置化很难实现。 这类的需求，都是周期性，过了这个时间段就失效了。而且qap发包灰度，也会有个时间周期，为了避免发包，快速解决问题，能不能通过执行代码解决呢？ 这里的配置信">
+<meta name="keywords" content="qap">
+<meta property="og:type" content="article">
+<meta property="og:title" content="qap最佳实战_动态代码">
+<meta property="og:url" content="http://xiaoqiang730730.github.io/2018/03/19/qap最佳实战_动态代码/index.html">
+<meta property="og:site_name" content="前端-小强">
+<meta property="og:description" content="qap最佳实战_动态代码背景一般性质的广告，都会走一些配置信息，客户端根据配置信息进行渲染。 一些定制化的广告，需要对服务端的配置信息进行更改，而客户端也需要根据新的配置信息进行渲染，这个周期时间有点长。而且有些个性化的广告，走配置化很难实现。 这类的需求，都是周期性，过了这个时间段就失效了。而且qap发包灰度，也会有个时间周期，为了避免发包，快速解决问题，能不能通过执行代码解决呢？ 这里的配置信">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:updated_time" content="2018-09-24T06:27:47.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="qap最佳实战_动态代码">
+<meta name="twitter:description" content="qap最佳实战_动态代码背景一般性质的广告，都会走一些配置信息，客户端根据配置信息进行渲染。 一些定制化的广告，需要对服务端的配置信息进行更改，而客户端也需要根据新的配置信息进行渲染，这个周期时间有点长。而且有些个性化的广告，走配置化很难实现。 这类的需求，都是周期性，过了这个时间段就失效了。而且qap发包灰度，也会有个时间周期，为了避免发包，快速解决问题，能不能通过执行代码解决呢？ 这里的配置信">
+
+
+
+<script type="text/javascript" id="hexo.configuration">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    scheme: 'Pisces',
+    sidebar: {"position":"left","display":"post"},
+    fancybox: true,
+    motion: true,
+    duoshuo: {
+      userId: 0,
+      author: '博主'
+    }
+  };
+</script>
+
+  <title> qap最佳实战_动态代码 | 前端-小强 </title>
+</head>
+
+<body itemscope itemtype="https://schema.org/WebPage" lang="zh-Hans">
+<a href="https://github.com/xiaoqiang730730" target="_blank"><img style="position: fixed; top: 0; right: 0; border: 0; z-index: 43;" src="/images/follow.png" alt="Fork me on GitHub" /></a>
+  
+
+
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+            (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-81240080-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+  <script type="text/javascript">
+    var _hmt = _hmt || [];
+    (function() {
+      var hm = document.createElement("script");
+      hm.src = "//hm.baidu.com/hm.js?68a2982b86f566cea2f90805ace87cfc";
+      var s = document.getElementsByTagName("script")[0];
+      s.parentNode.insertBefore(hm, s);
+    })();
+  </script>
+
+
+
+
+
+
+
+
+  
+  
+    
+  
+  <div class="scroll-line"></div>
+  <div class="container one-collumn sidebar-position-left page-post-detail ice">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="https://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-meta ">
+  
+
+  <div class="custom-logo-site-title">
+    <a href="/"  class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <span class="site-title">前端-小强</span>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+  <p class="site-subtitle"></p>
+</div>
+
+<div class="site-nav-toggle">
+  <button>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+    <span class="btn-bar"></span>
+  </button>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          
+          
+
+          <a href="/" rel="section" >
+            
+              <i class="menu-item-icon fa fa-home fa-fw"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-categories">
+          
+          
+
+          <a href="/categories" rel="section" >
+            
+              <i class="menu-item-icon fa fa-th fa-fw"></i> <br />
+            
+            分类
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          
+          
+
+          <a href="/archives" rel="section" >
+            
+              <i class="menu-item-icon fa fa-archive fa-fw"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          
+          
+
+          <a href="/tags" rel="section" >
+            
+              <i class="menu-item-icon fa fa-tags fa-fw"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          
+          
+
+          <a href="/about" rel="section" >
+            
+              <i class="menu-item-icon fa fa-user fa-fw"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-neitui">
+          
+          
+
+          <a href="/neitui" rel="section" >
+            
+              <i class="menu-item-icon fa fa-globe fa-fw"></i> <br />
+            
+            内推
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                qap最佳实战_动态代码
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-03-19T21:04:17+08:00" content="2018-03-19">
+              2018-03-19
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="qap最佳实战-动态代码"><a href="#qap最佳实战-动态代码" class="headerlink" title="qap最佳实战_动态代码"></a>qap最佳实战_动态代码</h1><h1 id="背景"><a href="#背景" class="headerlink" title="背景"></a>背景</h1><p>一般性质的广告，都会走一些配置信息，客户端根据配置信息进行渲染。</p>
+<p>一些定制化的广告，需要对服务端的配置信息进行更改，而客户端也需要根据新的配置信息进行渲染，这个周期时间有点长。而且有些个性化的广告，走配置化很难实现。</p>
+<p>这类的需求，都是周期性，过了这个时间段就失效了。而且qap发包灰度，也会有个时间周期，为了避免发包，快速解决问题，能不能通过执行代码解决呢？</p>
+<p>这里的配置信息，简单理解为一个接口请求，返回配置json数据。</p>
+<h1 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h1><p>利用eval执行字符串代码<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">eval</span>(<span class="string">"alert('hello world')"</span>);</span><br></pre></td></tr></table></figure></p>
+<h1 id="客户端改造"><a href="#客户端改造" class="headerlink" title="客户端改造"></a>客户端改造</h1><p>一个正常qap页面如下<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;createElement, Component, findDOMNode, render&#125; <span class="keyword">from</span> <span class="string">'rax'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; View &#125; <span class="keyword">from</span> <span class="string">'nuke'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Demo</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">        <span class="keyword">super</span>(props);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;View&gt;&#123;<span class="string">'demo'</span>&#125;&lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">render(&lt;Demo /</span>&gt;);</span><br></pre></td></tr></table></figure></p>
+<p>这里面render有第2个参数，默认的是body，利用render的第二个参数，可以将组件render指定的地方，这也就需要我们在原有页面里面预留坑位。</p>
+<p>改造页面组件render方法<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">render() &#123;</span><br><span class="line">    <span class="keyword">return</span> (</span><br><span class="line">        [</span><br><span class="line">            &lt;View id=&#123;<span class="string">'codeAdv'</span>&#125; /&gt;,</span><br><span class="line">            &lt;View&gt;&#123;<span class="string">'demo'</span>&#125;&lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">        ]</span></span><br><span class="line"><span class="regexp">    )</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br></pre></td></tr></table></figure></p>
+<p>广告代码跟正常写代码一样<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;createElement, Component, findDOMNode, render&#125; <span class="keyword">from</span> <span class="string">'rax'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123; View &#125; <span class="keyword">from</span> <span class="string">'nuke'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Adv</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">        <span class="keyword">super</span>(props);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;View&gt;&#123;<span class="string">'adv'</span>&#125;&lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">        )</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">render(&lt;Adv /</span>&gt;, findDOMNode(<span class="string">'codeAdv'</span>));</span><br></pre></td></tr></table></figure></p>
+<p>在render那步需要更改下。</p>
+<p>经过这样改造我们就可以在qap页面里面去执行动态代码了。</p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>这里面会有一个问题就是经过babel转义之后的js比较大，如果走后端配置接口的话，比较难支持。这里可以换个思路将广告的代码放到远端js里面去。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">fetch(bundleUrl, &#123;</span><br><span class="line">    method: <span class="string">'GET'</span>,</span><br><span class="line">    dataType: <span class="string">'text'</span></span><br><span class="line">&#125;).then(<span class="function">(<span class="params">res</span>) =&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">return</span> res.text();</span><br><span class="line">&#125;).then(<span class="function"><span class="params">data</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="built_in">eval</span>(data);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
+<p>这样后端配置那边只要配置bundleUrl，qap客户端稍微改造下，根据配置信息请求bundleUrl。</p>
+<h1 id="进一步思考"><a href="#进一步思考" class="headerlink" title="进一步思考"></a>进一步思考</h1><p>我们能够执行异步代码了，那是不是意味着qap页面可以存在多文件机制了啊。</p>
+<p>我们可以把一些常用的js或者json数据，放到服务器，通过上面的请求方式，异步加载到qap页面，模拟了多文件。但是使用的时候需要更改写法，因为是异步了。</p>
+<p>在<a href="http://xiaoqiang730730.github.io/2018/03/10/qap-%E5%8C%85%E5%A4%A7%E5%B0%8F%E4%BC%98%E5%8C%96/">qap-包大小优化</a>里面主要是为了去除apiList，那能不能通过这种方式，将apiList放到远端js，每次用的时候请求下。这样就做到完全不需要打包apiList了，比统一入口的方法还要激进。</p>
+<p>理论上都是可以的，但是实际的开发和维护成本比较大。这种方式适合不变更的一些js。类似apiList这种，每次需求几乎都会发生改变，而且更新到服务器，又会带来多版本问题。</p>
+<p>所以思考适合场景很重要，尽量做到开发和维护的成本比较低。</p>
+<h1 id="打开远端页面"><a href="#打开远端页面" class="headerlink" title="打开远端页面"></a>打开远端页面</h1><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&lt;Button onPress=&#123;()=&gt; &#123;</span><br><span class="line">    QAP.navigator.push(&#123;</span><br><span class="line">        url: <span class="string">'http://img01.taobaocdn.com/top/i1/TB1f5xPQFXXXXaGXFXXdutXFXXX.js'</span>,</span><br><span class="line">        settings: &#123;</span><br><span class="line">            animate: <span class="literal">true</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;);</span><br><span class="line">&#125;&#125;&gt;qap官方Demo&lt;<span class="regexp">/Button&gt;</span></span><br></pre></td></tr></table></figure>
+<p>qap打开新页面是支持直接打开远端的js的，利用这个就可以把一些不经常更新的页面，直接放到自己的服务器上，从而减少整个包大小了。</p>
+<h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
+<li><a href="https://www.everythingfrontend.com/posts/studying-javascript-eval.html" target="_blank" rel="noopener">Different ways to evaluate string as code in JavaScript</a></li>
+</ol>
+<h1 id="qap实战系列"><a href="#qap实战系列" class="headerlink" title="qap实战系列"></a>qap实战系列</h1><ol>
+<li><a href="http://xiaoqiang730730.github.io/2018/03/10/qap-%E5%8C%85%E5%A4%A7%E5%B0%8F%E4%BC%98%E5%8C%96/">qap-包大小优化</a></li>
+<li><a href="http://xiaoqiang730730.github.io/2018/03/14/qap%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98_%E7%BB%9F%E4%B8%80%E5%85%A5%E5%8F%A3">qap-统一入口</a></li>
+<li><a href="http://xiaoqiang730730.github.io/2018/03/16/qap%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98_%E5%9B%BE%E8%A1%A8">qap-图表</a></li>
+<li><a href="http://xiaoqiang730730.github.io/2018/03/18/qap最佳实战_跨页面需求">qap-跨页面需求</a></li>
+<li><a href="http://xiaoqiang730730.github.io/2018/03/19/qap%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98_%E5%8A%A8%E6%80%81%E4%BB%A3%E7%A0%81/">qap-动态代码</a></li>
+</ol>
+
+      
+      
+      
+      <p>本文地址 <a href="http://xiaoqiang730730.github.io/2018/03/19/qap最佳实战_动态代码/">http://xiaoqiang730730.github.io/2018/03/19/qap最佳实战_动态代码/</a></p>
+      
+    </div>
+
+    <div>
+      
+        
+<div style="padding: 10px 0; margin: 20px auto; width: 90%; text-align: center">
+  <div>觉得有点意思，打个赏鼓励博主继续写哈！がんばって</div>
+  <button id="rewardButton", disable="enable", onclick="var qr = document.getElementById('QR'); if (qr.style.display === 'none') {qr.style.display='block';} else {qr.style.display='none'}", style="cursor: pointer; border: 0; outline: 0; border-radius: 100%; padding: 0; margin: 0; letter-spacing: normal; text-transform: none; text-indent: 0px; text-shadow: none">
+    <span onmouseover="this.style.color='rgb(236,96,0)';this.style.background='rgb(204,204,204)'" onMouseOut="this.style.color='#fff';this.style.background='rgb(236,96,0)'" style="display: inline-block; width: 70px; height: 70px; border-radius: 100%; line-height: 81px; color: #fff; font: 400 35px/75px 'microsofty'; background: rgb(236,96,0)">赏</span>
+  </button>
+  <div id="QR">
+    
+      <div id="wechat" style="display: inline-block">
+        <img id="wechat_qr" src="/images/pay_weixin.jpg" alt="前端-小强 WeChat Pay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>微信打赏</p>
+      </div>
+    
+    
+      <div id="alipay" style="display: inline-block">
+        <img id="alipay_qr" src="/images/pay_ali.jpg" alt="前端-小强 Alipay" style="width: 200px; max-width: 100%; display: inline-block"/>
+        <p>支付宝打赏</p>
+      </div>
+    
+  </div>
+<div>
+
+      
+    </div>
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/qap/" rel="tag">#qap</a>
+          
+        </div>
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/03/18/qap最佳实战_跨页面需求/" rel="next" title="qap最佳实战_跨页面需求">
+                <i class="fa fa-chevron-left"></i> qap最佳实战_跨页面需求
+              </a>
+            
+          </div>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/06/react按路由分包加载/" rel="prev" title="react按路由分包加载">
+                react按路由分包加载 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+  <div class="comments" id="comments">
+    
+  </div>
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap" >
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview sidebar-panel ">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="https://schema.org/Person">
+          <a href="http://weibo.com/smallwall520" target="_blank"><img class="site-author-image" itemprop="image"
+               src="http://tva3.sinaimg.cn/crop.0.0.595.595.180/9cdb6f6ajw8euw777vtovj20gj0gjq3m.jpg"
+               alt="前端-小强" /></a>
+          <p class="site-author-name" itemprop="name"><a href="http://weibo.com/smallwall520" target="_blank">前端-小强</a></p>
+          <p class="site-description motion-element" itemprop="description">前端-小强</p>
+        </div>
+        <nav class="site-state motion-element">
+          <div class="site-state-item site-state-posts">
+            <a href="/archives">
+              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-name">日志</span>
+            </a>
+          </div>
+          
+          
+            <div class="site-state-item site-state-categories">
+              <a href="/categories">
+                <span class="site-state-item-count">5</span>
+                <span class="site-state-item-name">分类</span>
+              </a>
+            </div>
+          
+
+          
+            <div class="site-state-item site-state-tags">
+              <a href="/tags">
+                <span class="site-state-item-count">29</span>
+                <span class="site-state-item-name">标签</span>
+              </a>
+            </div>
+          
+
+        </nav>
+
+        
+          <div class="feed-link motion-element">
+            <a href="/atom.xml" rel="alternate">
+              <i class="fa fa-rss"></i>
+              RSS
+            </a>
+          </div>
+        
+
+        <div class="links-of-author motion-element">
+          
+            
+              <span class="links-of-author-item">
+                <a href="https://github.com/xiaoqiang730730" target="_blank">
+                  
+                    <i class="fa fa-github"></i> GitHub
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://weibo.com/smallwall520" target="_blank">
+                  
+                    <i class="fa fa-weibo"></i> Weibo
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://jq.qq.com/?_wv=1027&k=27e2GpT" target="_blank">
+                  
+                    <i class="fa fa-qq"></i> QQ
+                  
+                </a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="mailto:838871837@qq.com" target="_blank">
+                  
+                    <i class="fa fa-envelope-o"></i> Mail
+                  
+                </a>
+              </span>
+            
+          
+        </div>
+
+        
+        
+
+        <div class="links-of-author motion-element">
+          
+            <p class="site-author-name">友链</p>
+            
+              <span class="links-of-author-item">
+                <a href="http://indexof.site/" target="_blank">flyover</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://guowenfh.github.io" target="_blank">三省吾身丶丶</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://iwuly.com" target="_blank">前端老军医</a>
+              </span>
+            
+              <span class="links-of-author-item">
+                <a href="http://zhaishuaigan.cn/" target="_blank">玩具机器人</a>
+              </span>
+            
+          
+        </div>
+
+      </section>
+
+      
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc-indicator-top post-toc-indicator">
+            <i class="fa fa-angle-double-up"></i>
+          </div>
+          <div class="post-toc">
+            
+              
+            
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#qap最佳实战-动态代码"><span class="nav-number">1.</span> <span class="nav-text">qap最佳实战_动态代码</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#背景"><span class="nav-number">2.</span> <span class="nav-text">背景</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#原理"><span class="nav-number">3.</span> <span class="nav-text">原理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#客户端改造"><span class="nav-number">4.</span> <span class="nav-text">客户端改造</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#问题"><span class="nav-number">5.</span> <span class="nav-text">问题</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#进一步思考"><span class="nav-number">6.</span> <span class="nav-text">进一步思考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#打开远端页面"><span class="nav-number">7.</span> <span class="nav-text">打开远端页面</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#参考"><span class="nav-number">8.</span> <span class="nav-text">参考</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#qap实战系列"><span class="nav-number">9.</span> <span class="nav-text">qap实战系列</span></a></li></ol></div>
+            
+          </div>
+          <div class="post-toc-indicator-bottom post-toc-indicator">
+            <i class="fa fa-angle-double-down"></i>
+          </div>
+        </section>
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright" >
+  
+  &copy; 
+  <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder"><a href="http://weibo.com/smallwall520" target="_blank">前端-小强 </a></span>
+
+  <span title="前端学习QQ群, 认真学习、不做作">
+    <i class="fa fa-qq"></i>
+  </span>
+  <span title="前端学习QQ群, 认真学习、不做作"><a href="http://jq.qq.com/?_wv=1027&k=27e2GpT" target="_blank">QQ学习群:555892517</a></span></span>
+</div>
+
+<div class="powered-by">
+  由 <a class="theme-link" href="http://hexo.io">Hexo</a> 强力驱动
+</div>
+
+<div class="theme-info">
+  主题 -
+  <a class="theme-link" href="https://github.com/iissnan/hexo-theme-next">
+    NexT.Pisces
+  </a>
+</div>
+
+<script type="text/javascript" src="/js/src/console.js"></script>
+
+
+      </div>
+    </footer>
+
+    <div class="back-to-top">
+      <i class="fa fa-arrow-up"></i>
+    </div>
+  </div>
+
+  
+
+
+  
+
+
+
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+  <script type="text/javascript" src="/js/vendor/jquery/index.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/fastclick/lib/fastclick.min.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/jquery_lazyload/jquery.lazyload.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/velocity/velocity.min.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/velocity/velocity.ui.min.js"></script>
+
+  <script type="text/javascript" src="/js/vendor/fancybox/source/jquery.fancybox.pack.js"></script>
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v=0.6.1"></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v=0.6.1"></script>
+
+  <script type="text/javascript" src="/js/src/scrollIndicator.js?v=0.6.1"></script>
+
+  <script type="text/javascript" src="/js/src/comment.js?v=0.6.1"></script>
+
+
+
+  
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.6.1"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.6.1"></script>
+
+
+
+  
+  
+<script type="text/javascript" src="/js/src/scrollspy.js?v=0.6.1"></script>
+
+<script type="text/javascript" id="sidebar.toc.highlight">
+  $(document).ready(function () {
+    var tocSelector = '.post-toc';
+    var $tocSelector = $(tocSelector);
+    var activeCurrentSelector = '.active-current';
+
+    $tocSelector
+      .on('activate.bs.scrollspy', function () {
+        var $currentActiveElement = $(tocSelector + ' .active').last();
+
+        removeCurrentActiveClass();
+        $currentActiveElement.addClass('active-current');
+
+        $tocSelector[0].scrollTop = $currentActiveElement.position().top;
+      })
+      .on('clear.bs.scrollspy', function () {
+        removeCurrentActiveClass();
+      });
+
+    function removeCurrentActiveClass () {
+      $(tocSelector + ' ' + activeCurrentSelector)
+        .removeClass(activeCurrentSelector.substring(1));
+    }
+
+    function processTOC () {
+      getTOCMaxHeight();
+      toggleTOCOverflowIndicators();
+    }
+
+    function getTOCMaxHeight () {
+      var height = $('.sidebar').height() -
+                   $tocSelector.position().top -
+                   $('.post-toc-indicator-bottom').height();
+
+      $tocSelector.css('height', height);
+
+      return height;
+    }
+
+    function toggleTOCOverflowIndicators () {
+      tocOverflowIndicator(
+        '.post-toc-indicator-top',
+        $tocSelector.scrollTop() > 0 ? 'show' : 'hide'
+      );
+
+      tocOverflowIndicator(
+        '.post-toc-indicator-bottom',
+        $tocSelector.scrollTop() >= $tocSelector.find('ol').height() - $tocSelector.height() ? 'hide' : 'show'
+      )
+    }
+
+    $(document).on('sidebar.motion.complete', function () {
+      processTOC();
+    });
+
+    $('body').scrollspy({ target: tocSelector });
+    $(window).on('resize', function () {
+      if ( $('.sidebar').hasClass('sidebar-active') ) {
+        processTOC();
+      }
+    });
+
+    onScroll($tocSelector);
+
+    function onScroll (element) {
+      element.on('mousewheel DOMMouseScroll', function (event) {
+          var oe = event.originalEvent;
+          var delta = oe.wheelDelta || -oe.detail;
+
+          this.scrollTop += ( delta < 0 ? 1 : -1 ) * 30;
+          event.preventDefault();
+
+          toggleTOCOverflowIndicators();
+      });
+    }
+
+    function tocOverflowIndicator (indicator, action) {
+      var $indicator = $(indicator);
+      var opacity = action === 'show' ? 1 : 0;
+      $indicator.velocity ?
+        $indicator.velocity('stop').velocity({
+          opacity: opacity
+        }, { duration: 100 }) :
+        $indicator.stop().animate({
+          opacity: opacity
+        }, 100);
+    }
+
+  });
+</script>
+
+<script type="text/javascript" id="sidebar.nav">
+  $(document).ready(function () {
+    var html = $('html');
+    var TAB_ANIMATE_DURATION = 200;
+    var hasVelocity = $.isFunction(html.velocity);
+
+    $('.sidebar-nav li').on('click', function () {
+      var item = $(this);
+      var activeTabClassName = 'sidebar-nav-active';
+      var activePanelClassName = 'sidebar-panel-active';
+      if (item.hasClass(activeTabClassName)) {
+        return;
+      }
+
+      var currentTarget = $('.' + activePanelClassName);
+      var target = $('.' + item.data('target'));
+
+      hasVelocity ?
+        currentTarget.velocity('transition.slideUpOut', TAB_ANIMATE_DURATION, function () {
+          target
+            .velocity('stop')
+            .velocity('transition.slideDownIn', TAB_ANIMATE_DURATION)
+            .addClass(activePanelClassName);
+        }) :
+        currentTarget.animate({ opacity: 0 }, TAB_ANIMATE_DURATION, function () {
+          currentTarget.hide();
+          target
+            .stop()
+            .css({'opacity': 0, 'display': 'block'})
+            .animate({ opacity: 1 }, TAB_ANIMATE_DURATION, function () {
+              currentTarget.removeClass(activePanelClassName);
+              target.addClass(activePanelClassName);
+            });
+        });
+
+      item.siblings().removeClass(activeTabClassName);
+      item.addClass(activeTabClassName);
+    });
+
+    $('.post-toc a').on('click', function (e) {
+      e.preventDefault();
+      var targetSelector = NexT.utils.escapeSelector(this.getAttribute('href'));
+      var offset = $(targetSelector).offset().top;
+      hasVelocity ?
+        html.velocity('stop').velocity('scroll', {
+          offset: offset  + 'px',
+          mobileHA: false
+        }) :
+        $('html, body').stop().animate({
+          scrollTop: offset
+        }, 500);
+    });
+
+    // Expand sidebar on post detail page by default, when post has a toc.
+    NexT.motion.middleWares.sidebar = function () {
+      var $tocContent = $('.post-toc-content');
+
+      if (CONFIG.scheme !== 'Pisces' && (CONFIG.sidebar.display === 'post' || CONFIG.sidebar.display === 'always')) {
+        if ($tocContent.length > 0 && $tocContent.html().trim().length > 0) {
+          NexT.utils.displaySidebar();
+        }
+      }
+    };
+  });
+</script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.6.1"></script>
+
+
+
+  
+
+
+
+  
+
+
+
+
+  
+
+
+
+  
+  
+  
+
+  
+
+
+  <script type="text/javascript" src="/js/src/baiduPush.js"></script>
+  
+  
+</body>
+</html>

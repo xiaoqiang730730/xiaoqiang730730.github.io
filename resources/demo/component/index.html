@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>component</title>
+    <meta name="viewport" content="initial-scale=1,maximum-scale=3,minimum-scale=1,user-scalable=no">
+    <meta name="Keywords" content="component">
+    <meta name="Description" content="component">
+    <meta name="renderer" content="webkit">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <script src="//apps.bdimg.com/libs/jquery/2.1.4/jquery.js"></script>
+    <link href="https://g.alicdn.com/sj/qnui/1.3.0/css/sui.min.css" type="text/css" rel="stylesheet">
+    <script src="https://g.alicdn.com/sj/qnui/1.3.0/js/sui.js"></script>
+    <style type="text/css">
+        .tag-box-chose {
+            display: inline-block;
+            vertical-align: middle
+        }
+
+        .tag-box-chose .tag {
+            position: relative;
+            float: left;
+            margin-right: 8px
+        }
+
+        .tag-box-chose .tag .tag-tit {
+            float: left;
+            height: 20px;
+            line-height: 22px;
+            padding: 3px 9px;
+            font-size: 13px;
+            text-align: center;
+            background-color: #fff;
+            border: 1px solid #BABABA;
+            cursor: pointer;
+            overflow: hidden;
+            -webkit-transition: border-color .2s ease-in 0s;
+            -moz-transition: border-color .2s ease-in 0s;
+            -ms-transition: border-color .2s ease-in 0s;
+            -o-transition: border-color .2s ease-in 0s;
+            transition: border-color .2s ease-in 0s
+        }
+
+        .tag-box-chose .tag .tag-tit:after,
+        .tag-box-chose .tag .tag-tit:before {
+            content: '';
+            position: absolute;
+            opacity: 0;
+            -webkit-transition: opacity .2s ease-in 0s;
+            -moz-transition: opacity .2s ease-in 0s;
+            -ms-transition: opacity .2s ease-in 0s;
+            -o-transition: opacity .2s ease-in 0s;
+            transition: opacity .2s ease-in 0s
+        }
+
+        .tag-box-chose .tag .tag-tit:before {
+            right: 0;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-width: 13px 15px 0 0;
+            border-style: solid;
+            border-color: transparent #37A7EC transparent transparent
+        }
+
+        .tag-box-chose .tag .tag-tit:after {
+            bottom: 3px;
+            right: 0;
+            width: 6px;
+            height: 3px;
+            border-left: 1px solid #fff;
+            border-bottom: 1px solid #fff;
+            -webkit-transform: rotate(-45deg);
+            -moz-transform: rotate(-45deg);
+            -ms-transform: rotate(-45deg);
+            -o-transform: rotate(-45deg);
+            transform: rotate(-45deg)
+        }
+
+        .tag-box-chose .tag .tag-tit:hover {
+            border-color: #37A7EC
+        }
+
+        .tag-box-chose .tag:nth-last-of-type {
+            margin-right: 0
+        }
+
+        .tag-box-chose .tag>input {
+            position: absolute;
+            visibility: hidden;
+            opacity: 0
+        }
+
+        .tag-box-chose .tag.current .tag-tit,
+        .tag-box-chose .tag>input:checked~.tag-tit {
+            padding: 2px 8px;
+            border: 2px solid #37A7EC
+        }
+
+        .tag-box-chose .tag.current .tag-tit:after,
+        .tag-box-chose .tag.current .tag-tit:before,
+        .tag-box-chose .tag>input:checked~.tag-tit:after,
+        .tag-box-chose .tag>input:checked~.tag-tit:before {
+            opacity: 1;
+            visibility: visible
+        }
+
+        .tag-box-chose .tag.diabled .tag-tit,
+        .tag-box-chose .tag>input:disabled~.tag-tit {
+            padding: 3px 9px !important;
+            color: #A5A5A5;
+            cursor: not-allowed;
+            border: 1px dashed #dedede !important
+        }
+
+        .tag-box-chose.mini .tag .tag-tit {
+            height: 18px;
+            line-height: 18px;
+            padding: 2px 9px;
+            font-size: 12px
+        }
+
+        .tag-box-chose.mini .tag.current .tag-tit,
+        .tag-box-chose.mini .tag>input:checked~.tag-tit {
+            padding: 1px 8px
+        }
+
+        .tag-box-chose.mini .tag.diabled .tag-tit,
+        .tag-box-chose.mini .tag>input:disabled~.tag-tit {
+            padding: 2px 9px !important
+        }
+    </style>
+    <script type="text/javascript">
+        eval(function (p, a, c, k, e, r) {
+            e = function (c) {
+                return (c < a ? '' : e(parseInt(c / a))) + ((c = c % a) > 35 ? String.fromCharCode(c + 29) :
+                    c.toString(36))
+            };
+            if (!''.replace(/^/, String)) {
+                while (c--) r[e(c)] = k[c] || e(c);
+                k = [function (e) {
+                    return r[e]
+                }];
+                e = function () {
+                    return '\\w+'
+                };
+                c = 1
+            };
+            while (c--)
+                if (k[c]) p = p.replace(new RegExp('\\b' + e(c) + '\\b', 'g'), k[c]);
+            return p
+        }(
+            '$.6=3(a){!1!==a.k&&(a.k=a.l||a.o||a.n||a.q?!0:!1);a=$.1l(h.J,a);m d=(+Y X+"").U(-10),b={r:a.r,5:a.5||w,j:a.j||"1p",1j:!1===a.19?!1:"Z",p:3(){m b=$(h);"u"==v a.8&&b.7(".2-g").K(a.8);a.p&&a.p.C(h)},A:3(){$(h).7("I[s=11], I[s=12]").13("15");a.A&&a.A.C(h)},18:3(b){m c=$(h);b=$(b.1b).z("9-6-D");"u"==v a.8&&c.7(".2-g")[0].1D($(a.8)[0]);Q $.6.x[b]},R:a.l,S:a.o,T:a.q,i:a.n,k:a.k,V:a.W||!1},e={y:E,F:w,G:H};e.14(b.5)&&(b.5=e[b.5]);B("u"!=v a.8)B(/^16:/.17(a.8)){m f=$("<1G>"),e={y:E,F:w,G:H}[b.5]||b.5;b.5+=1a;f.L({1c:"1d",5:e,j:b.j,1e:"0 1f"}).z("1g",a.8.1h(4));b.p=3(){$(h).7(".2-g").1i("").K(f)}}M b.g=a.8+"";M b.g="";m c=$.1k(b).z("9-6-D",d);c.7(".2-g").L("j",b.j);a.k||c.7(".2-t").i();a.l||a.o||c.7(\'.2-t [9-l="2"]\').i();a.n||a.q||c.7(\'.2-t [9-1m="2"]\').i();!1===a.n&&c.7(".2-1n .1o-N").i();b={N:3(){c&&c.9("2")&&c.9("2").i()},O:3(){c&&c.9("2")&&c.9("2").O()},1r:c};1s $.6.x[d]=b};$.6.x={};$.6.J={s:"6",r:"\\1t\\1u",8:"\\1v\\1w\\1x\\1y...",5:"y",l:3(){},o:"\\1z\\1A",n:3(){},q:"\\1B\\1C"};$.6.P=3(a,d){$.P({r:"\\1E\\1F",g:a,1q:3(){d&&d()}})};',
+            62, 105,
+            '||modal|function||width|dialog|find|content|data|||||||body|this|hide|height|hasfoot|ok|var|cancel|okVal|show|cancelVal|title|type|footer|object|typeof|600|list|small|attr|shown|if|call|idx|450|normal|large|800|input|_default|append|css|else|close|resize|alert|delete|okHide|okBtn|cancelBtn|substr|keyboard|esc|Date|new|static||checkbox|radio|trigger|hasOwnProperty|change|url|test|hidden|lock|40|currentTarget|display|block|border|none|src|substring|html|backdrop|confirm|extend|dismiss|header|sui|auto|okHidden|ele|return|u63d0|u793a|u6b63|u5728|u52a0|u8f7d|u786e|u5b9a|u53d6|u6d88|removeChild|u8b66|u544a|iframe'
+            .split('|'), 0, {}))
+    </script>
+</head>
+
+<body>
+    <div style="margin: 50px">
+        <span class="sui-btn btn-bordered btn-primary J_view_test">条件选项</span>
+    </div>
+    <script type="text/javascript">
+        ;
+        (function ($) {
+            var myComponent = {
+                module: {
+                    data: null,
+                    choseT: 0,
+                    choseF: 0,
+                    getDataStatistics: function () {
+                        var list = this.data;
+                        var choseT = 0;
+                        var choseF = 0;
+                        var len = list.length;
+                        for (var i = 0; i < list.length; i++) {
+                            if (list[i].checked == 'checked') {
+                                choseT++;
+                            } else {
+                                choseF++;
+                            }
+                        }
+                        return {
+                            choseT: choseT,
+                            choseF: choseF,
+                            len: len
+                        };
+                    },
+                    dataChangeAll: function (checked) {
+                        var list = this.data;
+                        var len = list.length;
+                        checked = checked || '';
+                        if (checked == 'checked') {
+                            this.choseT = len;
+                            this.choseF = 0;
+                        } else {
+                            this.choseT = 0;
+                            this.choseF = len;
+                        }
+
+                        for (var i = 0; i < len; i++) {
+                            list[i].checked = checked;
+                        }
+                    },
+                    dataChangeSingle: function (index, checked) {
+                        var list = this.data;
+                        var choseT = this.choseT;
+                        var choseF = this.choseF;
+                        if (checked == 'checked') {
+                            choseT++;
+                            choseF--;
+                        } else {
+                            choseT--;
+                            choseF++;
+                        }
+                        this.choseT = choseT;
+                        this.choseF = choseF;
+                        list[index].checked = checked;
+                    }
+                },
+                view: {
+                    getHtml: function (list, statistic) {
+                        var html = ['<div class="sales-dialog">',
+                            '<div>',
+                            '<div class="tag-box-chose J_view_checkNav">',
+                            this.getChoseNav(statistic),
+                            '</div>',
+                            '<div class="mt_10 J_view_checkItems">',
+                            this.getChoseItem(list),
+                            '</div>',
+                            '</div>',
+                            '</div>'
+                        ].join('');
+                        return html;
+                    },
+                    getChoseNav: function (statistic) {
+                        var checkAll = '';
+                        var checkNone = '';
+                        var len = statistic.len;
+                        if (statistic.choseT == len) {
+                            checkAll = 'checked';
+                        }
+                        if (statistic.choseF == len) {
+                            checkNone = 'checked';
+                        }
+                        return [
+                            '<label class="tag ' + checkAll + '">',
+                            '<input type="radio" name="radio-grade input-fat" class="J_view_checkAll" ' +
+                            checkAll + ' />',
+                            '<span class="tag-tit">全选</span>',
+                            '</label>',
+                            '<label class="tag ' + checkNone + '">',
+                            '<input type="radio" name="radio-grade" class="J_view_checkNone" ' +
+                            checkNone + '/>',
+                            '<span class="tag-tit">全不选</span>',
+                            '</label>'
+                        ].join('');
+                    },
+                    getChoseItem: function (list) {
+                        var inputs = '';
+                        var doInputFunc = function (i, detail) {
+                            return [
+                                '<div style="display:inline-block;width:150px;">',
+                                '<label data-toggle="checkbox" class="checkbox-pretty inline ' +
+                                detail.checked + '">',
+                                '<input type="checkbox" value="' + i +
+                                '" class="J_view_checkItem " ' + detail.checked + '><span>' +
+                                detail.name + '</span>',
+                                '</label>',
+                                '</div>',
+                            ].join('');
+                        };
+
+                        for (var i = 0; i < list.length; i++) {
+                            inputs += doInputFunc(i, list[i]);
+                        }
+                        return inputs;
+                    },
+                    domAction: function ($el, type, data) {
+                        var html = '';
+                        type = type || 'all';
+                        if (type == 'item') {
+                            html = this.getChoseItem(data);
+                            $el.find('.J_view_checkItems').html(html);
+                        } else if (type == 'all') {
+                            html = this.getChoseNav(data);
+                            $el.find('.J_view_checkNav').html(html);
+                        }
+                    }
+                },
+                eventBind: function ($el) {
+                    var _this = this;
+                    var $target = '';
+
+                    // 全选
+                    $el.on('change', '.J_view_checkAll', function () {
+                        if (!$(this).parent().hasClass('checked')) {
+                            _this.module.dataChangeAll('checked');
+                            _this.view.domAction($el, 'all', _this.module.getDataStatistics());
+                            _this.view.domAction($el, 'item', _this.module.data);
+                        }
+                    });
+
+                    // 全不选
+                    $el.on('change', '.J_view_checkNone', function () {
+                        if (!$(this).parent().hasClass('checked')) {
+                            _this.module.dataChangeAll('');
+                            _this.view.domAction($el, 'all', _this.module.getDataStatistics());
+                            _this.view.domAction($el, 'item', _this.module.data);
+                        }
+                    });
+
+                    // 单个
+                    $el.on('click', '.J_view_checkItem', function () {
+                        $target = $(this);
+                        var index = $target.val();
+                        var checked = '';
+                        if ($target.prop('checked')) {
+                            checked = 'checked';
+                        }
+                        _this.module.dataChangeSingle(index, checked);
+                        _this.view.domAction($el, 'all', _this.module.getDataStatistics());
+                    });
+                },
+                eventUnbind: function ($el) {
+                    $el.off('change');
+                    $el.off('click');
+                },
+                showDialog: function (list) {
+                    var _this = this;
+                    this.module.data = list;
+                    var statistic = this.module.getDataStatistics();
+                    var $dialog;
+                    $.dialog({
+                        title: '条件选择',
+                        content: this.view.getHtml(list, statistic),
+                        shown: function () { // 千牛dialog组件会默认trigger change
+                            $dialog = $(this);
+                            _this.eventBind($dialog);
+                        },
+                        cancel: function () {
+                            _this.eventUnbind($dialog);
+                            $dialog = null;
+                        },
+                        ok: function () {
+                            if (_this.getMethod('dataTotal')) {
+                                _this.getMethod('eventUnbind', $dialog);
+                                $dialog = null;
+                                callback(_this.getMethod('dataTotal'));
+                            } else {
+                                return false;
+                            }
+                        }
+                    });
+                }
+            };
+            window.myComponent = myComponent;
+        })(window.jQuery);
+
+        // 调用
+        var test = [];
+        for (var i = 0; i < 15; i++) {
+            test.push({
+                value: i,
+                name: '条件' + (i + 1),
+                checked: 'checked'
+            });
+        }
+        $('.J_view_test').on('click', function () {
+            myComponent.showDialog(test);
+        });
+    </script>
+    <script src="../../js/baidu.js"></script>
+</body>
+
+</html>
