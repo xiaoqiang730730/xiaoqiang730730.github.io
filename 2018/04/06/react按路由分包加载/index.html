@@ -69,13 +69,13 @@
 <meta property="og:site_name" content="前端-小强">
 <meta property="og:description" content="按需加载一开始整个项目只有一个bundle.js，压缩之后达到了4M。导致首屏加载速度很慢，需要优化。 方案优化包大小，从业务角度出发，抽离重复的业务组件，避免大规模的90%相似度代码。需要对业务熟悉，一时间优化没有那么明显。 从技术角度，项目里面使用了react route，那能不能按照路由按需加载呢？ import()之前123import &amp;#123; add &amp;#125; from &apos;./">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/opt_codesplit.png">
-<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/opt_split.gif">
-<meta property="og:updated_time" content="2018-09-24T06:27:47.000Z">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554018634664-e7be5ff6-88db-43f0-9f9a-7a42943453bf.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/gif/103994/1554018642755-1143e8cd-b1af-4f48-bb9b-07bcde0d41cb.gif">
+<meta property="og:updated_time" content="2019-03-31T07:51:07.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="react按路由分包加载">
 <meta name="twitter:description" content="按需加载一开始整个项目只有一个bundle.js，压缩之后达到了4M。导致首屏加载速度很慢，需要优化。 方案优化包大小，从业务角度出发，抽离重复的业务组件，避免大规模的90%相似度代码。需要对业务熟悉，一时间优化没有那么明显。 从技术角度，项目里面使用了react route，那能不能按照路由按需加载呢？ import()之前123import &amp;#123; add &amp;#125; from &apos;./">
-<meta name="twitter:image" content="http://7te8kr.com1.z0.glb.clouddn.com/opt_codesplit.png">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554018634664-e7be5ff6-88db-43f0-9f9a-7a42943453bf.png">
 
 
 
@@ -367,8 +367,8 @@
 <p>而在总route里面进行加载各个子路由<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> a <span class="keyword">from</span> <span class="string">'components/a/routes'</span>;</span><br><span class="line"><span class="keyword">import</span> b <span class="keyword">from</span> <span class="string">'components/b/routes'</span>;</span><br><span class="line"><span class="keyword">import</span> c <span class="keyword">from</span> <span class="string">'components/c/routes'</span>;</span><br><span class="line"><span class="keyword">import</span> d <span class="keyword">from</span> <span class="string">'components/d/routes'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> routers = [</span><br><span class="line">      ...a,</span><br><span class="line">      ...b,</span><br><span class="line">      ...c,</span><br><span class="line">      ...d</span><br><span class="line">];</span><br></pre></td></tr></table></figure></p>
 <p>这样就将整个bundle这么细分到各个子路由里面去了，后面如果某个一级变的臃肿了，可以继续将其按照二级路由进行拆分。</p>
 <p><a href="https://stackblitz.com/edit/react-router-uduvm5?embed=1&amp;file=components/app2.js" target="_blank" rel="noopener">查看效果</a></p>
-<h1 id="线上优化效果"><a href="#线上优化效果" class="headerlink" title="线上优化效果"></a>线上优化效果</h1><p><img src="http://7te8kr.com1.z0.glb.clouddn.com/opt_codesplit.png" alt=""><br>原先一个bundle.js 拆分成了10个bundle.js, 而且依托于webpack的强大，能够做到局部更新bundle.</p>
-<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/opt_split.gif" alt=""></p>
+<h1 id="线上优化效果"><a href="#线上优化效果" class="headerlink" title="线上优化效果"></a>线上优化效果</h1><p><img src="https://cdn.nlark.com/yuque/0/2019/png/103994/1554018634664-e7be5ff6-88db-43f0-9f9a-7a42943453bf.png" alt=""><br>原先一个bundle.js 拆分成了10个bundle.js, 而且依托于webpack的强大，能够做到局部更新bundle.</p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/gif/103994/1554018642755-1143e8cd-b1af-4f48-bb9b-07bcde0d41cb.gif" alt=""></p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>回过头来看，整个优化都是基于import()，这个来的。那么import()背后发生了什么呢？</p>
 <h1 id="异步加载js"><a href="#异步加载js" class="headerlink" title="异步加载js"></a>异步加载js</h1><p>抛开webpack，如何异步加载js呢？很多人都会愣了一下，其实很简单，动态创建一个script标签。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> _ayncFunc = <span class="function"><span class="keyword">function</span>(<span class="params">src, cb</span>) </span>&#123;</span><br><span class="line">    <span class="keyword">var</span> body = <span class="built_in">document</span>.getElementsByTagName(<span class="string">'body'</span>)[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">var</span> s = <span class="built_in">document</span>.createElement(<span class="string">'script'</span>);</span><br><span class="line">    s.src = src;</span><br><span class="line">    s.onload = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">        cb &amp;&amp; cb();</span><br><span class="line">    &#125;;</span><br><span class="line">    body.appendChild(s);</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
@@ -508,7 +508,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

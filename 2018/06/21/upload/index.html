@@ -69,13 +69,13 @@
 <meta property="og:site_name" content="前端-小强">
 <meta property="og:description" content="图片上传最近给设计妹妹搞了模板上传功能，里面涉及到了图片上传功能。 input在前端涉及到图片上传，都会用到input标签，监听onchange事件，可以拿到file文件 1&amp;lt;input type=&quot;file&quot; accept=&quot;.png&quot; class=&quot;input_file&quot; /&amp;gt; 12345678910111213141516let file = document.getElemen">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/uplpad_1.png">
-<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/upload_2.png">
-<meta property="og:updated_time" content="2018-09-24T06:27:47.000Z">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554018728583-a1a415b5-992b-493b-ae06-6e11852c8bde.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554018722251-018b364a-3115-446a-b760-62b7899075c4.png?x-oss-process=image/resize,w_1492">
+<meta property="og:updated_time" content="2019-03-31T07:53:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="fetch+node实现上传图片">
 <meta name="twitter:description" content="图片上传最近给设计妹妹搞了模板上传功能，里面涉及到了图片上传功能。 input在前端涉及到图片上传，都会用到input标签，监听onchange事件，可以拿到file文件 1&amp;lt;input type=&quot;file&quot; accept=&quot;.png&quot; class=&quot;input_file&quot; /&amp;gt; 12345678910111213141516let file = document.getElemen">
-<meta name="twitter:image" content="http://7te8kr.com1.z0.glb.clouddn.com/uplpad_1.png">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554018728583-a1a415b5-992b-493b-ae06-6e11852c8bde.png">
 
 
 
@@ -348,7 +348,7 @@
 <p>封装一个请求，单独传输图片数据。 在之前onchange里面调用ajaxImg将formData数据发送给后端。</p>
 <h2 id="fetch数据异常"><a href="#fetch数据异常" class="headerlink" title="fetch数据异常"></a>fetch数据异常</h2><p>后端一直没有拿到图片的数据，换成jquery的ajax就可以。</p>
 <p>对比network，发现fetch的request content-type 里面内容少了 boundary=XXXXXXX</p>
-<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/uplpad_1.png" alt=""></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/103994/1554018728583-a1a415b5-992b-493b-ae06-6e11852c8bde.png" alt=""></p>
 <p>后来发现这个是浏览器的BUG，解决方案就是在请求的时候不需要加content-type。</p>
 <p>这样前端的基本任务就完成了。</p>
 <h2 id="node"><a href="#node" class="headerlink" title="node"></a>node</h2><p>后端使用express来构建服务，解析form-data数据，要用到<a href="https://github.com/expressjs/multer" target="_blank" rel="noopener">multer</a>库</p>
@@ -365,7 +365,7 @@
 <p>在这个例子里完全没有express了，那我们尝试下自己来处理下图片数据。</p>
 <h2 id="原生处理"><a href="#原生处理" class="headerlink" title="原生处理"></a>原生处理</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">'fs'</span>);</span><br><span class="line"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">'http'</span>);</span><br><span class="line"><span class="keyword">const</span> port = <span class="number">8013</span>;</span><br><span class="line"></span><br><span class="line">http.createServer(<span class="function">(<span class="params">req, res</span>)=&gt;</span> &#123;</span><br><span class="line">    <span class="keyword">let</span> url = req.url;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>(url.indexOf(<span class="string">'/upload'</span>)&gt;<span class="number">-1</span>) &#123;</span><br><span class="line">        <span class="keyword">let</span> strs = <span class="string">''</span>;</span><br><span class="line">        req.on(<span class="string">'data'</span>, (str)=&gt; &#123;</span><br><span class="line">            strs += str;</span><br><span class="line">        &#125;);</span><br><span class="line">        req.on(<span class="string">'end'</span>, ()=&gt; &#123;</span><br><span class="line">            res.write(<span class="built_in">JSON</span>.stringify(&#123;</span><br><span class="line">                <span class="string">"success"</span>: <span class="literal">true</span></span><br><span class="line">            &#125;));</span><br><span class="line">            fs.writeFileSync(<span class="string">'./text'</span>, strs);</span><br><span class="line">            res.end();</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">&#125;).listen(port);</span><br></pre></td></tr></table></figure>
 <p>核心代码如上，这样可以拿到formdata里面所有的数据，可以查看其数据。</p>
-<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/upload_2.png" alt=""></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/103994/1554018722251-018b364a-3115-446a-b760-62b7899075c4.png?x-oss-process=image/resize,w_1492" alt=""></p>
 <p>可以发现其数据是通过请求头里面的boundary值进行分割的。</p>
 <p>所以先简单取出boundary值</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">let</span> type = req.headers[<span class="string">'content-type'</span>];</span><br><span class="line"><span class="keyword">let</span> boundary = type.split(<span class="string">'boundary='</span>)[<span class="number">1</span>];</span><br></pre></td></tr></table></figure>
@@ -509,7 +509,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -69,14 +69,14 @@
 <meta property="og:site_name" content="前端-小强">
 <meta property="og:description" content="2016年12月17号，博主去参加了d2，想写点记录。但是动手写的时候，发现其实没啥好写的。还是直接看知乎很多人的回答吧！参加第11届D2前端技术论坛，你有什么收获, 还是写点简单吧，要不然就没啥记录了。 行程 9点20左右到会场做个公交一路上堵死了（o(╯□╰)o），到了会场就输入手机进行签到。签字墙上已经签的全是字了，还是来的太晚了。  9点30左右到会场门口被今年的阿里吓住了，几乎整个会">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/2016D2">
-<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/d2_1.png">
-<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/d2_2.jpg">
-<meta property="og:updated_time" content="2018-09-24T06:27:47.000Z">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554016838850-2300f2ed-6aa0-48ab-aa47-50a306eba4c8.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554016746983-f3315dad-ca68-4c6f-9b5d-d448de2ac7f3.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/jpeg/103994/1554016755220-9383d7b6-6ce3-4370-9901-cfdd60bb215b.jpeg">
+<meta property="og:updated_time" content="2019-03-31T07:21:41.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="2016D2">
 <meta name="twitter:description" content="2016年12月17号，博主去参加了d2，想写点记录。但是动手写的时候，发现其实没啥好写的。还是直接看知乎很多人的回答吧！参加第11届D2前端技术论坛，你有什么收获, 还是写点简单吧，要不然就没啥记录了。 行程 9点20左右到会场做个公交一路上堵死了（o(╯□╰)o），到了会场就输入手机进行签到。签字墙上已经签的全是字了，还是来的太晚了。  9点30左右到会场门口被今年的阿里吓住了，几乎整个会">
-<meta name="twitter:image" content="http://7te8kr.com1.z0.glb.clouddn.com/2016D2">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554016838850-2300f2ed-6aa0-48ab-aa47-50a306eba4c8.png">
 
 
 
@@ -355,7 +355,7 @@
 </li>
 <li><p>14点50左右-17点半<br>下午依次稍微听了Node.js在YunOS中的最佳实践、NW.js、ClojureScript，都是很蒙圈的，跟实际的项目需求并不是很多，更多是开拓了眼界。</p>
 </li>
-<li><p>回家<br>来张合照<img src="http://7te8kr.com1.z0.glb.clouddn.com/2016D2" alt=""></p>
+<li><p>回家<br>来张合照<img src="https://cdn.nlark.com/yuque/0/2019/png/103994/1554016838850-2300f2ed-6aa0-48ab-aa47-50a306eba4c8.png" alt=""></p>
 </li>
 <li><p>夜场<br>博主回来还看来夜场的直播，@winter邀请大牛解答一些问题了。大牛都是站在很高的一个高度来看问题啦，对于博主而言，心里默默想: 恩，说的不错，对对对。但是还是自己一点点努力，脚踏实地。↖(^ω^)↗</p>
 </li>
@@ -369,12 +369,12 @@
 </li>
 <li><p>数据更新和拉取<br>一个用户更新了用户信息，怎么将用户信息发送给整个应用，同时要保证其他用户在使用的过程中，用户的信息也要保持最新的。这里面涉及到我们经常遇到的问题，就是数据的更新，一般情况下，博主会自己去触发请求，然后再更新视图。置于在推送信息，也就是保证共享信息的用户看到最新的数据，需要后端进行推送数据，而博主这边场景不多，一般前端轮训就能够满足。这2种数据方式的写法是不一样的，怎么保持一致呢？</p>
 </li>
-<li><p>数据组合<br>这里徐飞大大说了一个数据管道的一个概念，按照博主的理解，一个要展示的数据，进过好几层的组合加工，由最开始的纯粹数据一道一道的组合，最终组合成想要的数据。<br>如图所示的管道组合<img src="http://7te8kr.com1.z0.glb.clouddn.com/d2_1.png" alt=""><br>由于博主的产品也会存在数据组合的情况，一般情况下，博主会自己进行组合数据，数据更新也会‘暴力’的全部更新，这样子实施简单。但是teambition里面的数据更新频繁，而且涉及到很多其它数据。怎么做才能更好的解决呢？<br>徐飞大大采用RxJs的数据表达式，比如D = A + B + C，RxJs会取ABC的最新数据，这就方便了上层调用数据。其实导致这个原因是由于后端没有去做接口合并，有能力可以增加个node层，用来做接口合并，这样ABC的数据前端只要一个接口就完事了。</p>
+<li><p>数据组合<br>这里徐飞大大说了一个数据管道的一个概念，按照博主的理解，一个要展示的数据，进过好几层的组合加工，由最开始的纯粹数据一道一道的组合，最终组合成想要的数据。<br>如图所示的管道组合<img src="https://cdn.nlark.com/yuque/0/2019/png/103994/1554016746983-f3315dad-ca68-4c6f-9b5d-d448de2ac7f3.png" alt=""><br>由于博主的产品也会存在数据组合的情况，一般情况下，博主会自己进行组合数据，数据更新也会‘暴力’的全部更新，这样子实施简单。但是teambition里面的数据更新频繁，而且涉及到很多其它数据。怎么做才能更好的解决呢？<br>徐飞大大采用RxJs的数据表达式，比如D = A + B + C，RxJs会取ABC的最新数据，这就方便了上层调用数据。其实导致这个原因是由于后端没有去做接口合并，有能力可以增加个node层，用来做接口合并，这样ABC的数据前端只要一个接口就完事了。</p>
 </li>
 <li><p>数据规则<br>一个表格排序筛选，这个是一个正常的业务场景。但是在新的数据来了之后，该怎么做？徐飞大大提到了RxJS懒执行，用于解决此场景。其实在博主看来这个数据规则也是要看产品层次怎么做了，有时是要保持原有的规则，有时是重新重置参数回到最开始的规则。</p>
 </li>
 </ol>
-<h2 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h2><p><img src="http://7te8kr.com1.z0.glb.clouddn.com/d2_2.jpg" alt=""><br>徐飞大大说明了MVVM的实际场景，M(数据源)-&gt;VM(视图控制)-&gt;V(展示)。这里就能很好的分析出M，其实还可以分为上层需要的数据也就是最终要的数据，还有未上层提供数据的数据源层，这样做就保证了上层很轻，对上层的框架依赖性就很少。使得业务框架能够保持中立。<br>而最终成本也在于数据源的维护和管理。这里也存在着一个问题，怎么保证数据源的完整性以及可维护性。虽然徐飞大大在前面通过RxJs来解决前面几个问题，但是实际项目中还是有很多人一起维护，所以要有团队约束，才能实施起来。比如说我上层有个小需求，可以直接通过ajax去获取数据了，就跳过了数据源了。o(╯□╰)o</p>
+<h2 id="MVVM"><a href="#MVVM" class="headerlink" title="MVVM"></a>MVVM</h2><p><img src="https://cdn.nlark.com/yuque/0/2019/jpeg/103994/1554016755220-9383d7b6-6ce3-4370-9901-cfdd60bb215b.jpeg" alt=""><br>徐飞大大说明了MVVM的实际场景，M(数据源)-&gt;VM(视图控制)-&gt;V(展示)。这里就能很好的分析出M，其实还可以分为上层需要的数据也就是最终要的数据，还有未上层提供数据的数据源层，这样做就保证了上层很轻，对上层的框架依赖性就很少。使得业务框架能够保持中立。<br>而最终成本也在于数据源的维护和管理。这里也存在着一个问题，怎么保证数据源的完整性以及可维护性。虽然徐飞大大在前面通过RxJs来解决前面几个问题，但是实际项目中还是有很多人一起维护，所以要有团队约束，才能实施起来。比如说我上层有个小需求，可以直接通过ajax去获取数据了，就跳过了数据源了。o(╯□╰)o</p>
 <h2 id="总结-1"><a href="#总结-1" class="headerlink" title="总结"></a>总结</h2><p>总体来说，博主可能在这段划船时间过后，去看看RxJs，能够对博主的业务场景有所帮助。增加数据处理层，用于管理业务，将视图层做轻做薄！↖(^ω^)↗</p>
 
       
@@ -502,7 +502,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

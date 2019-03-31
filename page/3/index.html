@@ -397,127 +397,6 @@ pre-commit顾名思义’pre-commit‘，就是在代码提交之
             
               
                 
-                <a class="post-title-link" href="/2016/10/22/ajaxAbort/" itemprop="url">
-                  ajaxAbort
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-10-22T23:49:17+08:00" content="2016-10-22">
-              2016-10-22
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <div class="post-content">
-          
-            
-            之前在重构一个移动项目的最后阶段，出现了一个很奇怪的现象。快速切换底部菜单footer就会报出异常，导致某些模块没有销毁，页面假死等等，一系列的问题。
-背景博主公司有一套自己的前端框架，现在还没开源，暂时不说细节了。博主通过简单的排查是api调用之后中断出现了问题，也就是ajax中断（abort）处理不当。
-
-请求处理每个请求都会单独处理是否要有loading页，都会有成功回调和失败回调，但是abort并没有在失败回调里面，这个也许是框架一个可以优化点。
-框架是分模块开发的，每个模块都有modu
-            ...
-
-            <div class="post-more-link text-center">
-              <a class="btn" target="_blank" href="/2016/10/22/ajaxAbort/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        </div>
-      
-      
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
                 <a class="post-title-link" href="/2016/10/16/debuggerInit/" itemprop="url">
                   debuggerInit
                 </a>
@@ -833,7 +712,8 @@ pre-commit顾名思义’pre-commit‘，就是在代码提交之
 简历简历非常非常非常非常重要，是获得面试机会的唯一途径。因为在别人不了解你的情况下，只能通过简历来看你的个人能力了。很多时候，面试官看简历比较简单，直接pass，连面试机会都没有，更不用说后面的事情了。
 
 多花点时间，让自己的简历足够亮起来。
-简历是自己的名片
+
+简历是自己的名
             ...
 
             <div class="post-more-link text-center">
@@ -866,11 +746,131 @@ pre-commit顾名思义’pre-commit‘，就是在代码提交之
 
 
     
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/05/fullpage2/" itemprop="url">
+                  实现小小的fullpage(二)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-05T22:53:45+08:00" content="2016-08-05">
+              2016-08-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div class="post-content">
+          
+            
+            之前写的一个小小的fullpage,今天又来第二弹了。因为遇到了问题，值得这次记录下来。
+问题之前写的fullpage看似完美，简单易移植。但是今天测试给我提了个bug。说当滚动了一屏之后，再最大化或者最小化窗口的时候就会没有占满屏幕。
+解决问题这个一定是缺少监听resize事件了。
+resize事件123$(window).on('resize', function() &#123;    $container.find('.slide').css('height', $container.h
+            ...
+
+            <div class="post-more-link text-center">
+              <a class="btn" target="_blank" href="/2016/08/05/fullpage2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        </div>
+      
+      
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/2/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><a class="page-number" href="/page/2/">2</a><span class="page-number current">3</span><a class="page-number" href="/page/4/">4</a><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/4/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -911,7 +911,7 @@ pre-commit顾名思义’pre-commit‘，就是在代码提交之
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

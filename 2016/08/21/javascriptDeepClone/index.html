@@ -69,13 +69,13 @@
 <meta property="og:site_name" content="前端-小强">
 <meta property="og:description" content="javascript深拷贝是初学者甚至有经验的开发着，都会经常遇到问题，并不能很好的理解javascript的深拷贝。 深拷贝(deepClone)？与深拷贝相对的就是浅拷贝，很多初学者在接触这个感念的时候，是很懵逼的。 为啥要用深拷贝？在很多情况下，我们都需要给变量赋值，给内存地址赋予一个值，但是在赋值引用值类型的时候，只是共享一个内存区域，导致赋值的时候，还跟之前的值保持一直性。看一个具体的例">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/icon_fun_mengbi.png">
-<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/js_deepClone_1.png">
-<meta property="og:updated_time" content="2018-09-24T06:27:47.000Z">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554017078997-39793abf-9367-4877-84cd-5a165aad8e94.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554017469686-40c6e153-e725-4938-b8d1-6bf5a937aecf.png">
+<meta property="og:updated_time" content="2019-03-31T07:32:01.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="javascript深拷贝">
 <meta name="twitter:description" content="javascript深拷贝是初学者甚至有经验的开发着，都会经常遇到问题，并不能很好的理解javascript的深拷贝。 深拷贝(deepClone)？与深拷贝相对的就是浅拷贝，很多初学者在接触这个感念的时候，是很懵逼的。 为啥要用深拷贝？在很多情况下，我们都需要给变量赋值，给内存地址赋予一个值，但是在赋值引用值类型的时候，只是共享一个内存区域，导致赋值的时候，还跟之前的值保持一直性。看一个具体的例">
-<meta name="twitter:image" content="http://7te8kr.com1.z0.glb.clouddn.com/icon_fun_mengbi.png">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554017078997-39793abf-9367-4877-84cd-5a165aad8e94.png">
 
 
 
@@ -339,9 +339,9 @@
 
       
         <p>javascript深拷贝是初学者甚至有经验的开发着，都会经常遇到问题，并不能很好的理解javascript的深拷贝。</p>
-<h1 id="深拷贝-deepClone-？"><a href="#深拷贝-deepClone-？" class="headerlink" title="深拷贝(deepClone)？"></a>深拷贝(deepClone)？</h1><p>与深拷贝相对的就是浅拷贝，很多初学者在接触这个感念的时候，是很懵逼的。<br><img src="http://7te8kr.com1.z0.glb.clouddn.com/icon_fun_mengbi.png" alt=""></p>
+<h1 id="深拷贝-deepClone-？"><a href="#深拷贝-deepClone-？" class="headerlink" title="深拷贝(deepClone)？"></a>深拷贝(deepClone)？</h1><p>与深拷贝相对的就是浅拷贝，很多初学者在接触这个感念的时候，是很懵逼的。<br><img src="https://cdn.nlark.com/yuque/0/2019/png/103994/1554017078997-39793abf-9367-4877-84cd-5a165aad8e94.png" alt=""></p>
 <h2 id="为啥要用深拷贝？"><a href="#为啥要用深拷贝？" class="headerlink" title="为啥要用深拷贝？"></a>为啥要用深拷贝？</h2><p>在很多情况下，我们都需要给变量赋值，给内存地址赋予一个值，但是在赋值引用值类型的时候，只是共享一个内存区域，导致赋值的时候，还跟之前的值保持一直性。<br>看一个具体的例子<br><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 给test赋值了一个对象</span></span><br><span class="line"><span class="keyword">var</span> test = &#123;</span><br><span class="line">	a: <span class="string">'a'</span>,</span><br><span class="line">	b: <span class="string">'b'</span></span><br><span class="line">&#125;;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 将test赋值给test2</span></span><br><span class="line"><span class="comment">// 此时test和test2是共享了同一块内存对象，这也就是浅拷贝</span></span><br><span class="line"><span class="keyword">var</span> test2 = test;</span><br><span class="line"></span><br><span class="line">test2.a = <span class="string">'a2'</span>;</span><br><span class="line"></span><br><span class="line">test.a === <span class="string">'a2'</span><span class="comment">// 为true</span></span><br></pre></td></tr></table></figure></p>
-<p>图解：<br><img src="http://7te8kr.com1.z0.glb.clouddn.com/js_deepClone_1.png" alt=""></p>
+<p>图解：<br><img src="https://cdn.nlark.com/yuque/0/2019/png/103994/1554017469686-40c6e153-e725-4938-b8d1-6bf5a937aecf.png" alt=""></p>
 <p>这下就很好理解为什么引用值类型数据相互影响问题。</p>
 <h1 id="实现"><a href="#实现" class="headerlink" title="实现"></a>实现</h1><p>实现一个深拷贝函数，就不得不说javascript的数值类型。</p>
 <h2 id="判断javascript类型"><a href="#判断javascript类型" class="headerlink" title="判断javascript类型"></a>判断javascript类型</h2><p>javascript中有以下基本类型</p>
@@ -395,9 +395,9 @@
 <p>有时候保存了dom元素， 一不小心进行深拷贝，上面的深拷贝函数就缺少了对Element元素的判断。而判断Element元素要使用instanceof来判断。因为对于不同的标签，tostring会返回对应不同的标签的构造函数。</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">type</span>(<span class="params">obj</span>) </span>&#123;</span><br><span class="line">	<span class="keyword">var</span> toString = <span class="built_in">Object</span>.prototype.toString;</span><br><span class="line">	<span class="keyword">var</span> map = &#123;</span><br><span class="line">	    <span class="string">'[object Boolean]'</span>  : <span class="string">'boolean'</span>, </span><br><span class="line">	    <span class="string">'[object Number]'</span>   : <span class="string">'number'</span>, </span><br><span class="line">	    <span class="string">'[object String]'</span>   : <span class="string">'string'</span>, </span><br><span class="line">	    <span class="string">'[object Function]'</span> : <span class="string">'function'</span>, </span><br><span class="line">	    <span class="string">'[object Array]'</span>    : <span class="string">'array'</span>, </span><br><span class="line">	    <span class="string">'[object Date]'</span>     : <span class="string">'date'</span>, </span><br><span class="line">	    <span class="string">'[object RegExp]'</span>   : <span class="string">'regExp'</span>, </span><br><span class="line">	    <span class="string">'[object Undefined]'</span>: <span class="string">'undefined'</span>,</span><br><span class="line">	    <span class="string">'[object Null]'</span>     : <span class="string">'null'</span>, </span><br><span class="line">	    <span class="string">'[object Object]'</span>   : <span class="string">'object'</span></span><br><span class="line">	&#125;;</span><br><span class="line">	<span class="keyword">if</span>(obj <span class="keyword">instanceof</span> Element) &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">'element'</span>;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="keyword">return</span> map[toString.call(obj)];</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h1 id="其它方式？"><a href="#其它方式？" class="headerlink" title="其它方式？"></a>其它方式？</h1><ol>
-<li>jquery的实现<br>详见<a href="https://github.com/jquery/jquery/blob/master/src/core.js" target="_blank" rel="noopener">https://github.com/jquery/jquery/blob/master/src/core.js</a></li>
-<li>underscore的实现<br>详见<a href="https://github.com/jashkenas/underscore/blob/master/underscore.js" target="_blank" rel="noopener">https://github.com/jashkenas/underscore/blob/master/underscore.js</a></li>
-<li>lodash的实现<br>详见<a href="https://github.com/lodash/lodash/blob/master/lodash.js" target="_blank" rel="noopener">https://github.com/lodash/lodash/blob/master/lodash.js</a></li>
+<li>jquery的实现<br>详见 <a href="https://github.com/jquery/jquery/blob/master/src/core.js" target="_blank" rel="noopener">https://github.com/jquery/jquery/blob/master/src/core.js</a></li>
+<li>underscore的实现<br>详见 <a href="https://github.com/jashkenas/underscore/blob/master/underscore.js" target="_blank" rel="noopener">https://github.com/jashkenas/underscore/blob/master/underscore.js</a></li>
+<li>lodash的实现<br>详见 <a href="https://github.com/lodash/lodash/blob/master/lodash.js" target="_blank" rel="noopener">https://github.com/lodash/lodash/blob/master/lodash.js</a></li>
 <li>JSON实现<br>先通过JSON.stringify一下，然后再JSON.parse一下，就能实现深拷贝。但是数据类型只支持基本数值类型。</li>
 </ol>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> obj = &#123;</span><br><span class="line">    a: <span class="string">'a'</span>,    </span><br><span class="line">    b: <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;<span class="built_in">console</span>.log(<span class="string">'b'</span>)&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">//在JSON.stringify的时候就会把function给过滤了。</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">JSON</span>.stringify(obj)<span class="comment">// "&#123;"a":"a"&#125;"</span></span><br></pre></td></tr></table></figure>
@@ -529,7 +529,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -43,7 +43,7 @@
 <link href="/css/main.css?v=0.6.1" rel="stylesheet" type="text/css" />
 
 
-  <meta name="keywords" content="fullpage,css,transform,transition," />
+  <meta name="keywords" content="css,fullpage,transform,transition," />
 
 
 
@@ -62,19 +62,19 @@
 
 
 <meta name="description" content="之前写的一个小小的fullpage,今天又来第二弹了。因为遇到了问题，值得这次记录下来。 问题之前写的fullpage看似完美，简单易移植。但是今天测试给我提了个bug。说当滚动了一屏之后，再最大化或者最小化窗口的时候就会没有占满屏幕。 解决问题这个一定是缺少监听resize事件了。 resize事件123$(window).on(&apos;resize&apos;, function() &amp;#123;    $c">
-<meta name="keywords" content="fullpage,css,transform,transition">
+<meta name="keywords" content="css,fullpage,transform,transition">
 <meta property="og:type" content="article">
 <meta property="og:title" content="实现小小的fullpage(二)">
 <meta property="og:url" content="http://xiaoqiang730730.github.io/2016/08/05/fullpage2/index.html">
 <meta property="og:site_name" content="前端-小强">
 <meta property="og:description" content="之前写的一个小小的fullpage,今天又来第二弹了。因为遇到了问题，值得这次记录下来。 问题之前写的fullpage看似完美，简单易移植。但是今天测试给我提了个bug。说当滚动了一屏之后，再最大化或者最小化窗口的时候就会没有占满屏幕。 解决问题这个一定是缺少监听resize事件了。 resize事件123$(window).on(&apos;resize&apos;, function() &amp;#123;    $c">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/icon_fun7.jpg">
-<meta property="og:updated_time" content="2018-09-24T06:27:47.000Z">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/jpeg/103994/1554017322900-9d34c80b-d79e-47c4-9ae1-dacbafa8ec15.jpeg">
+<meta property="og:updated_time" content="2019-03-31T07:29:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="实现小小的fullpage(二)">
 <meta name="twitter:description" content="之前写的一个小小的fullpage,今天又来第二弹了。因为遇到了问题，值得这次记录下来。 问题之前写的fullpage看似完美，简单易移植。但是今天测试给我提了个bug。说当滚动了一屏之后，再最大化或者最小化窗口的时候就会没有占满屏幕。 解决问题这个一定是缺少监听resize事件了。 resize事件123$(window).on(&apos;resize&apos;, function() &amp;#123;    $c">
-<meta name="twitter:image" content="http://7te8kr.com1.z0.glb.clouddn.com/icon_fun7.jpg">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2019/jpeg/103994/1554017322900-9d34c80b-d79e-47c4-9ae1-dacbafa8ec15.jpeg">
 
 
 
@@ -338,7 +338,7 @@
 
       
         <p><a href="https://xiaoqiang730730.github.io/2016/06/03/fullpage/">之前写的一个小小的fullpage</a>,今天又来第二弹了。因为遇到了问题，值得这次记录下来。</p>
-<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>之前写的fullpage看似完美，简单易移植。但是今天测试给我提了个bug。说当滚动了一屏之后，再最大化或者最小化窗口的时候就会没有占满屏幕。<img src="http://7te8kr.com1.z0.glb.clouddn.com/icon_fun7.jpg" alt="憋屈"></p>
+<h1 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h1><p>之前写的fullpage看似完美，简单易移植。但是今天测试给我提了个bug。说当滚动了一屏之后，再最大化或者最小化窗口的时候就会没有占满屏幕。<img src="https://cdn.nlark.com/yuque/0/2019/jpeg/103994/1554017322900-9d34c80b-d79e-47c4-9ae1-dacbafa8ec15.jpeg" alt="憋屈"></p>
 <h1 id="解决问题"><a href="#解决问题" class="headerlink" title="解决问题"></a>解决问题</h1><p>这个一定是缺少监听resize事件了。</p>
 <h2 id="resize事件"><a href="#resize事件" class="headerlink" title="resize事件"></a>resize事件</h2><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="built_in">window</span>).on(<span class="string">'resize'</span>, <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</span><br><span class="line">    $container.find(<span class="string">'.slide'</span>).css(<span class="string">'height'</span>, $container.height() + <span class="string">'px'</span>);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <p>很简单。只要监听resize事件，然后将每个slide的高度给重新设置高度。</p>
@@ -393,9 +393,9 @@
       
         <div class="post-tags">
           
-            <a href="/tags/fullpage/" rel="tag">#fullpage</a>
-          
             <a href="/tags/css/" rel="tag">#css</a>
+          
+            <a href="/tags/fullpage/" rel="tag">#fullpage</a>
           
             <a href="/tags/transform/" rel="tag">#transform</a>
           
@@ -486,7 +486,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -69,14 +69,14 @@
 <meta property="og:site_name" content="前端-小强">
 <meta property="og:description" content="qap最佳实战_统一入口背景我们的包大小是随着页面增加越来越大，这里面就会导致有些代码不断的重复打包，那能不能减少这部分代码呢？ 原先跳转逻辑用户从工作台-&amp;gt;点击出售中-&amp;gt;跳到商品列表 用户从消息列表-&amp;gt;点击商品信息-&amp;gt;跳到商品详情 用户点击商品管理-&amp;gt;跳到商品首页 由于存在多个路径没法统一处理，因为不知道用户会从哪里进入旺店商品。  更改跳转逻辑用户从工作台-&amp;gt">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/icon_kunhuo.jpg">
-<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_5.png">
-<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_6.png">
-<meta property="og:updated_time" content="2018-09-24T06:27:47.000Z">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/jpeg/103994/1554017608201-363d2cb3-a6b1-492f-b4e5-8062c53b5e22.jpeg">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554018013570-6a51eadc-b337-4d54-acdd-aa024fb413d6.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554017869023-9544466d-67f2-4a3b-be5f-12521594c845.png">
+<meta property="og:updated_time" content="2019-03-31T07:48:32.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="qap最佳实战_统一入口">
 <meta name="twitter:description" content="qap最佳实战_统一入口背景我们的包大小是随着页面增加越来越大，这里面就会导致有些代码不断的重复打包，那能不能减少这部分代码呢？ 原先跳转逻辑用户从工作台-&amp;gt;点击出售中-&amp;gt;跳到商品列表 用户从消息列表-&amp;gt;点击商品信息-&amp;gt;跳到商品详情 用户点击商品管理-&amp;gt;跳到商品首页 由于存在多个路径没法统一处理，因为不知道用户会从哪里进入旺店商品。  更改跳转逻辑用户从工作台-&amp;gt">
-<meta name="twitter:image" content="http://7te8kr.com1.z0.glb.clouddn.com/icon_kunhuo.jpg">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2019/jpeg/103994/1554017608201-363d2cb3-a6b1-492f-b4e5-8062c53b5e22.jpeg">
 
 
 
@@ -344,7 +344,7 @@
 <p>用户从消息列表-&gt;点击商品信息-&gt;跳到商品详情</p>
 <p>用户点击商品管理-&gt;跳到商品首页</p>
 <p>由于存在多个路径<strong>没法统一处理</strong>，因为不知道用户会从哪里进入旺店商品。</p>
-<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/icon_kunhuo.jpg" alt=""></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/jpeg/103994/1554017608201-363d2cb3-a6b1-492f-b4e5-8062c53b5e22.jpeg" alt=""></p>
 <h1 id="更改跳转逻辑"><a href="#更改跳转逻辑" class="headerlink" title="更改跳转逻辑"></a>更改跳转逻辑</h1><p>用户从工作台-&gt;点击出售中-&gt;跳到商品首页-&gt;再跳到商品列表</p>
 <p>用户从消息列表-&gt;点击商品信息-&gt;跳到商品首页-&gt;再跳到商品详情</p>
 <p>用户点击商品管理-&gt;跳到商品首页</p>
@@ -362,7 +362,7 @@
 <p>而在<code>publicTrans</code>里面新建旺旺事件捕捉文件<code>chatww.js</code></p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> QAP <span class="keyword">from</span> <span class="string">'QAP-SDK'</span>;</span><br><span class="line"><span class="keyword">import</span> wangwang <span class="keyword">from</span> <span class="string">'common/chatwwCore'</span>;</span><br><span class="line"></span><br><span class="line"><span class="keyword">let</span> chatww = <span class="function"><span class="params">()</span>=&gt;</span> &#123;</span><br><span class="line"></span><br><span class="line">    QAP.on(<span class="string">'App.global.openChatWW'</span>, (params)=&gt; &#123;</span><br><span class="line">        <span class="built_in">console</span>.log(params);</span><br><span class="line">        wangwang(params);</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> chatww;</span><br></pre></td></tr></table></figure>
 <p><code>chatwwCore</code>就是之前的<code>chatww</code>, 这样子改造之后，不会影响线上的使用。</p>
-<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_5.png" alt=""></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/103994/1554018013570-6a51eadc-b337-4d54-acdd-aa024fb413d6.png" alt=""></p>
 <p>利用qap提供的事件机制，将之前的打开旺旺这个行为转接到统一入口里面。这样线上80多个页面，之前每个页面都要引入一次<code>chatwwCore</code>, 现在改造成只有统一入口引入，其它页面只是引入了一个事件方法。</p>
 <h1 id="思考：是不是每个公共方法都适合么？"><a href="#思考：是不是每个公共方法都适合么？" class="headerlink" title="思考：是不是每个公共方法都适合么？"></a>思考：是不是每个公共方法都适合么？</h1><p>不是每个方法都适合在统一入口里面去做事件监听，实践之后，建议是处于被动、用户自己触发的一些事情，可以这么去做。</p>
 <h1 id="不适合例子"><a href="#不适合例子" class="headerlink" title="不适合例子"></a>不适合例子</h1><p>像数据处理工具函数，处理起来就比较麻烦，是因为qap事件无法执行参数函数。</p>
@@ -371,7 +371,7 @@
 <h2 id="首先在publicTrans入口捕捉处理"><a href="#首先在publicTrans入口捕捉处理" class="headerlink" title="首先在publicTrans入口捕捉处理"></a>首先在publicTrans入口捕捉处理</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> A <span class="keyword">from</span> <span class="string">'common/Acore.js'</span>;</span><br><span class="line">QAP.on(<span class="string">'App.global.handleA'</span>, (data)=&gt; &#123;</span><br><span class="line">    <span class="keyword">let</span> result = A(data.data);</span><br><span class="line">    QAP.emit(data.eventName, result);</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 <h2 id="其次是A的处理A-js"><a href="#其次是A的处理A-js" class="headerlink" title="其次是A的处理A.js"></a>其次是A的处理<code>A.js</code></h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">handle</span> = (<span class="params">data, cb</span>)=&gt; </span>&#123;</span><br><span class="line">    <span class="keyword">let</span> eventName = <span class="string">'App.global.handleAResult'</span> + (+<span class="keyword">new</span> <span class="built_in">Date</span>());</span><br><span class="line">    QAP.emit(<span class="string">'App.global.handleA'</span>, &#123;</span><br><span class="line">        eventName,</span><br><span class="line">        data</span><br><span class="line">    &#125;);</span><br><span class="line"></span><br><span class="line">    QAP.on(eventName, (result)=&gt; &#123;</span><br><span class="line">        cb &amp;&amp; cb(result);</span><br><span class="line">        QAP.off(eventName);</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <h2 id="具体使用"><a href="#具体使用" class="headerlink" title="具体使用"></a>具体使用</h2><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> A <span class="keyword">from</span> A.js</span><br><span class="line"></span><br><span class="line">A(data, (result)=&gt; &#123;</span><br><span class="line">    <span class="comment">//todo</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_6.png" alt=""></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/103994/1554017869023-9544466d-67f2-4a3b-be5f-12521594c845.png" alt=""></p>
 <p>这里简单来说，统一入口相当于中转站。将原有页面的一些操作处理，都放在中转站来做。其它页面通过事件桥接起来。</p>
 <p><a href="http://xiaoqiang730730.github.io/2018/03/10/qap-%E5%8C%85%E5%A4%A7%E5%B0%8F%E4%BC%98%E5%8C%96/">再来看之前问题-apiList</a></p>
 <p>之前用babel-plugin预处理了apiList，那能不能用这种方式呢？</p>
@@ -510,7 +510,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

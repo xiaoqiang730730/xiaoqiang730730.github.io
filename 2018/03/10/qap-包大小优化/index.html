@@ -69,16 +69,16 @@
 <meta property="og:site_name" content="前端-小强">
 <meta property="og:description" content="Qianniu Application Platform(QAP)是阿里千牛官方推出的、功能丰富的开发者套件。底层weex，上层有SDK接口、rax库、以及rax的ui组件nuke   rax   nuke是一套基于 Weex 容器 与 rax 开源渲染引擎的面向电商中后台场景的 UI 组件生态  背景2017年 由于整个技术方向切到qap平台，将原有的h5 web app 改造成以weex渲染">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_4.png">
-<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_1.png">
-<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_10.png">
-<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_2.png">
-<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_3.png">
-<meta property="og:updated_time" content="2018-09-24T06:27:47.000Z">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554017868973-e1d8ff82-d25e-41e4-b6e3-159ef77ce5ec.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554017868799-23fceb0a-67f1-4995-978f-c7ca5bfbdb71.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554018308184-a40b7cf0-18e8-4396-a691-20cc2773c8a7.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554017868735-cf8dff98-00c1-49ab-bdcb-061c7a972d0c.png">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554017868905-4beaacf5-621e-47ec-8256-df1ffd06295d.png">
+<meta property="og:updated_time" content="2019-03-31T07:46:05.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="qap_包大小优化">
 <meta name="twitter:description" content="Qianniu Application Platform(QAP)是阿里千牛官方推出的、功能丰富的开发者套件。底层weex，上层有SDK接口、rax库、以及rax的ui组件nuke   rax   nuke是一套基于 Weex 容器 与 rax 开源渲染引擎的面向电商中后台场景的 UI 组件生态  背景2017年 由于整个技术方向切到qap平台，将原有的h5 web app 改造成以weex渲染">
-<meta name="twitter:image" content="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_4.png">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554017868973-e1d8ff82-d25e-41e4-b6e3-159ef77ce5ec.png">
 
 
 
@@ -354,18 +354,18 @@
 <h1 id="demo"><a href="#demo" class="headerlink" title="demo"></a>demo</h1><p><a href="https://github.com/xiaoqiang730730/qapOptimizitons" target="_blank" rel="noopener">可以查看demo了解文件目录</a></p>
 <h1 id="包大小优化原因"><a href="#包大小优化原因" class="headerlink" title="包大小优化原因"></a>包大小优化原因</h1><p>qap平台应用简单来说是多页应用，每个页面之间都是无关联的，借助于weex的<code>navigator</code>进行跳转。对比web浏览器来说，就是多页面开发，每次跳转都是打开新的窗口页面。web浏览器是支持一个页面里面引入多个js的，但是<a href="(https://weex.apache.org/cn/wiki/platform-difference.html#mei-you-history-location-navigator-dui-xiang">weex现阶段只支持一个页面一个js</a>)。</p>
 <p>qap平台是将千牛应用的js打包成一个zip，通过后台服务上传，然后由千牛推送给用户，这就决定了我们必然要去优化这个zip包的大小。</p>
-<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_4.png" alt="正式环境的包"></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/103994/1554017868973-e1d8ff82-d25e-41e4-b6e3-159ef77ce5ec.png" alt="正式环境的包"></p>
 <p>同时用户在首次下载新版本包的时候，包越大越容易导致丢包，用户无法更新到最新包，用户网络不能一直保持良好状态。</p>
-<h1 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h1><p><img src="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_1.png" alt="意见反馈"></p>
+<h1 id="一个例子"><a href="#一个例子" class="headerlink" title="一个例子"></a>一个例子</h1><p><img src="https://cdn.nlark.com/yuque/0/2019/png/103994/1554017868799-23fceb0a-67f1-4995-978f-c7ca5bfbdb71.png" alt="意见反馈"></p>
 <p>页面比较简单，核心代码如下<br><figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> &#123;createElement, Component, render&#125; <span class="keyword">from</span> <span class="string">'rax'</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;View,Text,Button,Link,Image,Modal,TextInput,TouchableHighlight&#125; <span class="keyword">from</span> <span class="string">'nuke'</span>;</span><br><span class="line"><span class="keyword">import</span> st <span class="keyword">from</span> <span class="string">'./style.rxscss'</span>;</span><br><span class="line"><span class="keyword">import</span> QAP <span class="keyword">from</span> <span class="string">'QAP-SDK'</span>;</span><br><span class="line"><span class="keyword">import</span> WangWang <span class="keyword">from</span> <span class="string">'common/chatww'</span>;</span><br><span class="line"><span class="keyword">import</span> RCUserInfo <span class="keyword">from</span> <span class="string">'common/userInfo'</span>;</span><br><span class="line"></span><br><span class="line"><span class="class"><span class="keyword">class</span> <span class="title">Feedback</span> <span class="keyword">extends</span> <span class="title">Component</span> </span>&#123;</span><br><span class="line">    <span class="keyword">constructor</span>(props) &#123;</span><br><span class="line">        <span class="keyword">super</span>(props);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">// 具体业务场景</span></span><br><span class="line"></span><br><span class="line">    render() &#123;</span><br><span class="line">        <span class="keyword">return</span> (</span><br><span class="line">            &lt;View style=&#123;st.feedbackContentWrap&#125;&gt;</span><br><span class="line">                &lt;View style=&#123;st.feedbackInputWrap&#125;&gt;</span><br><span class="line">                    &lt;TextInput</span><br><span class="line">                        ref=<span class="string">"myFb"</span></span><br><span class="line">                        placeholder=<span class="string">'吐槽、建议、改进、新功能统统写上来，我们会尽快联系您哒~'</span></span><br><span class="line">                        multiline=&#123;<span class="literal">true</span>&#125;</span><br><span class="line">                        style=&#123;st.feedbackInput&#125;</span><br><span class="line">                    /&gt;</span><br><span class="line">                &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">                &lt;Button</span></span><br><span class="line"><span class="regexp">                    style=&#123;st.singleSubmitBtn&#125;</span></span><br><span class="line"><span class="regexp">                    onPress=&#123;this.submit.bind(this)&#125;</span></span><br><span class="line"><span class="regexp">                &gt;</span></span><br><span class="line"><span class="regexp">                    提交</span></span><br><span class="line"><span class="regexp">                &lt;/</span>Button&gt;</span><br><span class="line">            &lt;<span class="regexp">/View&gt;</span></span><br><span class="line"><span class="regexp">        );</span></span><br><span class="line"><span class="regexp">    &#125;</span></span><br><span class="line"><span class="regexp">&#125;</span></span><br><span class="line"><span class="regexp"></span></span><br><span class="line"><span class="regexp">render(&lt;Feedback/</span>&gt;);</span><br></pre></td></tr></table></figure></p>
 <p>这个页面依赖了<code>rax, QAP-SDK, nuke, chatww, userInfo style.rxscss</code>，但是阿里的qap平台已经帮我们内嵌了<code>rax, QAP-SDK, nuke</code>，我们在打包的时候就不需要打包了，剩下的依赖其实不算是很多，然而最终的打包之后的大小不理想。达到了38k。</p>
-<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_10.png" alt=""></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/103994/1554018308184-a40b7cf0-18e8-4396-a691-20cc2773c8a7.png" alt=""></p>
 <h1 id="再次分析"><a href="#再次分析" class="headerlink" title="再次分析"></a>再次分析</h1><p>我们里面依赖了<a href="https://github.com/xiaoqiang730730/qapOptimizitons/blob/master/src/common/userInfo.js" target="_blank" rel="noopener">userInfo, 而userInfo依赖了fetch，fetch依赖了apiList</a>，</p>
 <p>而apiList是啥？</p>
 <h1 id="apiList分析"><a href="#apiList分析" class="headerlink" title="apiList分析"></a>apiList分析</h1><p>对于前后分离项目，前端这边会有一个api映射表，用于数据请求。这里apiList是所有页面的api映射的集合。</p>
 <figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> apiList = &#123;</span><br><span class="line">    getUserInfo: &#123;</span><br><span class="line">        server: <span class="string">'rc'</span>,</span><br><span class="line">        url: <span class="string">'https://mwdsp.superboss.cc/public/getUserInfo.rjson'</span></span><br><span class="line">    &#125;</span><br><span class="line">    ...</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 <p>随着项目越来越复杂，apiList 越来越复杂，在实际项目里面apiList 达到了30k多。</p>
-<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_2.png" alt=""></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/103994/1554017868735-cf8dff98-00c1-49ab-bdcb-061c7a972d0c.png" alt=""></p>
 <p>而在实际项目里面有超过80个chunk，<a href="https://weex.apache.org/cn/wiki/platform-difference.html#mei-you-history-location-navigator-dui-xiang" target="_blank" rel="noopener">每个chunk都会打包apiList</a>，有人会说用<code>CommonsChunkPlugin</code>抽离公共的js，但是现在<strong>weex还不支持一个页面多个js机制</strong>，所以就会出现80*30重复了很多。</p>
 <h1 id="拆分apiList"><a href="#拆分apiList" class="headerlink" title="拆分apiList"></a>拆分apiList</h1><p>既然apiList冗余，那能不能在使用的时候，只要打包想要的呢？</p>
 <h1 id="方案1-更改请求写法"><a href="#方案1-更改请求写法" class="headerlink" title="方案1-更改请求写法"></a>方案1-更改请求写法</h1><p>现有的方式<br><figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">this</span>.request(&#123;</span><br><span class="line">    api: <span class="string">'XXX'</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure></p>
@@ -387,7 +387,7 @@
 <p>那能不能进一步减少呢？</p>
 <p>这里就设计到qap平台的一些特性了，这个后面会在<strong>qap统一入口</strong>里描述，不是任何场景都适合。</p>
 <h2 id="问题"><a href="#问题" class="headerlink" title="问题"></a>问题</h2><p>apiList 是动态对象，业务层存在动态调用。</p>
-<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/qap_1_3.png" alt=""></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/103994/1554017868905-4beaacf5-621e-47ec-8256-df1ffd06295d.png" alt=""></p>
 <p>在通过babel-plugin处理request的时候，是得知道真正调用的api的名字的。动态传参是无法转换的。</p>
 <p>这里就需要手动改成静态调用。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>包的大小对于web应用，以及native应用一直都是难题；在业务复杂情况下，怎么做好包大小控制都是难题。</p>
@@ -530,7 +530,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

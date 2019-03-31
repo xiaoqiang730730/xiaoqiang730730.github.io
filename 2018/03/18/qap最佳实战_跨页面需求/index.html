@@ -69,12 +69,12 @@
 <meta property="og:site_name" content="前端-小强">
 <meta property="og:description" content="qap最佳实战_跨页面需求背景有些需求涉及到多个页面，比如续费页面涉及到商品详情页、商品列表页、首页等等。 最简单粗暴的做法是把续费页面抽离成一个单独的组件，然后在每个页面都引入。这里会重复打包，会使得包大小变大。为什么会重复打包之前一系列已经说过原因了。 利用统一入口利用之前的统一入口， 将重复的需求写到统一入口页面， 在其它页面通过事件触发。 问题这样会有个严重的问题，qap的页面是相互叠加的">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:image" content="http://7te8kr.com1.z0.glb.clouddn.com/icon_haha%20.png">
-<meta property="og:updated_time" content="2018-09-24T06:27:47.000Z">
+<meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554016990824-b512550c-feca-42cf-86fd-ad288ed1fead.png">
+<meta property="og:updated_time" content="2019-03-31T07:48:55.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="qap最佳实战_跨页面需求">
 <meta name="twitter:description" content="qap最佳实战_跨页面需求背景有些需求涉及到多个页面，比如续费页面涉及到商品详情页、商品列表页、首页等等。 最简单粗暴的做法是把续费页面抽离成一个单独的组件，然后在每个页面都引入。这里会重复打包，会使得包大小变大。为什么会重复打包之前一系列已经说过原因了。 利用统一入口利用之前的统一入口， 将重复的需求写到统一入口页面， 在其它页面通过事件触发。 问题这样会有个严重的问题，qap的页面是相互叠加的">
-<meta name="twitter:image" content="http://7te8kr.com1.z0.glb.clouddn.com/icon_haha%20.png">
+<meta name="twitter:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1554016990824-b512550c-feca-42cf-86fd-ad288ed1fead.png">
 
 
 
@@ -352,7 +352,7 @@
 </ol>
 <h1 id="问题？"><a href="#问题？" class="headerlink" title="问题？"></a>问题？</h1><p>既然nativeDialog是能够独立打开一个页面，是不是就可以不需要统一入口，直接在具体页面里面使用？</p>
 <p>在一般情况下，这样是可以的，但是需求是不可想象的。</p>
-<p><img src="http://7te8kr.com1.z0.glb.clouddn.com/icon_haha%20.png" alt=""></p>
+<p><img src="https://cdn.nlark.com/yuque/0/2019/png/103994/1554016990824-b512550c-feca-42cf-86fd-ad288ed1fead.png" alt=""></p>
 <h1 id="缺点"><a href="#缺点" class="headerlink" title="缺点"></a>缺点</h1><p>nativeDialog并不完美，是相互覆盖。也就是说当前存在nativeDialog的时候，再次通过nativeDialog弹出一个弹框的时候，是会把之前的弹框给覆盖了。也就是说如果出现2次多页面的弹框，就会相互覆盖。</p>
 <h1 id="改造"><a href="#改造" class="headerlink" title="改造"></a>改造</h1><p>所以需要在统一入口，简单构建一个nativeDialog使用队列，依次排队使用。</p>
 <h1 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h1><p>通过nativeDialog巧妙的使用，来解决跨多页面的需求，避免重复引用，控制整个应用包的大小。</p>
@@ -490,7 +490,7 @@
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">25</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
