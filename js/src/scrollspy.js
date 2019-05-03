@@ -130,7 +130,10 @@
         .addClass('active')
     }
 
-    active.trigger('activate.bs.scrollspy')
+    active.trigger('activate.bs.scrollspy');
+
+    window._hmt && _hmt.push(['_trackPageview', location.pathname + target])
+
   }
 
   ScrollSpy.prototype.clear = function () {

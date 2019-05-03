@@ -2,6 +2,20 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>http://xiaoqiang730730.github.io/neitui/index.html</loc>
+    
+    <lastmod>2019-05-03T06:52:51.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xiaoqiang730730.github.io/2019/03/31/babel-plugin/</loc>
+    
+    <lastmod>2019-03-31T11:09:42.000Z</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>http://xiaoqiang730730.github.io/2016/08/14/work/</loc>
     
     <lastmod>2019-03-31T08:10:55.000Z</lastmod>
@@ -135,16 +149,23 @@
   </url>
   
   <url>
-    <loc>http://xiaoqiang730730.github.io/neitui/index.html</loc>
+    <loc>http://xiaoqiang730730.github.io/about/index.html</loc>
     
-    <lastmod>2019-01-31T13:57:40.000Z</lastmod>
+    <lastmod>2018-09-24T06:33:56.000Z</lastmod>
     
   </url>
   
   <url>
-    <loc>http://xiaoqiang730730.github.io/about/index.html</loc>
+    <loc>http://xiaoqiang730730.github.io/2018/03/19/qap%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98_%E5%8A%A8%E6%80%81%E4%BB%A3%E7%A0%81/</loc>
     
-    <lastmod>2018-09-24T06:33:56.000Z</lastmod>
+    <lastmod>2018-09-24T06:27:47.000Z</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>http://xiaoqiang730730.github.io/2018/08/12/app/</loc>
+    
+    <lastmod>2018-09-24T06:27:47.000Z</lastmod>
     
   </url>
   
@@ -157,20 +178,6 @@
   
   <url>
     <loc>http://xiaoqiang730730.github.io/2016/07/10/2016-6-24%E6%8A%80%E6%9C%AF%E6%B4%BB%E5%8A%A8/</loc>
-    
-    <lastmod>2018-09-24T06:27:47.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xiaoqiang730730.github.io/2016/05/12/frontLevel/</loc>
-    
-    <lastmod>2018-09-24T06:27:47.000Z</lastmod>
-    
-  </url>
-  
-  <url>
-    <loc>http://xiaoqiang730730.github.io/2018/03/19/qap%E6%9C%80%E4%BD%B3%E5%AE%9E%E6%88%98_%E5%8A%A8%E6%80%81%E4%BB%A3%E7%A0%81/</loc>
     
     <lastmod>2018-09-24T06:27:47.000Z</lastmod>
     
@@ -191,7 +198,7 @@
   </url>
   
   <url>
-    <loc>http://xiaoqiang730730.github.io/2018/08/12/app/</loc>
+    <loc>http://xiaoqiang730730.github.io/2016/05/12/frontLevel/</loc>
     
     <lastmod>2018-09-24T06:27:47.000Z</lastmod>
     

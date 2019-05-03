@@ -40,7 +40,7 @@
 
 <link href="/js/vendor/font-awesome/css/font-awesome.min.css?v=4.4.0" rel="stylesheet" type="text/css" />
 
-<link href="/css/main.css?v=0.6.1" rel="stylesheet" type="text/css" />
+<link href="/css/main.css?v=0.6.2" rel="stylesheet" type="text/css" />
 
 
   <meta name="keywords" content="Hexo, NexT" />
@@ -54,7 +54,7 @@
 
 
 
-  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.6.1" />
+  <link rel="shortcut icon" type="image/x-icon" href="/favicon.ico?v=0.6.2" />
 
 
 
@@ -256,6 +256,126 @@
           <div id="content" class="content">
             
   <section id="posts" class="posts-expand">
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
+                <a class="post-title-link" href="/2016/08/05/fullpage2/" itemprop="url">
+                  实现小小的fullpage(二)
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2016-08-05T22:53:45+08:00" content="2016-08-05">
+              2016-08-05
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div class="post-content">
+          
+            
+            之前写的一个小小的fullpage,今天又来第二弹了。因为遇到了问题，值得这次记录下来。
+问题之前写的fullpage看似完美，简单易移植。但是今天测试给我提了个bug。说当滚动了一屏之后，再最大化或者最小化窗口的时候就会没有占满屏幕。
+解决问题这个一定是缺少监听resize事件了。
+resize事件123$(window).on('resize', function() &#123;    $container.find('.slide').css('height', $container.h
+            ...
+
+            <div class="post-more-link text-center">
+              <a class="btn" target="_blank" href="/2016/08/05/fullpage2/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        </div>
+      
+      
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
     
       
 
@@ -742,136 +862,11 @@ display是无法继承父元素的，visibility是能够继承父元素，但是
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2016/07/16/怎么写好组件/" itemprop="url">
-                  怎么写好组件
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2016-07-16T00:00:00+08:00" content="2016-07-16">
-              2016-07-16
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <div class="post-content">
-          
-            
-            我们为什么要写组件呢？这里不细分组件、插件、控件，追究其原因无非让代码，能够复用，追求更快的开发效率。其实还有个重要的原因，项目大了之后，难以维护。这个时候就会把项目中重复的部分抽取出来，形成一个组件。但是组件也会有些’缺点’，这个最后讲。
-组件需求要实现如图的一个条件选择器
-有的时候，项目时间紧张，就会直接切图，通过jquery的dom选择器实现这个’简单的功能’。
-需求分析为了更好的维护，以及更好的复用此组件，就要做些抽象。
-
-数据层: 用来决定按钮个数以及按钮是否选择
-
-
-表现层: 按钮使
-            ...
-
-            <div class="post-more-link text-center">
-              <a class="btn" target="_blank" href="/2016/07/16/怎么写好组件/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        </div>
-      
-      
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
+    <a class="extend prev" rel="prev" href="/page/3/"><i class="fa fa-angle-left"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/3/">3</a><span class="page-number current">4</span><a class="page-number" href="/page/5/">5</a><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/5/"><i class="fa fa-angle-right"></i></a>
   </nav>
 
 
@@ -912,7 +907,7 @@ display是无法继承父元素的，visibility是能够继承父元素，但是
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">25</span>
+              <span class="site-state-item-count">26</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
@@ -1092,32 +1087,32 @@ display是无法继承父元素的，visibility是能够继承父元素，但是
   
 
 
-  <script type="text/javascript" src="/js/src/utils.js?v=0.6.1"></script>
+  <script type="text/javascript" src="/js/src/utils.js?v=0.6.2"></script>
 
-  <script type="text/javascript" src="/js/src/motion.js?v=0.6.1"></script>
+  <script type="text/javascript" src="/js/src/motion.js?v=0.6.2"></script>
 
-  <script type="text/javascript" src="/js/src/scrollIndicator.js?v=0.6.1"></script>
+  <script type="text/javascript" src="/js/src/scrollIndicator.js?v=0.6.2"></script>
 
-  <script type="text/javascript" src="/js/src/comment.js?v=0.6.1"></script>
-
-
-
-  
-  
-
-
-  <script type="text/javascript" src="/js/src/affix.js?v=0.6.1"></script>
-
-  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.6.1"></script>
+  <script type="text/javascript" src="/js/src/comment.js?v=0.6.2"></script>
 
 
 
   
+  
+
+
+  <script type="text/javascript" src="/js/src/affix.js?v=0.6.2"></script>
+
+  <script type="text/javascript" src="/js/src/schemes/pisces.js?v=0.6.2"></script>
+
+
+
+  
 
   
 
 
-  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.6.1"></script>
+  <script type="text/javascript" src="/js/src/bootstrap.js?v=0.6.2"></script>
 
 
 
