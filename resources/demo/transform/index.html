@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+	<style>
+		body{
+			background-color: #1089ee;
+		}
+		*{
+			padding: 0;
+			margin: 0;
+			box-sizing: border-box;
+		}
+		.itemwrap{
+			height: 2.26rem;
+			width: 6.96rem;
+			border-radius: 0.2rem;
+			margin: 0 auto;
+			overflow: hidden;
+			position: relative;
+		}
+		.item{
+			height: 2.26rem;
+			width: 6.96rem;
+			padding-left: 1rem;
+			padding-top: 1rem;
+			margin: 0 auto;
+			background-color: #ff0000;
+			border-radius: 0.2rem;
+		}
+		.hot{
+			height: 0.18rem;
+			width: 0.18rem;
+			border-radius: .09rem;
+			background-color: #ff0000;
+		}
+		.item1{
+			background-color: #ffffff;
+			animation-name: itemHide;
+			animation-delay: 1000ms;
+			animation-duration: 600ms;
+			animation-timing-function: ease;
+			animation-fill-mode: forwards;
+			transform-origin: center top;
+		}
+		@keyframes itemHide{
+			0%{
+				opacity: 1;
+				transform: scale3d(1, 1, 1) translateY(-1rem);
+			}
+			100%{
+				opacity: 0.6;
+				transform: scale3d(0.9, 0.9, 1) translateY(-2.26rem);
+			}
+		}
+		.item2{
+			background-color: #ffffff;
+			animation-name: itemShow;
+			animation-delay: 900ms;
+			animation-duration: 600ms;
+			animation-timing-function: ease;
+			animation-fill-mode: forwards;
+			opacity: 0;
+		}
+		@keyframes itemShow{
+			0%{
+				opacity: 0;
+				transform: translateY(0);
+			}
+			100%{
+				opacity: 1;
+				transform: translateY(-2.26rem);
+			}
+		}
+		.item-text{
+			font-size: 0.26rem;
+			color: #1089ee;
+		}
+	</style>
+</head>
+<script>
+	document.documentElement.style.fontSize = (100 * document.documentElement.clientWidth / 750) + "px";
+</script>
+<body>
+	<div class="itemwrap" id="itemwrap">
+		<div id="item1" class="item">
+			<div class="hot"></div>
+			<div>item1</div>
+		</div>
+		<div id="item2" class="item">
+			<div class="hot"></div>
+			<div>item2</div>
+		</div>
+	</div>
+
+	<script>
+		var $start = document.getElementById('start');
+		var $wrap = document.getElementById('itemwrap');
+		var data = ['a', 'b'];
+		var index = 0;
+		var tmp = [];
+		var animation = ()=> {
+				var showData = [];
+				if(index + 1 <= data.length - 1) {
+					showData = [data[index], data[index + 1]];
+					index = index + 1;
+				}else {
+					showData = [data[data.length - 1], data[0]];
+					index = 0;
+				}
+				tmp = showData.map((val, index)=> {
+					return `
+					<div class="item item${index+1}">
+						<div class="hot"></div>
+						<div class="item-text"><span>你好呀，支付宝小程序招人啦${val}</span></div>
+					</div>`
+				});
+				$wrap.innerHTML = tmp.join('');
+
+				setTimeout(()=> {
+					animation();
+				}, 4000)
+
+			}
+
+			animation();
+	</script>
+</body>
+</html>

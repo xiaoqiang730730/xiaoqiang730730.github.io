@@ -278,6 +278,127 @@
             
               
                 
+                <a class="post-title-link" href="/2018/04/06/react按路由分包加载/" itemprop="url">
+                  react按路由分包加载
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2018-04-06T22:04:42+08:00" content="2018-04-06">
+              2018-04-06
+            </time>
+          </span>
+
+          
+            <span class="post-category" >
+              &nbsp; | &nbsp;
+              <span class="post-meta-item-icon">
+                <i class="fa fa-folder-o"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+              
+                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
+                  <a href="/categories/js/" itemprop="url" rel="index">
+                    <span itemprop="name">js</span>
+                  </a>
+                </span>
+
+                
+                
+
+              
+            </span>
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div class="post-content">
+          
+            
+            按需加载一开始整个项目只有一个bundle.js，压缩之后达到了4M。导致首屏加载速度很慢，需要优化。
+方案优化包大小，从业务角度出发，抽离重复的业务组件，避免大规模的90%相似度代码。需要对业务熟悉，一时间优化没有那么明显。
+从技术角度，项目里面使用了react route，那能不能按照路由按需加载呢？
+import()之前123import &#123; add &#125; from './math';console.log(add(16, 26));
+之后123import("./mat
+            ...
+
+            <div class="post-more-link text-center">
+              <a class="btn" target="_blank" href="/2018/04/06/react按路由分包加载/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        </div>
+      
+      
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2018/03/19/qap最佳实战_动态代码/" itemprop="url">
                   qap最佳实战_动态代码
                 </a>
@@ -745,134 +866,6 @@ web组件从weex的web文档上看，web组件很早之前就已经支持了，�
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/03/10/qap-包大小优化/" itemprop="url">
-                  qap_包大小优化
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-03-10T17:04:36+08:00" content="2018-03-10">
-              2018-03-10
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <div class="post-content">
-          
-            
-            
-Qianniu Application Platform(QAP)是阿里千牛官方推出的、功能丰富的开发者套件。底层weex，上层有SDK接口、rax库、以及rax的ui组件nuke
-
-
-rax
-
-
-nuke是一套基于 Weex 容器 与 rax 开源渲染引擎的面向电商中后台场景的 UI 组件生态
-
-背景2017年 由于整个技术方向切到qap平台，将原有的h5 web app 改造成以weex渲染。
-demo可以查看demo了解文件目录
-包大小优化原因qap平台应用简单来说是多页应用，每个页面之
-            ...
-
-            <div class="post-more-link text-center">
-              <a class="btn" target="_blank" href="/2018/03/10/qap-包大小优化/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        </div>
-      
-      
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -918,7 +911,7 @@ demo可以查看demo了解文件目录
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>

@@ -400,6 +400,110 @@
             
               
                 
+                <a class="post-title-link" href="/2019/08/11/transform-rem/" itemprop="url">
+                  rem布局，安卓transform，页面抖动
+                </a>
+              
+            
+          </h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            <span class="post-meta-item-icon">
+              <i class="fa fa-calendar-o"></i>
+            </span>
+            <span class="post-meta-item-text">发表于</span>
+            <time itemprop="dateCreated" datetime="2019-08-11T12:12:01+08:00" content="2019-08-11">
+              2019-08-11
+            </time>
+          </span>
+
+          
+
+          
+            
+          
+
+          
+
+          
+          
+
+        </div>
+      </header>
+    
+
+
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <div class="post-content">
+          
+            
+            背景：博主最近做了个动画，在安卓机上有些抖动，直接看效果图。
+
+rem布局为了适配移动端，采用rem进行布局，设计稿统一采用750大小，这样方便各个机型适配。
+适配方法1document.documentElement.style.fontSize = (100 * document.documentElement.clientWidth / 750) + "px";
+问题安卓精度问题。
+
+123456.hot&#123;	height: 0.18rem;	width: 0.18rem;	bor
+            ...
+
+            <div class="post-more-link text-center">
+              <a class="btn" target="_blank" href="/2019/08/11/transform-rem/#more" rel="contents">
+                阅读全文 &raquo;
+              </a>
+            </div>
+          
+        </div>
+      
+      
+      
+    </div>
+
+    <div>
+      
+    </div>
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </article>
+
+
+    
+      
+
+  
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+            
+            
+              
+                
                 <a class="post-title-link" href="/2019/03/31/babel-plugin/" itemprop="url">
                   babel-plugin
                 </a>
@@ -718,127 +822,6 @@ input在前端涉及到图片上传，都会用到input标签，监听onchange�
 
 
     
-      
-
-  
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal " itemscope itemtype="http://schema.org/Article">
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-            
-            
-              
-                
-                <a class="post-title-link" href="/2018/04/06/react按路由分包加载/" itemprop="url">
-                  react按路由分包加载
-                </a>
-              
-            
-          </h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            <span class="post-meta-item-icon">
-              <i class="fa fa-calendar-o"></i>
-            </span>
-            <span class="post-meta-item-text">发表于</span>
-            <time itemprop="dateCreated" datetime="2018-04-06T22:04:42+08:00" content="2018-04-06">
-              2018-04-06
-            </time>
-          </span>
-
-          
-            <span class="post-category" >
-              &nbsp; | &nbsp;
-              <span class="post-meta-item-icon">
-                <i class="fa fa-folder-o"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-              
-                <span itemprop="about" itemscope itemtype="https://schema.org/Thing">
-                  <a href="/categories/js/" itemprop="url" rel="index">
-                    <span itemprop="name">js</span>
-                  </a>
-                </span>
-
-                
-                
-
-              
-            </span>
-          
-
-          
-            
-          
-
-          
-
-          
-          
-
-        </div>
-      </header>
-    
-
-
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        <div class="post-content">
-          
-            
-            按需加载一开始整个项目只有一个bundle.js，压缩之后达到了4M。导致首屏加载速度很慢，需要优化。
-方案优化包大小，从业务角度出发，抽离重复的业务组件，避免大规模的90%相似度代码。需要对业务熟悉，一时间优化没有那么明显。
-从技术角度，项目里面使用了react route，那能不能按照路由按需加载呢？
-import()之前123import &#123; add &#125; from './math';console.log(add(16, 26));
-之后123import("./mat
-            ...
-
-            <div class="post-more-link text-center">
-              <a class="btn" target="_blank" href="/2018/04/06/react按路由分包加载/#more" rel="contents">
-                阅读全文 &raquo;
-              </a>
-            </div>
-          
-        </div>
-      
-      
-      
-    </div>
-
-    <div>
-      
-    </div>
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </article>
-
-
-    
   </section>
 
   
@@ -884,7 +867,7 @@ import()之前123import &#123; add &#125; from './math';console.log(add(16, 26))
         <nav class="site-state motion-element">
           <div class="site-state-item site-state-posts">
             <a href="/archives">
-              <span class="site-state-item-count">26</span>
+              <span class="site-state-item-count">27</span>
               <span class="site-state-item-name">日志</span>
             </a>
           </div>
