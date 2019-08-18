@@ -73,7 +73,7 @@
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1566140779970-c9a1ffae-f8a0-45f6-ae02-12d646a6712b.png?x-oss-process=image/resize,w_1492">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1566142799053-7a7b4ceb-b6c7-4c2d-b25d-6039b51b81f8.png">
 <meta property="og:image" content="https://cdn.nlark.com/yuque/0/2019/png/103994/1566144009438-3aa70dd8-923f-415b-9b89-e2d98cec6403.png">
-<meta property="og:updated_time" content="2019-08-18T16:09:22.000Z">
+<meta property="og:updated_time" content="2019-08-18T16:13:02.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="rem布局，安卓transform，页面抖动">
 <meta name="twitter:description" content="背景：博主最近做了个动画，在安卓机上有些抖动，直接看效果图。  rem布局为了适配移动端，采用rem进行布局，设计稿统一采用750大小，这样方便各个机型适配。 适配方法1document.documentElement.style.fontSize = (100 * document.documentElement.clientWidth / 750) + &quot;px&quot;; 问题安卓精度问题。  123">
@@ -339,13 +339,13 @@
 <h2 id="那么transform抖动问题？"><a href="#那么transform抖动问题？" class="headerlink" title="那么transform抖动问题？"></a>那么transform抖动问题？</h2><p>回到之前动效，次动效存在2个，第一个item离开，以及第二个item进入。然后不断循环。</p>
 <p><img src="https://cdn.nlark.com/yuque/0/2019/png/103994/1566142799053-7a7b4ceb-b6c7-4c2d-b25d-6039b51b81f8.png" alt=""></p>
 <p>按照这个思路，当进行到第二帧的时候，item2和上一帧的item2应该正好重合，但是安卓机上出现抖动。</p>
-<iframe src="http://xiaoqiang730730.github.io/resources/demo/tranform/index.html"></iframe>
+<iframe src="http://xiaoqiang730730.github.io/resources/demo/transform/index.html"></iframe>
 
 <h2 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h2><p>可视高度2.26rem，通过transform将item2偏移2.26rem，由于安卓上存在小数点精度问题，将item2进行偏移2.26rem，不一定能够和可视区域重合。也就会导致了，在进行第二帧的时候，会有抖动效果。</p>
 <h2 id="改进"><a href="#改进" class="headerlink" title="改进"></a>改进</h2><p><img src="https://cdn.nlark.com/yuque/0/2019/png/103994/1566144009438-3aa70dd8-923f-415b-9b89-e2d98cec6403.png" alt=""></p>
 <p>既然无法重合，那就初始化的时候统一进行transform偏移，这样第一帧和第二帧之间都是通过transform进行吻合重合。</p>
 <p>也就是transform偏移2.26rem不一定等于2.26rem，但是一定等于另一次的transfrom同样的2.26rem距离。</p>
-<iframe src="http://xiaoqiang730730.github.io/resources/demo/tranform/index2.html"></iframe>
+<iframe src="http://xiaoqiang730730.github.io/resources/demo/transform/index2.html"></iframe>
 
 
 <h1 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h1><ol>
